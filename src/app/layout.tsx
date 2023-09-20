@@ -21,34 +21,36 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          <Box
+      <Providers>
+        <Box
+          component="body"
+          className={inter.className}
+          sx={{
+            minWidth: '100%',
+            minHeight: '100dvh',
+            display: 'flex',
+            backgroundColor: '#e6e6e6',
+            background: '#e6e6e6',
+            gap: 2,
+            p: 1,
+          }}
+        >
+          <Navbar />
+          <Paper
+            component="main"
             sx={{
-              minWidth: '100%',
-              minHeight: '100dvh',
+              flex: 1,
+              borderRadius: 3,
               display: 'flex',
-              backgroundColor: '#e6e6e6',
-              gap: 2,
-              p: 1,
+              flexDirection: 'column',
+              backgroundColor: 'white',
+              p: 8,
             }}
           >
-            <Navbar />
-            <Paper
-              component="main"
-              sx={{
-                flex: 1,
-                borderRadius: 3,
-                display: 'flex',
-                flexDirection: 'column',
-                backgroundColor: 'white',
-              }}
-            >
-              {children}
-            </Paper>
-          </Box>
-        </Providers>
-      </body>
+            {children}
+          </Paper>
+        </Box>
+      </Providers>
     </html>
   );
 }
