@@ -1,5 +1,6 @@
 {
   "trailingComa": "none",
   "semi": true,
-  "singleQuote": true
+  "singleQuote": true,
+  "endOfLine": "lf"
 }

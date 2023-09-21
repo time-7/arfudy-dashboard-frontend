@@ -3,6 +3,7 @@
 import { useForm } from 'react-hook-form';
 
 import { TProduct } from '@/types';
+import { Api } from '@/utils/axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CheckBox } from '@mui/icons-material';
 import {
@@ -12,26 +13,37 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
+import { useSnackbar } from 'notistack';
 
 const pratosFormSchema = z.object({
   name: z.string(),
-  description: z.string(),
-  price: z.number(),
-  imageUrl: z.string().url(),
-  unityModelId: z.number(),
+  // description: z.string().optional(),
+  // price: z.number().optional(),
+  // imageUrl: z.string().url().optional(),
+  // unityModelId: z.number().optional(),
 });
 
 export default function PratosForm() {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { mutate } = useMutation(['postProduct'], (data: TProduct) =>
+    Api.post('/products', data),
+  );
+
   const {
     register,
     handleSubmit,
-
     formState: { errors, isSubmitting },
   } = useForm<TProduct>({ resolver: zodResolver(pratosFormSchema) });
 
   const onSubmit = (data: TProduct) => {
     console.log(data);
+    mutate(data, {
+      onError: () =>
+        enqueueSnackbar('Request deu ERRO!!!!!!!', { variant: 'error' }),
+    });
   };
 
   return (
@@ -45,6 +57,7 @@ export default function PratosForm() {
       <Box sx={{ display: 'flex', gap: 4 }}>
         <TextField
           sx={{ flex: 1 }}
+          type="decimal"
           label="Nome"
           {...register('name')}
           error={Boolean(errors.name)}
