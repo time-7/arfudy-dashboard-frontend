@@ -14,15 +14,21 @@ import {
   Typography,
 } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import { z } from 'zod';
 import { useSnackbar } from 'notistack';
+import { z } from 'zod';
 
 const pratosFormSchema = z.object({
-  name: z.string(),
-  // description: z.string().optional(),
-  // price: z.number().optional(),
-  // imageUrl: z.string().url().optional(),
-  // unityModelId: z.number().optional(),
+  name: z.string().nonempty('Campo é obrigatório'),
+  description: z.string(),
+  price: z.number(),
+  imageUrl: z.string().url('Informe uma URL válida'),
+  unityModelId: z.number(),
+  nutritionFacts: z.object({
+    carbohydrate: z.number(),
+    protein: z.number().optional(),
+    totalFat: z.number(),
+    totalCalories: z.number(),
+  }),
 });
 
 export default function PratosForm() {
@@ -36,7 +42,10 @@ export default function PratosForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<TProduct>({ resolver: zodResolver(pratosFormSchema) });
+  } = useForm<TProduct>({
+    resolver: zodResolver(pratosFormSchema),
+    defaultValues: { nutritionFacts: { carbohydrate: null } },
+  });
 
   const onSubmit = (data: TProduct) => {
     console.log(data);
@@ -57,29 +66,34 @@ export default function PratosForm() {
       <Box sx={{ display: 'flex', gap: 4 }}>
         <TextField
           sx={{ flex: 1 }}
+          defaultValue={null}
           type="decimal"
           label="Nome"
           {...register('name')}
           error={Boolean(errors.name)}
-          helperText={`${errors.name?.message}`}
+          helperText={errors.name ? `${errors.name?.message}` : null}
         />
 
         <TextField
           sx={{ flex: 2 }}
+          defaultValue={null}
           label="Descrição"
           {...register('description')}
           error={Boolean(errors.description)}
-          helperText={`${errors.description?.message}`}
+          helperText={
+            errors.description ? `${errors.description?.message}` : null
+          }
         />
       </Box>
 
       <Box sx={{ display: 'flex', gap: 4 }}>
         <TextField
           sx={{ flex: 1 }}
+          defaultValue={null}
           label="Preço"
           {...register('price')}
           error={Boolean(errors.price)}
-          helperText={`${errors.price?.message}`}
+          helperText={errors.price ? `${errors.price?.message}` : null}
         />
 
         <TextField
@@ -87,14 +101,16 @@ export default function PratosForm() {
           label="URL da imagem"
           {...register('imageUrl')}
           error={Boolean(errors.imageUrl)}
-          helperText={`${errors.imageUrl?.message}`}
+          helperText={errors.imageUrl ? `${errors.imageUrl?.message}` : null}
         />
         <TextField
           sx={{ flex: 1 }}
           label="ID modelo Unity"
           {...register('unityModelId')}
           error={Boolean(errors.unityModelId)}
-          helperText={`${errors.unityModelId?.message}`}
+          helperText={
+            errors.unityModelId ? `${errors.unityModelId?.message}` : null
+          }
         />
 
         <FormControlLabel
@@ -103,9 +119,58 @@ export default function PratosForm() {
         />
       </Box>
 
+      <Typography variant="h5">Fatores Nutricionais</Typography>
+
       <Box sx={{ display: 'flex', gap: 4 }}>
-        <TextField sx={{ flex: 1 }} label="Nome" />
-        <TextField sx={{ flex: 1 }} label="Não sei" />
+        <TextField
+          sx={{ flex: 1 }}
+          label="Carboidrato"
+          {...register('nutritionFacts.carbohydrate')}
+          error={Boolean(errors.nutritionFacts?.carbohydrate)}
+          helperText={
+            errors.nutritionFacts?.carbohydrate
+              ? `${errors.nutritionFacts.carbohydrate?.message}`
+              : null
+          }
+        />
+        <TextField
+          sx={{ flex: 1 }}
+          defaultValue={null}
+          label="Proteína"
+          {...register('nutritionFacts.protein')}
+          error={Boolean(errors.nutritionFacts?.protein)}
+          helperText={
+            errors.nutritionFacts?.protein
+              ? `${errors.nutritionFacts.protein?.message}`
+              : null
+          }
+        />
+      </Box>
+
+      <Box sx={{ display: 'flex', gap: 4 }}>
+        <TextField
+          sx={{ flex: 1 }}
+          type="number"
+          label="Total de gordura"
+          {...register('nutritionFacts.totalFat')}
+          error={Boolean(errors.nutritionFacts?.totalFat)}
+          helperText={
+            errors.nutritionFacts?.totalFat
+              ? `${errors.nutritionFacts.totalFat?.message}`
+              : null
+          }
+        />
+        <TextField
+          sx={{ flex: 1 }}
+          label="Total de calorías"
+          {...register('nutritionFacts.totalCalories')}
+          error={Boolean(errors.nutritionFacts?.totalCalories)}
+          helperText={
+            errors.nutritionFacts?.totalCalories
+              ? `${errors.nutritionFacts.totalCalories?.message}`
+              : null
+          }
+        />
       </Box>
 
       <Box sx={{ mt: 'auto', display: 'flex', justifyContent: 'flex-end' }}>

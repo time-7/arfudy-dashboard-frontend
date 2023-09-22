@@ -10,10 +10,10 @@ export type TIngredient = {
 };
 
 export type TNutritionFacts = {
-  carbohydrate: number;
-  protein: number;
-  totalFat: number;
-  totalCalories: number;
+  carbohydrate?: number | null;
+  protein?: number | null;
+  totalFat?: number | null;
+  totalCalories?: number | null;
 };
 
 export type TProduct = {
@@ -24,5 +24,5 @@ export type TProduct = {
   unityModelId: string;
   price: number;
   ingredients: TIngredient[];
-  nutritionFacts: TNutritionFacts;
+  nutritionFacts?: TNutritionFacts;
 };
