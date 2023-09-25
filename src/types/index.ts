@@ -1,28 +1,19 @@
-export type TIngredient = {
-  name: string;
-  quantity: number;
-  nutritionFacts: {
-    carbohydrate: number;
-    protein: number;
-    totalFat: number;
-    totalCalories: number;
+import { pratosFormSchema } from '@/validators';
+import { z } from 'zod';
+
+export type TRequest<TData> = {
+  data: TData;
+  status: number;
+};
+
+export type TPostReturn = {
+  data: {
+    id: string;
   };
 };
 
-export type TNutritionFacts = {
-  carbohydrate?: number | null;
-  protein?: number | null;
-  totalFat?: number | null;
-  totalCalories?: number | null;
+export type TPratosForm = {
+  params: { id: string };
 };
 
-export type TProduct = {
-  description: string;
-  name: string;
-  imageUrl: string;
-  has3dModel: false;
-  unityModelId: string;
-  price: number;
-  ingredients: TIngredient[];
-  nutritionFacts?: TNutritionFacts;
-};
+export type TProduct = z.infer<typeof pratosFormSchema>;

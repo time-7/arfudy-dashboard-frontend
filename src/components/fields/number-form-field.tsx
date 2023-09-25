@@ -5,6 +5,9 @@ import {
   FieldValues,
   Path,
 } from 'react-hook-form';
+import { NumericFormat } from 'react-number-format';
+
+import SkeletonFormField from '../skeletons/skeleton-form-field';
 
 import { SxProps, TextField } from '@mui/material';
 
@@ -13,43 +16,37 @@ type TInputField<TFieldValues extends FieldValues> = {
   error?: FieldError;
   name: Path<TFieldValues>;
   control: Control<TFieldValues, unknown>;
-  inputType?: 'string' | 'number';
   sx?: SxProps;
+  showSkeleton?: boolean;
 };
 
-export default function InputFormField<TFieldValues extends FieldValues>({
+export default function NumberFormField<TFieldValues extends FieldValues>({
   control,
   sx,
   name,
   label,
   error,
-  inputType = 'string',
+  showSkeleton,
 }: TInputField<TFieldValues>) {
+  if (showSkeleton) {
+    return <SkeletonFormField />;
+  }
+
   return (
     <Controller
       name={name}
       control={control}
       render={({ field: { onChange, value } }) => (
-        <TextField
-          sx={sx}
-          label={label}
+        <NumericFormat
+          size="small"
           value={value}
+          label={label}
+          decimalSeparator=","
+          sx={sx}
           error={!!error}
           helperText={error ? error?.message : ''}
-          onChange={(e) => {
-            let value: string | number | null = e.target.value;
-
-            if (inputType === 'number') {
-              value = value.replace(/[^0-9]/g, '');
-              value = parseInt(value);
-
-              if (isNaN(value)) {
-                value = null;
-              }
-            }
-
-            onChange(value);
-          }}
+          onValueChange={(values) => onChange(values.floatValue)}
+          customInput={TextField}
         />
       )}
     />
