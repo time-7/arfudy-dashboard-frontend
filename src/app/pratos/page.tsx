@@ -1,15 +1,17 @@
 'use client';
 
+import PratosListActionButtons from './components/pratos-list-action-buttons';
+
 import { TProduct, TRequest } from '@/types';
 import { Api } from '@/utils/axios';
+import { money } from '@/utils/format';
 import { Box, Typography } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
-import PratosListActionButtons from './components/pratos-list-action-buttons';
 
 export default function Pratos() {
   const { data, isFetching } = useQuery(
-    ['getProduct'],
+    ['getProductList'],
     (): Promise<TRequest<TProduct[]>> => Api.get('/products'),
   );
 
@@ -17,17 +19,22 @@ export default function Pratos() {
     {
       field: 'name',
       headerName: 'Nome',
+      flex: 1,
     },
     {
       field: 'description',
       headerName: 'Descrição',
+      flex: 1,
     },
     {
       field: 'price',
       headerName: 'Preço',
+      valueFormatter: ({ value }) => money(value),
     },
     {
       field: 'Ações',
+      headerAlign: 'center',
+      align: 'center',
       renderCell: ({ row }) => <PratosListActionButtons row={row} />,
     },
   ];
