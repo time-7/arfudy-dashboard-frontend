@@ -22,10 +22,12 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
     },
   );
 
-  const { mutate } = useMutation(['postProduct'], (data: TProduct) =>
-    hasId
-      ? Api.patch(`/products/${id.at(0)}`, data)
-      : Api.post('/products', data),
+  const { mutate, isLoading } = useMutation(
+    ['postProduct'],
+    (data: TProduct) =>
+      hasId
+        ? Api.patch(`/products/${id.at(0)}`, data)
+        : Api.post('/products', data),
   );
 
   const onSubmit = (data: TProduct) =>
@@ -46,9 +48,11 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
 
   return (
     <PratosForm
+      hasId={hasId}
+      isSubmitting={isLoading}
       onSubmit={onSubmit}
       defaultValues={data?.data}
-      showSkeleton={!data || isFetching}
+      showSkeleton={(hasId && !data) || isFetching}
     />
   );
 }

@@ -8,6 +8,7 @@ type TInputField<TFieldValues extends FieldValues> = {
   name: Path<TFieldValues>;
   control: Control<TFieldValues, unknown>;
   showSkeleton?: boolean;
+  isSubmitting: boolean;
 };
 
 export default function CheckboxFormField<TFieldValues extends FieldValues>({
@@ -15,6 +16,7 @@ export default function CheckboxFormField<TFieldValues extends FieldValues>({
   name,
   label,
   showSkeleton,
+  isSubmitting,
 }: TInputField<TFieldValues>) {
   if (showSkeleton) {
     return <SkeletonFormField />;
@@ -27,7 +29,7 @@ export default function CheckboxFormField<TFieldValues extends FieldValues>({
       render={({ field: { onChange, value } }) => (
         <FormControlLabel
           label={label}
-          defaultChecked
+          disabled={isSubmitting}
           control={<Checkbox value={value} onChange={onChange} />}
         />
       )}

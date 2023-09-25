@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import CheckboxFormField from '@/components/fields/checkbox-form-field';
@@ -9,25 +10,29 @@ import TextFormField from '@/components/fields/text-form-field';
 import { TProduct } from '@/types';
 import { pratosFormSchema } from '@/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, Button, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { LoadingButton } from '@mui/lab';
+import { Box, Typography } from '@mui/material';
 
 type TPratosForm = {
   defaultValues?: TProduct;
   onSubmit: (data: TProduct) => void;
-  showSkeleton: boolean;
+  showSkeleton?: boolean;
+  hasId: boolean;
+  isSubmitting: boolean;
 };
 
 export default function PratosForm({
   onSubmit,
   defaultValues,
   showSkeleton,
+  hasId,
+  isSubmitting,
 }: TPratosForm) {
   const {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<TProduct>({
     resolver: zodResolver(pratosFormSchema),
   });
@@ -40,7 +45,9 @@ export default function PratosForm({
       onSubmit={handleSubmit(onSubmit)}
       sx={{ display: 'flex', flexDirection: 'column', gap: 4, height: '100%' }}
     >
-      <Typography variant="h4">Cadastrar Prato</Typography>
+      <Typography variant="h4">
+        {hasId ? 'Editar' : 'Cadastrar'} Prato
+      </Typography>
 
       <Box sx={{ display: 'flex', gap: 4 }}>
         <TextFormField<TProduct>
@@ -50,6 +57,7 @@ export default function PratosForm({
           control={control}
           error={errors.name}
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
 
         <TextFormField<TProduct>
@@ -59,6 +67,7 @@ export default function PratosForm({
           control={control}
           error={errors.description}
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
       </Box>
 
@@ -70,6 +79,7 @@ export default function PratosForm({
           control={control}
           error={errors.price}
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
 
         <TextFormField<TProduct>
@@ -79,6 +89,7 @@ export default function PratosForm({
           control={control}
           error={errors.imageUrl}
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
 
         <TextFormField<TProduct>
@@ -88,6 +99,7 @@ export default function PratosForm({
           control={control}
           error={errors.unityModelId}
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
 
         <CheckboxFormField<TProduct>
@@ -95,6 +107,7 @@ export default function PratosForm({
           label="Possui modelo 3D"
           name="has3dModel"
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
       </Box>
 
@@ -108,6 +121,7 @@ export default function PratosForm({
           control={control}
           error={errors.nutritionFacts?.carbohydrate}
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
 
         <NumberFormField<TProduct>
@@ -117,6 +131,7 @@ export default function PratosForm({
           control={control}
           error={errors.nutritionFacts?.protein}
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
       </Box>
 
@@ -128,6 +143,7 @@ export default function PratosForm({
           control={control}
           error={errors.nutritionFacts?.totalFat}
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
 
         <NumberFormField<TProduct>
@@ -137,18 +153,19 @@ export default function PratosForm({
           control={control}
           error={errors.nutritionFacts?.totalCalories}
           showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
         />
       </Box>
 
       <Box sx={{ mt: 'auto', display: 'flex', justifyContent: 'flex-end' }}>
-        <Button
+        <LoadingButton
           variant="contained"
           size="large"
           type="submit"
-          disabled={isSubmitting}
+          loading={isSubmitting}
         >
           Salvar
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );
