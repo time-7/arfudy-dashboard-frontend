@@ -18,6 +18,7 @@ type TInputField<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues, unknown>;
   sx?: SxProps;
   showSkeleton?: boolean;
+  suffix?: string;
 };
 
 export default function NumberFormField<TFieldValues extends FieldValues>({
@@ -27,6 +28,7 @@ export default function NumberFormField<TFieldValues extends FieldValues>({
   label,
   error,
   showSkeleton,
+  suffix,
 }: TInputField<TFieldValues>) {
   if (showSkeleton) {
     return <SkeletonFormField />;
@@ -39,6 +41,7 @@ export default function NumberFormField<TFieldValues extends FieldValues>({
       render={({ field: { onChange, value } }) => (
         <NumericFormat
           size="small"
+          suffix={suffix}
           value={value}
           label={label}
           decimalSeparator=","
