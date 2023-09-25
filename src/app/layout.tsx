@@ -27,6 +27,7 @@ export default function RootLayout({
           className={inter.className}
           sx={{
             minWidth: '100%',
+            maxHeight: '100dvh',
             minHeight: '100dvh',
             display: 'flex',
             backgroundColor: '#e6e6e6',
@@ -44,6 +45,7 @@ export default function RootLayout({
               display: 'flex',
               flexDirection: 'column',
               backgroundColor: 'white',
+              maxHeight: '100%',
               p: 8,
             }}
           >

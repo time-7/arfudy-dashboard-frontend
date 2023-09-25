@@ -7,10 +7,11 @@ const nutritionFactsZod = z.object({
   carbohydrate: z.number({ required_error: required }),
   protein: z.number({ required_error: required }),
   totalFat: z.number({ required_error: required }),
-  totalCalories: z.number({ required_error: required }),
+  totalCalories: z.number().optional(),
 });
 
 export const pratosFormSchema = z.object({
+  id: z.string().optional(),
   name: z.string({ required_error: required }).nonempty(noempty),
   description: z.string({ required_error: required }).nonempty(noempty),
   price: z.number({ required_error: required, invalid_type_error: required }),

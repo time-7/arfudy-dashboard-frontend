@@ -76,6 +76,9 @@ export default function PratosForm({
           sx={{ flex: 1 }}
           name="price"
           label="Preço"
+          prefix="R$ "
+          decimalScale={2}
+          fixedDecimalScale
           control={control}
           error={errors.price}
           showSkeleton={showSkeleton}
@@ -118,6 +121,7 @@ export default function PratosForm({
           sx={{ flex: 1 }}
           name="nutritionFacts.carbohydrate"
           label="Carboidrato"
+          suffix=" grama(s)"
           control={control}
           error={errors.nutritionFacts?.carbohydrate}
           showSkeleton={showSkeleton}
@@ -128,6 +132,7 @@ export default function PratosForm({
           sx={{ flex: 1 }}
           name="nutritionFacts.protein"
           label="Proteína"
+          suffix=" grama(s)"
           control={control}
           error={errors.nutritionFacts?.protein}
           showSkeleton={showSkeleton}
@@ -140,6 +145,7 @@ export default function PratosForm({
           sx={{ flex: 1 }}
           name="nutritionFacts.totalFat"
           label="Total de gordura"
+          suffix=" grama(s)"
           control={control}
           error={errors.nutritionFacts?.totalFat}
           showSkeleton={showSkeleton}

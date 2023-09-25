@@ -20,6 +20,9 @@ type TInputField<TFieldValues extends FieldValues> = {
   showSkeleton?: boolean;
   isSubmitting: boolean;
   suffix?: string;
+  prefix?: string;
+  decimalScale?: number;
+  fixedDecimalScale?: boolean;
 };
 
 export default function NumberFormField<TFieldValues extends FieldValues>({
@@ -31,6 +34,9 @@ export default function NumberFormField<TFieldValues extends FieldValues>({
   showSkeleton,
   suffix,
   isSubmitting,
+  decimalScale,
+  fixedDecimalScale,
+  prefix,
 }: TInputField<TFieldValues>) {
   if (showSkeleton) {
     return <SkeletonFormField />;
@@ -45,8 +51,11 @@ export default function NumberFormField<TFieldValues extends FieldValues>({
           size="small"
           disabled={isSubmitting}
           suffix={suffix}
+          prefix={prefix}
           value={value}
           label={label}
+          decimalScale={decimalScale}
+          fixedDecimalScale={fixedDecimalScale}
           decimalSeparator=","
           sx={sx}
           error={!!error}
