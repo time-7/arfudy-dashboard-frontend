@@ -19,6 +19,7 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
     (): Promise<TRequest<TProduct>> => Api.get(`/products/${id.at(0)}`),
     {
       enabled: hasId,
+      cacheTime: 0,
     },
   );
 
@@ -46,6 +47,7 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
       },
     });
 
+  console.log((hasId && !data) || isFetching);
   return (
     <PratosForm
       hasId={hasId}
