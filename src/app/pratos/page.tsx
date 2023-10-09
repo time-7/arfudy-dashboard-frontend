@@ -68,8 +68,6 @@ export default function Pratos() {
     },
   ];
 
-  console.log(data);
-
   return (
     <Box
       sx={{
@@ -77,6 +75,7 @@ export default function Pratos() {
         flexDirection: 'column',
         gap: 4,
         height: '100%',
+        padding: 7.5,
       }}
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

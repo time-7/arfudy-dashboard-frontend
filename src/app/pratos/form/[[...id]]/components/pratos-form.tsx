@@ -31,6 +31,7 @@ export default function PratosForm({
   const {
     control,
     handleSubmit,
+    watch,
     reset,
     formState: { errors },
   } = useForm<TProduct>({
@@ -43,7 +44,13 @@ export default function PratosForm({
     <Box
       component="form"
       onSubmit={handleSubmit(onSubmit)}
-      sx={{ display: 'flex', flexDirection: 'column', gap: 4, height: '100%' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
+        height: '100%',
+        padding: 7.5,
+      }}
     >
       <Typography variant="h4">
         {hasId ? 'Editar' : 'Cadastrar'} Prato
@@ -95,20 +102,21 @@ export default function PratosForm({
           isSubmitting={isSubmitting}
         />
 
+        <CheckboxFormField<TProduct>
+          control={control}
+          label="Possui modelo 3D"
+          name="has3dModel"
+          showSkeleton={showSkeleton}
+          isSubmitting={isSubmitting}
+        />
+
         <TextFormField<TProduct>
           sx={{ flex: 1 }}
           name="unityModelId"
           label="ID modelo Unity"
           control={control}
+          disabled={!watch('has3dModel')}
           error={errors.unityModelId}
-          showSkeleton={showSkeleton}
-          isSubmitting={isSubmitting}
-        />
-
-        <CheckboxFormField<TProduct>
-          control={control}
-          label="Possui modelo 3D"
-          name="has3dModel"
           showSkeleton={showSkeleton}
           isSubmitting={isSubmitting}
         />

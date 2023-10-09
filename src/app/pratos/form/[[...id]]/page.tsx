@@ -47,7 +47,6 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
       },
     });
 
-  console.log((hasId && !data) || isFetching);
   return (
     <PratosForm
       hasId={hasId}

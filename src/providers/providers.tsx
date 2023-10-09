@@ -15,13 +15,13 @@ const queryClient = new QueryClient({
 const theme = createTheme({
   palette: {
     primary: {
-      light: '#ffac1c',
-      main: '#c07c04',
-      dark: '#704c04',
+      light: '#FFAF1A',
+      main: '#BC7A00',
+      dark: '#6F4900',
     },
     secondary: {
-      main: '#0854bc',
-      dark: '#083474',
+      main: '#0053BD',
+      dark: '#003271',
     },
   },
 });

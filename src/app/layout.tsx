@@ -2,10 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import Navbar from '@/components/navbar';
-
 import { Providers } from '@/providers/providers';
-import { Box, Paper } from '@mui/material';
+import { Box } from '@mui/material';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,27 +28,20 @@ export default function RootLayout({
             maxHeight: '100dvh',
             minHeight: '100dvh',
             display: 'flex',
-            backgroundColor: '#e6e6e6',
-            background: '#e6e6e6',
-            gap: 2,
-            p: 1,
+            backgroundColor: 'secondary.dark',
           }}
         >
-          <Navbar />
-          <Paper
+          <Box
             component="main"
             sx={{
               flex: 1,
-              borderRadius: 3,
               display: 'flex',
               flexDirection: 'column',
-              backgroundColor: 'white',
               maxHeight: '100%',
-              p: 8,
             }}
           >
             {children}
-          </Paper>
+          </Box>
         </Box>
       </Providers>
     </html>
