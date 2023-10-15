@@ -148,7 +148,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <SnackbarProvider>{children}</SnackbarProvider>
+        <SnackbarProvider style={{ fontFamily: montserrat.style.fontFamily }}>
+          {children}
+        </SnackbarProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );
