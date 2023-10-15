@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import PratosListActionButtons from './components/pratos-list-action-buttons';
 import Grid from '@/components/grid/grid';
+import GridActionButtons from '@/components/grid/grid-action-buttons';
 
 import { TProduct, TRequest } from '@/types';
 import { Api } from '@/utils/axios';
@@ -65,7 +65,12 @@ export default function Pratos() {
       field: 'Ações',
       headerAlign: 'center',
       align: 'center',
-      renderCell: ({ row }) => <PratosListActionButtons row={row} />,
+      renderCell: ({ row }) => (
+        <GridActionButtons
+          deleteUrl={`/products/${row.id}`}
+          editRoute={`/pratos/form/${row.id}`}
+        />
+      ),
     },
   ];
 

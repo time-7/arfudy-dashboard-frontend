@@ -1,8 +1,10 @@
 'use client';
 
 import { Montserrat, Noto_Serif_HK } from 'next/font/google';
-import { ptBR } from '@mui/material/locale';
+
 import { createTheme, ThemeProvider } from '@mui/material';
+import { ptBR } from '@mui/material/locale';
+import { ptBR as ptBRGrid } from '@mui/x-data-grid';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SnackbarProvider } from 'notistack';
 
@@ -139,6 +141,7 @@ const theme = createTheme(
     },
   },
   ptBR,
+  ptBRGrid,
 );
 
 export function Providers({ children }: { children: React.ReactNode }) {
