@@ -43,8 +43,18 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+      },
+    },
     MuiFilledInput: {
       styleOverrides: {
+        input: {
+          paddingBottom: '6px',
+        },
         root: {
           backgroundColor: '#AFC6FF',
           borderRadius: '8px',
@@ -86,10 +96,11 @@ const theme = createTheme({
         },
       },
     },
-    MuiFormLabel: {
+    MuiInputLabel: {
       styleOverrides: {
         root: {
           color: '#003271',
+          top: '2px',
 
           '&.Mui-error': {
             color: '#003271',
