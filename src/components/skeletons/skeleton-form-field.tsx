@@ -5,7 +5,7 @@ export default function SkeletonFormField() {
     <Skeleton
       animation="wave"
       variant="rounded"
-      sx={{ height: 40, flex: 1, margin: 0, padding: 0 }}
+      sx={{ height: 50, flex: 1, margin: 0, padding: 0 }}
     />
   );
 }

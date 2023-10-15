@@ -57,6 +57,7 @@ export default function NumberFormField<TFieldValues extends FieldValues>({
           decimalScale={decimalScale}
           fixedDecimalScale={fixedDecimalScale}
           decimalSeparator=","
+          variant="filled"
           sx={sx}
           error={!!error}
           helperText={error ? error?.message : ''}

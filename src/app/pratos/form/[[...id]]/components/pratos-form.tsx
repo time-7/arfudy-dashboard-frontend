@@ -49,7 +49,10 @@ export default function PratosForm({
         flexDirection: 'column',
         gap: 4,
         height: '100%',
-        padding: 7.5,
+        backgroundColor: 'secondary.main',
+        margin: 2,
+        padding: 5.5,
+        borderRadius: 2,
       }}
     >
       <Typography variant="h4">

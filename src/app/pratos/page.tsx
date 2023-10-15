@@ -75,11 +75,15 @@ export default function Pratos() {
         flexDirection: 'column',
         gap: 4,
         height: '100%',
-        padding: 7.5,
+        margin: 2,
+        padding: 5.5,
+        borderRadius: 2,
+        backgroundColor: 'secondary.main',
       }}
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h4">Pratos</Typography>
+
         <Button variant="contained" onClick={() => router.push('/pratos/form')}>
           + Novo
         </Button>
