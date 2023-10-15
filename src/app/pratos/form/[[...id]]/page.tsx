@@ -4,9 +4,16 @@ import { useRouter } from 'next/navigation';
 
 import PratosForm from './components/pratos-form';
 
-import { TPostReturn, TPratosForm, TProduct, TRequest } from '@/types';
+import {
+  TPostReturn,
+  TPratosForm,
+  TProduct,
+  TRequest,
+  TRequestError,
+} from '@/types';
 import { Api } from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';
 
 export default function PratosFormPage({ params: { id } }: TPratosForm) {
@@ -14,26 +21,27 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
   const { enqueueSnackbar } = useSnackbar();
   const hasId = Array.isArray(id);
 
-  const { data, isFetching } = useQuery(
+  const { data, isFetching } = useQuery<TRequest<TProduct>>(
     ['getProduct'],
-    (): Promise<TRequest<TProduct>> => Api.get(`/products/${id.at(0)}`),
+    () => Api.get(`/products/${id.at(0)}`),
     {
       enabled: hasId,
       cacheTime: 0,
     },
   );
 
-  const { mutate, isLoading } = useMutation(
+  const { mutate, isLoading } = useMutation<
+    TRequest<TPostReturn>,
+    AxiosError<TRequestError>,
+    TProduct
+  >(
     ['postProduct'],
-    (data: TProduct) =>
+    (data) =>
       hasId
         ? Api.patch(`/products/${id.at(0)}`, data)
         : Api.post('/products', data),
-  );
-
-  const onSubmit = (data: TProduct) =>
-    mutate(data, {
-      onSuccess: ({ data: { data } }: TRequest<TPostReturn>) => {
+    {
+      onSuccess: ({ data: { data } }) => {
         if (!hasId) {
           const { id } = data;
 
@@ -42,10 +50,16 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
 
         enqueueSnackbar('Prato salvo com sucesso!', { variant: 'success' });
       },
-      onError: () => {
-        enqueueSnackbar('Falha ao salvar o prato', { variant: 'error' });
+      onError: (error) => {
+        enqueueSnackbar(
+          error?.response?.data.message || 'Falha ao salvar o prato',
+          { variant: 'error' },
+        );
       },
-    });
+    },
+  );
+
+  const onSubmit = (data: TProduct) => mutate(data);
 
   return (
     <PratosForm

@@ -4,9 +4,16 @@ import { useRouter } from 'next/navigation';
 
 import MesasForm from './components/mesas-form';
 
-import { TPostReturn, TPratosForm, TTable, TRequest } from '@/types';
+import {
+  TPostReturn,
+  TPratosForm,
+  TTable,
+  TRequest,
+  TRequestError,
+} from '@/types';
 import { Api } from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';
 
 export default function MesasFormPage({ params: { id } }: TPratosForm) {
@@ -14,22 +21,27 @@ export default function MesasFormPage({ params: { id } }: TPratosForm) {
   const { enqueueSnackbar } = useSnackbar();
   const hasId = Array.isArray(id);
 
-  const { data, isFetching } = useQuery(
+  const { data, isFetching } = useQuery<TRequest<TTable>>(
     ['getTable'],
-    (): Promise<TRequest<TTable>> => Api.get(`/tables/${id.at(0)}`),
+    () => Api.get(`/tables/${id.at(0)}`),
     {
       enabled: hasId,
       cacheTime: 0,
     },
   );
 
-  const { mutate, isLoading } = useMutation(['postTable'], (data: TTable) =>
-    hasId ? Api.patch(`/tables/${id.at(0)}`, data) : Api.post('/tables', data),
-  );
-
-  const onSubmit = (data: TTable) =>
-    mutate(data, {
-      onSuccess: ({ data: { data } }: TRequest<TPostReturn>) => {
+  const { mutate, isLoading } = useMutation<
+    TRequest<TPostReturn>,
+    AxiosError<TRequestError>,
+    TTable
+  >(
+    ['postTable'],
+    (data) =>
+      hasId
+        ? Api.patch(`/tables/${id.at(0)}`, data)
+        : Api.post('/tables', data),
+    {
+      onSuccess: ({ data: { data } }) => {
         if (!hasId) {
           const { id } = data;
 
@@ -38,10 +50,18 @@ export default function MesasFormPage({ params: { id } }: TPratosForm) {
 
         enqueueSnackbar('Mesa salva com sucesso!', { variant: 'success' });
       },
-      onError: () => {
-        enqueueSnackbar('Falha ao salvar a mesa', { variant: 'error' });
+      onError: (error) => {
+        enqueueSnackbar(
+          error?.response?.data.message || 'Falha ao salvar a mesa',
+          {
+            variant: 'error',
+          },
+        );
       },
-    });
+    },
+  );
+
+  const onSubmit = (data: TTable) => mutate(data);
 
   return (
     <MesasForm

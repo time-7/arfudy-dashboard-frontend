@@ -6,6 +6,11 @@ export type TRequest<TData> = {
   status: number;
 };
 
+export type TRequestError = {
+  message: string;
+  status: number;
+};
+
 export type TPostReturn = {
   data: {
     id: string;

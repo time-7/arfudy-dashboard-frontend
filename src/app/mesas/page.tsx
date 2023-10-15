@@ -39,6 +39,8 @@ export default function Mesas() {
       field: 'Ações',
       headerAlign: 'center',
       align: 'center',
+      sortable: false,
+      filterable: false,
       renderCell: ({ row }) => (
         <GridActionButtons
           deleteUrl={`/products/${row.id}`}

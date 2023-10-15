@@ -16,9 +16,9 @@ import { useQuery } from '@tanstack/react-query';
 export default function Pratos() {
   const router = useRouter();
 
-  const { data, isFetching } = useQuery(
+  const { data, isFetching } = useQuery<TRequest<TProduct[]>>(
     ['getProductList'],
-    (): Promise<TRequest<TProduct[]>> => Api.get('/products'),
+    () => Api.get('/products'),
   );
 
   const columns: GridColDef[] = [
@@ -65,6 +65,8 @@ export default function Pratos() {
       field: 'Ações',
       headerAlign: 'center',
       align: 'center',
+      sortable: false,
+      filterable: false,
       renderCell: ({ row }) => (
         <GridActionButtons
           deleteUrl={`/products/${row.id}`}

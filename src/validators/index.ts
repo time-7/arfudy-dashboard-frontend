@@ -33,6 +33,7 @@ export const pratosFormSchema = z.object({
 
 export const mesasFormSchema = z.object({
   id: z.string().optional(),
+  activeToken: z.string().optional(),
   tableNum: z.number({
     required_error: required,
     invalid_type_error: required,
@@ -41,5 +42,4 @@ export const mesasFormSchema = z.object({
     required_error: required,
     invalid_type_error: required,
   }),
-  activeToken: z.string({ required_error: required }).nonempty(noempty),
 });

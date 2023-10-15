@@ -12,9 +12,10 @@ export default function Grid(props: DataGridProps) {
         '.MuiDataGrid-withBorderColor': {
           borderColor: '#003271',
         },
-        '.MuiDataGrid-cell:focus, .MuiDataGrid-cell:focus-within ': {
-          outline: '1px #003271 solid',
-        },
+        '.MuiDataGrid-cell:focus, .MuiDataGrid-cell:focus-within, .MuiDataGrid-columnHeader:focus, .MuiDataGrid-columnHeader:focus-within ':
+          {
+            outline: '1px #003271 solid',
+          },
         '.MuiDataGrid-row.Mui-selected, .MuiDataGrid-row.Mui-selected.Mui-hovered':
           {
             backgroundColor: 'secondary.light',

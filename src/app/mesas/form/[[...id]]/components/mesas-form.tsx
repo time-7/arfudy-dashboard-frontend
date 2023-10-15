@@ -77,6 +77,7 @@ export default function MesasForm({
           name="activeToken"
           label="Token"
           control={control}
+          disabled
           error={errors.activeToken}
           showSkeleton={showSkeleton}
           isSubmitting={isSubmitting}
