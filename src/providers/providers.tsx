@@ -43,6 +43,29 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#FFAF1A',
+          color: '#6F4900',
+          border: '2px solid #000',
+          borderRadius: '8px',
+          textTransform: 'none',
+
+          ':hover': {
+            backgroundColor: '#6F4900',
+            color: '#FFAF1A',
+          },
+
+          '&.MuiLoadingButton-loading': {
+            backgroundColor: '#FFAF1A',
+          },
+          '&.MuiLoadingButton-loadingIndicator': {
+            backgroundColor: '##6F4900',
+          },
+        },
+      },
+    },
     MuiTypography: {
       styleOverrides: {
         root: {
@@ -86,7 +109,17 @@ const theme = createTheme({
     },
     MuiCheckbox: {
       styleOverrides: {
-        root: { color: '#fff' },
+        root: {
+          color: '#fff',
+
+          '&.Mui-checked': {
+            color: '#FFAF1A',
+
+            '&.Mui-disabled': {
+              color: 'rgba(0, 0, 0, 0.26)',
+            },
+          },
+        },
       },
     },
     MuiFormHelperText: {
