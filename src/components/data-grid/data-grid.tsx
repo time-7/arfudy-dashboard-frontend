@@ -1,8 +1,9 @@
-import { DataGrid, DataGridProps } from '@mui/x-data-grid';
+import { DataGrid as DataGridMui, DataGridProps } from '@mui/x-data-grid';
 
-export default function Grid(props: DataGridProps) {
+export default function DataGrid(props: DataGridProps) {
   return (
-    <DataGrid
+    <DataGridMui
+      disableRowSelectionOnClick
       {...props}
       sx={{
         color: 'secondary.dark',

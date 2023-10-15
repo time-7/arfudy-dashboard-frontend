@@ -1,23 +1,24 @@
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import ConfirmModal from '../modal/confirm-modal';
 
 import { Api } from '@/utils/axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
-import ConfirmModal from '../modal/confirm-modal';
-import { useState } from 'react';
 
-type GridActionButtons = {
+type DataGridActionButtons = {
   editRoute: string;
   deleteUrl: string;
 };
 
-export default function GridActionButtons({
+export default function DataGridActionButtons({
   editRoute,
   deleteUrl,
-}: GridActionButtons) {
+}: DataGridActionButtons) {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
@@ -42,13 +43,17 @@ export default function GridActionButtons({
       />
 
       <Box sx={{ display: 'flex' }}>
-        <IconButton onClick={() => router.push(editRoute)}>
-          <EditIcon />
-        </IconButton>
+        <Tooltip title="Editar">
+          <IconButton onClick={() => router.push(editRoute)}>
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
 
-        <IconButton onClick={() => setOpen(true)}>
-          <DeleteIcon />
-        </IconButton>
+        <Tooltip title="Excluir">
+          <IconButton onClick={() => setOpen(true)}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
     </>
   );

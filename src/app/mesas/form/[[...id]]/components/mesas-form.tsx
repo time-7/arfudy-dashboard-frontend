@@ -46,7 +46,7 @@ export default function MesasForm({
       }}
     >
       <Typography variant="h4">
-        {hasId ? 'Editar' : 'Cadastrar'} Mesa
+        {hasId ? 'Editar' : 'Cadastrar'} mesa
       </Typography>
 
       <Box sx={{ display: 'flex', gap: 4 }}>

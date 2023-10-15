@@ -12,6 +12,7 @@ import { pratosFormSchema } from '@/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import { Box, Typography } from '@mui/material';
+import IngredientsGrid from './ingredients-grid';
 
 export default function PratosForm({
   onSubmit,
@@ -40,15 +41,16 @@ export default function PratosForm({
         display: 'flex',
         flexDirection: 'column',
         gap: 4,
-        height: '100%',
         backgroundColor: 'secondary.main',
+        height: '100%',
+        overflowY: 'auto',
         margin: 2,
         padding: 5.5,
         borderRadius: 2,
       }}
     >
       <Typography variant="h4">
-        {hasId ? 'Editar' : 'Cadastrar'} Prato
+        {hasId ? 'Editar' : 'Cadastrar'} prato
       </Typography>
 
       <Box sx={{ display: 'flex', gap: 4 }}>
@@ -164,6 +166,15 @@ export default function PratosForm({
           showSkeleton={showSkeleton}
           isSubmitting={isSubmitting}
         />
+      </Box>
+
+      <Box
+        sx={{
+          minHeight: '200px',
+          display: 'flex',
+        }}
+      >
+        <IngredientsGrid />
       </Box>
 
       <Box sx={{ mt: 'auto', display: 'flex', justifyContent: 'flex-end' }}>

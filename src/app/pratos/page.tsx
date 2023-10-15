@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import Grid from '@/components/grid/grid';
-import GridActionButtons from '@/components/grid/grid-action-buttons';
+import DataGrid from '@/components/data-grid/data-grid';
+import DataGridActionButtons from '@/components/data-grid/data-grid-action-buttons';
 
 import { TProduct, TRequest } from '@/types';
 import { Api } from '@/utils/axios';
@@ -68,7 +68,7 @@ export default function Pratos() {
       sortable: false,
       filterable: false,
       renderCell: ({ row }) => (
-        <GridActionButtons
+        <DataGridActionButtons
           deleteUrl={`/products/${row.id}`}
           editRoute={`/pratos/form/${row.id}`}
         />
@@ -97,7 +97,7 @@ export default function Pratos() {
         </Button>
       </Box>
 
-      <Grid
+      <DataGrid
         columns={columns}
         rows={data?.data || []}
         rowCount={data?.data.length || 0}
