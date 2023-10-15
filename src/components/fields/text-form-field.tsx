@@ -15,7 +15,6 @@ type TInputField<TFieldValues extends FieldValues> = {
   error?: FieldError;
   name: Path<TFieldValues>;
   control: Control<TFieldValues, unknown>;
-  inputType?: 'number';
   sx?: SxProps;
   showSkeleton?: boolean;
   disabled?: boolean;
@@ -28,7 +27,6 @@ export default function TextFormField<TFieldValues extends FieldValues>({
   name,
   label,
   error,
-  inputType,
   showSkeleton,
   isSubmitting,
   disabled,
@@ -45,23 +43,13 @@ export default function TextFormField<TFieldValues extends FieldValues>({
         <TextField
           size="small"
           sx={sx}
+          variant="filled"
           disabled={disabled || isSubmitting}
           label={label}
           value={value || null}
           error={!!error}
           helperText={error ? error?.message : ''}
-          onChange={(e) => {
-            let inputValue: string | number | null = e.target.value;
-
-            if (inputType === 'number') {
-              // Remova todos os caracteres não numéricos
-              inputValue = inputValue.replace(/[^0-9]/g, '');
-              // Converte para número ou null
-              inputValue = inputValue === '' ? null : parseInt(inputValue);
-            }
-
-            onChange(inputValue);
-          }}
+          onChange={(e) => onChange(e.target.value)}
         />
       )}
     />

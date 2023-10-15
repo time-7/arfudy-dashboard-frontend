@@ -1,11 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 
 import { Providers } from '@/providers/providers';
 import { Box } from '@mui/material';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Dashboard ARFudy',
@@ -22,7 +19,6 @@ export default function RootLayout({
       <Providers>
         <Box
           component="body"
-          className={inter.className}
           sx={{
             minWidth: '100%',
             maxHeight: '100dvh',
