@@ -7,19 +7,11 @@ import CheckboxFormField from '@/components/fields/checkbox-form-field';
 import NumberFormField from '@/components/fields/number-form-field';
 import TextFormField from '@/components/fields/text-form-field';
 
-import { TProduct } from '@/types';
+import { TProduct, TForm } from '@/types';
 import { pratosFormSchema } from '@/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import { Box, Typography } from '@mui/material';
-
-type TPratosForm = {
-  defaultValues?: TProduct;
-  onSubmit: (data: TProduct) => void;
-  showSkeleton?: boolean;
-  hasId: boolean;
-  isSubmitting: boolean;
-};
 
 export default function PratosForm({
   onSubmit,
@@ -27,7 +19,7 @@ export default function PratosForm({
   showSkeleton,
   hasId,
   isSubmitting,
-}: TPratosForm) {
+}: TForm<TProduct>) {
   const {
     control,
     handleSubmit,

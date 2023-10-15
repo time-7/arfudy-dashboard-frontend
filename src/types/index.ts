@@ -1,4 +1,4 @@
-import { pratosFormSchema } from '@/validators';
+import { pratosFormSchema, mesasFormSchema } from '@/validators';
 import { z } from 'zod';
 
 export type TRequest<TData> = {
@@ -17,3 +17,13 @@ export type TPratosForm = {
 };
 
 export type TProduct = z.infer<typeof pratosFormSchema>;
+
+export type TTable = z.infer<typeof mesasFormSchema>;
+
+export type TForm<TData> = {
+  defaultValues?: TData;
+  onSubmit: (data: TData) => void;
+  showSkeleton?: boolean;
+  hasId: boolean;
+  isSubmitting: boolean;
+};

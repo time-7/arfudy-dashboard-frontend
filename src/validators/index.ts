@@ -30,3 +30,16 @@ export const pratosFormSchema = z.object({
     .optional()
     .default([]),
 });
+
+export const mesasFormSchema = z.object({
+  id: z.string().optional(),
+  tableNum: z.number({
+    required_error: required,
+    invalid_type_error: required,
+  }),
+  seatNum: z.number({
+    required_error: required,
+    invalid_type_error: required,
+  }),
+  activeToken: z.string({ required_error: required }).nonempty(noempty),
+});
