@@ -4,12 +4,13 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import PratosListActionButtons from './components/pratos-list-action-buttons';
+import Grid from '@/components/grid/grid';
 
 import { TProduct, TRequest } from '@/types';
 import { Api } from '@/utils/axios';
 import { money } from '@/utils/format';
 import { Box, Button, Typography } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Pratos() {
@@ -89,7 +90,7 @@ export default function Pratos() {
         </Button>
       </Box>
 
-      <DataGrid
+      <Grid
         columns={columns}
         rows={data?.data || []}
         rowCount={data?.data.length || 0}
