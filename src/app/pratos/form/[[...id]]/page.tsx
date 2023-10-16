@@ -13,7 +13,7 @@ import {
 } from '@/types';
 import { Api } from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbar } from 'notistack';
 
 export default function PratosFormPage({ params: { id } }: TPratosForm) {
@@ -21,7 +21,7 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
   const { enqueueSnackbar } = useSnackbar();
   const hasId = Array.isArray(id);
 
-  const { data, isFetching } = useQuery<TRequest<TProduct>>(
+  const { data, isFetching } = useQuery<AxiosResponse<TRequest<TProduct>>>(
     ['getProduct'],
     () => Api.get(`/products/${id.at(0)}`),
     {
@@ -42,6 +42,7 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
         : Api.post('/products', data),
     {
       onSuccess: ({ data: { data } }) => {
+        debugger;
         if (!hasId) {
           const { id } = data;
 
@@ -66,7 +67,7 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
       hasId={hasId}
       isSubmitting={isLoading}
       onSubmit={onSubmit}
-      defaultValues={data?.data}
+      defaultValues={data?.data.data}
       showSkeleton={(hasId && !data) || isFetching}
     />
   );

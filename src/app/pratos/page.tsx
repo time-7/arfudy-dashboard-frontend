@@ -12,11 +12,12 @@ import { money } from '@/utils/format';
 import { Box, Button, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
 export default function Pratos() {
   const router = useRouter();
 
-  const { data, isFetching } = useQuery<TRequest<TProduct[]>>(
+  const { data, isFetching } = useQuery<AxiosResponse<TRequest<TProduct[]>>>(
     ['getProductList'],
     () => Api.get('/products'),
   );
@@ -99,8 +100,8 @@ export default function Pratos() {
 
       <DataGrid
         columns={columns}
-        rows={data?.data || []}
-        rowCount={data?.data.length || 0}
+        rows={data?.data.data || []}
+        rowCount={data?.data.data.length || 0}
         loading={isFetching}
       />
     </Box>

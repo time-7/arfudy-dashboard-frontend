@@ -13,7 +13,7 @@ import {
 } from '@/types';
 import { Api } from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbar } from 'notistack';
 
 export default function MesasFormPage({ params: { id } }: TPratosForm) {
@@ -21,7 +21,7 @@ export default function MesasFormPage({ params: { id } }: TPratosForm) {
   const { enqueueSnackbar } = useSnackbar();
   const hasId = Array.isArray(id);
 
-  const { data, isFetching } = useQuery<TRequest<TTable>>(
+  const { data, isFetching } = useQuery<AxiosResponse<TRequest<TTable>>>(
     ['getTable'],
     () => Api.get(`/tables/${id.at(0)}`),
     {
@@ -68,7 +68,7 @@ export default function MesasFormPage({ params: { id } }: TPratosForm) {
       hasId={hasId}
       isSubmitting={isLoading}
       onSubmit={onSubmit}
-      defaultValues={data?.data}
+      defaultValues={data?.data.data}
       showSkeleton={(hasId && !data) || isFetching}
     />
   );

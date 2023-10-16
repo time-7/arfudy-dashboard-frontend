@@ -10,13 +10,14 @@ import { Api } from '@/utils/axios';
 import { Box, Button, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
 export default function Mesas() {
   const router = useRouter();
 
-  const { data, isFetching } = useQuery(
+  const { data, isFetching } = useQuery<AxiosResponse<TRequest<TTable[]>>>(
     ['getTableList'],
-    (): Promise<TRequest<TTable[]>> => Api.get('/tables'),
+    () => Api.get('/tables'),
   );
 
   const columns: GridColDef[] = [
@@ -43,7 +44,7 @@ export default function Mesas() {
       filterable: false,
       renderCell: ({ row }) => (
         <DataGridActionButtons
-          deleteUrl={`/products/${row.id}`}
+          deleteUrl={`/tables/${row.id}`}
           editRoute={`/mesas/form/${row.id}`}
         />
       ),
@@ -73,8 +74,8 @@ export default function Mesas() {
 
       <DataGrid
         columns={columns}
-        rows={data?.data || []}
-        rowCount={data?.data.length || 0}
+        rows={data?.data.data || []}
+        rowCount={data?.data.data.length || 0}
         loading={isFetching}
       />
     </Box>

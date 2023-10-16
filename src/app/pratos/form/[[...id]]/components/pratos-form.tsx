@@ -43,7 +43,6 @@ export default function PratosForm({
         gap: 4,
         backgroundColor: 'secondary.main',
         height: '100%',
-        overflowY: 'auto',
         margin: 2,
         padding: 5.5,
         borderRadius: 2,

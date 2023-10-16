@@ -21,7 +21,6 @@ export default function RootLayout({
           component="body"
           sx={{
             minWidth: '100%',
-            maxHeight: '100dvh',
             minHeight: '100dvh',
             display: 'flex',
             backgroundColor: 'secondary.dark',

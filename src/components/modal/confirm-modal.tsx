@@ -8,6 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 type ConfirmModal = {
   open: boolean;
@@ -15,6 +16,7 @@ type ConfirmModal = {
   handleConfirm: () => void;
   text: string;
   title: string;
+  loading?: boolean;
 };
 
 export default function ConfirmModal({
@@ -23,6 +25,7 @@ export default function ConfirmModal({
   handleConfirm,
   text,
   title,
+  loading,
 }: ConfirmModal) {
   const onClose = () => setOpen(false);
 
@@ -46,9 +49,9 @@ export default function ConfirmModal({
         <Button autoFocus onClick={onClose}>
           Não
         </Button>
-        <Button onClick={handleConfirm} autoFocus>
+        <LoadingButton onClick={handleConfirm} autoFocus loading={loading}>
           Sim
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

@@ -24,13 +24,19 @@ export default function DataGridActionButtons({
   const queryClient = useQueryClient();
   const [open, setOpen] = useState<boolean>(false);
 
-  const { mutate } = useMutation(['postProduct'], () => Api.delete(deleteUrl), {
-    onSuccess: () => {
-      enqueueSnackbar('Deletadoooo', { variant: 'success' });
+  const { mutate, isLoading } = useMutation(
+    ['postProduct'],
+    () => Api.delete(deleteUrl),
+    {
+      onSuccess: () => {
+        enqueueSnackbar('Deletadoooo', { variant: 'success' });
 
-      queryClient.invalidateQueries(['getProductList']);
+        queryClient.invalidateQueries(['getProductList']);
+
+        setOpen(false);
+      },
     },
-  });
+  );
 
   return (
     <>
@@ -40,6 +46,7 @@ export default function DataGridActionButtons({
         handleConfirm={() => mutate()}
         text="Você tem certeza que deseja excluir esse item?"
         title="Confirmação"
+        loading={isLoading}
       />
 
       <Box sx={{ display: 'flex' }}>
