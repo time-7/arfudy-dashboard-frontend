@@ -53,8 +53,9 @@ const theme = createTheme(
             backgroundColor: '#FFAF1A',
             color: '#6F4900',
             border: '2px solid #000',
-            borderRadius: '8px',
+            borderRadius: '32px',
             textTransform: 'none',
+            fontWeight: 600,
 
             ':hover': {
               backgroundColor: '#6F4900',
@@ -74,10 +75,12 @@ const theme = createTheme(
         styleOverrides: {
           input: {
             paddingBottom: '6px',
+            paddingLeft: '18px',
+            paddingRight: '18px',
           },
           root: {
             backgroundColor: '#AFC6FF',
-            borderRadius: '8px',
+            borderRadius: '32px',
             border: '2px solid #003271',
             color: '#003271',
             '&.Mui-focused': {
@@ -107,7 +110,7 @@ const theme = createTheme(
       MuiCheckbox: {
         styleOverrides: {
           root: {
-            color: '#fff',
+            color: '#003271',
 
             '&.Mui-checked': {
               color: '#FFAF1A',
@@ -122,7 +125,7 @@ const theme = createTheme(
       MuiFormHelperText: {
         styleOverrides: {
           root: {
-            '&.Mui-error': { color: 'white' },
+            '&.Mui-error': { color: '#BC7A00', fontWeight: 500 },
           },
         },
       },
@@ -131,6 +134,8 @@ const theme = createTheme(
           root: {
             color: '#003271',
             top: '2px',
+            left: '6px',
+            fontWeight: 500,
 
             '&.Mui-error': {
               color: '#003271',

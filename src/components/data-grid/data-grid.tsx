@@ -8,7 +8,7 @@ export default function DataGrid(props: DataGridProps) {
       sx={{
         color: 'secondary.dark',
         border: '2px solid #003271',
-        borderRadius: 2,
+        borderRadius: 8,
         backgroundColor: 'secondary.light',
         '.MuiDataGrid-withBorderColor': {
           borderColor: '#003271',
