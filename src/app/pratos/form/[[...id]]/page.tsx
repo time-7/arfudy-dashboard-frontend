@@ -42,7 +42,6 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
         : Api.post('/products', data),
     {
       onSuccess: ({ data: { data } }) => {
-        debugger;
         if (!hasId) {
           const { id } = data;
 
