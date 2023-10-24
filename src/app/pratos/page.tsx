@@ -1,81 +1,12 @@
-'use client';
-
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-
-import DataGrid from '@/components/data-grid/data-grid';
-import DataGridActionButtons from '@/components/data-grid/data-grid-action-buttons';
-
-import { TProduct, TRequest } from '@/types';
-import { Api } from '@/utils/axios';
-import { money } from '@/utils/format';
 import { Box, Button, Typography } from '@mui/material';
-import { GridColDef } from '@mui/x-data-grid';
-import { useQuery } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
+import PratosGrid from './pratos-grid';
 
-export default function Pratos() {
-  const router = useRouter();
+export default async function Pratos() {
+  const data = await fetch(
+    'https://arfudy-nestjs-backend.onrender.com/api/products',
+  ).then((res) => res.json());
 
-  const { data, isFetching } = useQuery<AxiosResponse<TRequest<TProduct[]>>>(
-    ['getProductList'],
-    () => Api.get('/products'),
-  );
-
-  const columns: GridColDef[] = [
-    {
-      field: 'Imagem',
-      align: 'center',
-      headerAlign: 'center',
-      renderCell: ({ row }) => {
-        const { imageUrl } = row;
-
-        if (imageUrl) {
-          return (
-            <Box
-              sx={{ padding: 1, position: 'relative', width: 40, height: 40 }}
-            >
-              <Image
-                src={imageUrl}
-                alt={imageUrl}
-                unoptimized
-                fill
-                style={{ borderRadius: 4 }}
-              />
-            </Box>
-          );
-        }
-      },
-    },
-    {
-      field: 'name',
-      headerName: 'Nome',
-      flex: 1,
-    },
-    {
-      field: 'description',
-      headerName: 'Descrição',
-      flex: 1,
-    },
-    {
-      field: 'price',
-      headerName: 'Preço',
-      valueFormatter: ({ value }) => money(value),
-    },
-    {
-      field: 'Ações',
-      headerAlign: 'center',
-      align: 'center',
-      sortable: false,
-      filterable: false,
-      renderCell: ({ row }) => (
-        <DataGridActionButtons
-          deleteUrl={`/products/${row.id}`}
-          editRoute={`/pratos/form/${row.id}`}
-        />
-      ),
-    },
-  ];
+  console.log(data);
 
   return (
     <Box
@@ -93,17 +24,10 @@ export default function Pratos() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h4">Pratos</Typography>
 
-        <Button variant="contained" onClick={() => router.push('/pratos/form')}>
-          + Novo
-        </Button>
+        <Button variant="contained">+ Novo</Button>
       </Box>
 
-      <DataGrid
-        columns={columns}
-        rows={data?.data.data || []}
-        rowCount={data?.data.data.length || 0}
-        loading={isFetching}
-      />
+      <PratosGrid data={data} />
     </Box>
   );
 }

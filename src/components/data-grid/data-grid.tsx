@@ -1,4 +1,4 @@
-import { DataGrid as DataGridMui, DataGridProps } from '@mui/x-data-grid';
+import { DataGrid as DataGridMui, DataGridProps } from '../../lib/mui';
 
 export default function DataGrid(props: DataGridProps) {
   return (
