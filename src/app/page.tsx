@@ -4,6 +4,7 @@ export default function Home() {
   return (
     <Box sx={{ display: 'flex', minHeight: '100%', border: '4px solid black' }}>
       <Box sx={{ flex: 3, padding: 7.5 }}>pedidos</Box>
+
       <Box
         sx={{
           flex: 1,

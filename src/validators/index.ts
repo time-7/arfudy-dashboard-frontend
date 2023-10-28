@@ -10,6 +10,12 @@ const nutritionFactsZod = z.object({
   totalCalories: z.number().optional(),
 });
 
+export const ingredientZod = z.object({
+  name: z.string().nonempty(),
+  quantity: z.number(),
+  nutritionFacts: nutritionFactsZod,
+});
+
 export const pratosFormSchema = z.object({
   id: z.string().optional(),
   name: z.string({ required_error: required }).nonempty(noempty),
@@ -19,16 +25,7 @@ export const pratosFormSchema = z.object({
   unityModelId: z.string().nullish(),
   has3dModel: z.boolean().default(false),
   nutritionFacts: nutritionFactsZod,
-  ingredients: z
-    .array(
-      z.object({
-        name: z.string().nonempty(),
-        quantity: z.number(),
-        nutritionFacts: nutritionFactsZod,
-      }),
-    )
-    .optional()
-    .default([]),
+  ingredients: z.array(ingredientZod).optional().default([]),
 });
 
 export const mesasFormSchema = z.object({
