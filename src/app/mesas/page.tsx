@@ -1,55 +1,13 @@
-'use client';
+import MesasGrid from './components/mesas-grid';
+import AddButton from '@/components/button/add-button';
 
-import { useRouter } from 'next/navigation';
+import { TGet, TTable } from '@/types';
+import { Box, Typography } from '@mui/material';
 
-import DataGrid from '@/components/data-grid/data-grid';
-import DataGridActionButtons from '@/components/data-grid/data-grid-action-buttons';
-
-import { TTable, TRequest } from '@/types';
-import { Api } from '@/utils/axios';
-import { Box, Button, Typography } from '@mui/material';
-import { GridColDef } from '@mui/x-data-grid';
-import { useQuery } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
-
-export default function Mesas() {
-  const router = useRouter();
-
-  const { data, isFetching } = useQuery<AxiosResponse<TRequest<TTable[]>>>(
-    ['getTableList'],
-    () => Api.get('/tables'),
-  );
-
-  const columns: GridColDef[] = [
-    {
-      field: 'tableNum',
-      headerName: 'Número da mesa',
-      flex: 1,
-    },
-    {
-      field: 'seatNum',
-      headerName: 'Número de assentos',
-      flex: 1,
-    },
-    {
-      field: 'activeToken',
-      headerName: 'Token',
-      flex: 1,
-    },
-    {
-      field: 'Ações',
-      headerAlign: 'center',
-      align: 'center',
-      sortable: false,
-      filterable: false,
-      renderCell: ({ row }) => (
-        <DataGridActionButtons
-          deleteUrl={`/tables/${row.id}`}
-          editRoute={`/mesas/form/${row.id}`}
-        />
-      ),
-    },
-  ];
+export default async function Mesas() {
+  const data: TGet<TTable[]> = await fetch(
+    'https://arfudy-nestjs-backend.onrender.com/api/tables',
+  ).then((res) => res.json());
 
   return (
     <Box
@@ -67,17 +25,10 @@ export default function Mesas() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h4">Mesas</Typography>
 
-        <Button variant="contained" onClick={() => router.push('/mesas/form')}>
-          + Novo
-        </Button>
+        <AddButton text="Nova mesa" variant="contained" route="/mesas/form" />
       </Box>
 
-      <DataGrid
-        columns={columns}
-        rows={data?.data.data || []}
-        rowCount={data?.data.data.length || 0}
-        loading={isFetching}
-      />
+      <MesasGrid data={data} />
     </Box>
   );
 }

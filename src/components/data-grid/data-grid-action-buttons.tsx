@@ -22,33 +22,33 @@ export default function DataGridActionButtons({
   deleteUrl,
 }: DataGridActionButtons) {
   const router = useRouter();
-  const { enqueueSnackbar } = useSnackbar();
-  const queryClient = useQueryClient();
+  // const { enqueueSnackbar } = useSnackbar();
+  // const queryClient = useQueryClient();
   const [open, setOpen] = useState<boolean>(false);
 
-  const { mutate, isLoading } = useMutation(
-    ['postProduct'],
-    () => Api.delete(deleteUrl),
-    {
-      onSuccess: () => {
-        enqueueSnackbar('Deletadoooo', { variant: 'success' });
+  // const { mutate, isLoading } = useMutation(
+  //   ['postProduct'],
+  //   () => Api.delete(deleteUrl),
+  //   {
+  //     onSuccess: () => {
+  //       enqueueSnackbar('Deletadoooo', { variant: 'success' });
 
-        queryClient.invalidateQueries(['getProductList']);
+  //       queryClient.invalidateQueries(['getProductList']);
 
-        setOpen(false);
-      },
-    },
-  );
+  //       setOpen(false);
+  //     },
+  //   },
+  // );
 
   return (
     <>
       <ConfirmModal
         open={open}
         setOpen={setOpen}
-        handleConfirm={() => mutate()}
+        // handleConfirm={() => mutate()}
         text="Você tem certeza que deseja excluir esse item?"
         title="Confirmação"
-        loading={isLoading}
+        // loading={isLoading}
       />
 
       <Box sx={{ display: 'flex' }}>

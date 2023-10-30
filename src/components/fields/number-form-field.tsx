@@ -18,7 +18,7 @@ type TInputField<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues, unknown>;
   sx?: SxProps;
   showSkeleton?: boolean;
-  isSubmitting: boolean;
+  isSubmitting?: boolean;
   suffix?: string;
   prefix?: string;
   decimalScale?: number;
@@ -33,7 +33,7 @@ export default function NumberFormField<TFieldValues extends FieldValues>({
   error,
   showSkeleton,
   suffix,
-  isSubmitting,
+  isSubmitting = false,
   decimalScale,
   fixedDecimalScale,
   prefix,

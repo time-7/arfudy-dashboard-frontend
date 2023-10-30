@@ -1,12 +1,13 @@
-import { Box, Button, Typography } from '@mui/material';
-import PratosGrid from './pratos-grid';
+import PratosGrid from './components/pratos-grid';
+import AddButton from '@/components/button/add-button';
+
+import { TProduct, TGet } from '@/types';
+import { Box, Typography } from '@mui/material';
 
 export default async function Pratos() {
-  const data = await fetch(
+  const data: TGet<TProduct[]> = await fetch(
     'https://arfudy-nestjs-backend.onrender.com/api/products',
   ).then((res) => res.json());
-
-  console.log(data);
 
   return (
     <Box
@@ -24,7 +25,7 @@ export default async function Pratos() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h4">Pratos</Typography>
 
-        <Button variant="contained">+ Novo</Button>
+        <AddButton text="Novo prato" variant="contained" route="/pratos/form" />
       </Box>
 
       <PratosGrid data={data} />

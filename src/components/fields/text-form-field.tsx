@@ -18,7 +18,7 @@ type TInputField<TFieldValues extends FieldValues> = {
   sx?: SxProps;
   showSkeleton?: boolean;
   disabled?: boolean;
-  isSubmitting: boolean;
+  isSubmitting?: boolean;
 };
 
 export default function TextFormField<TFieldValues extends FieldValues>({
@@ -28,7 +28,7 @@ export default function TextFormField<TFieldValues extends FieldValues>({
   label,
   error,
   showSkeleton,
-  isSubmitting,
+  isSubmitting = false,
   disabled,
 }: TInputField<TFieldValues>) {
   if (showSkeleton) {
