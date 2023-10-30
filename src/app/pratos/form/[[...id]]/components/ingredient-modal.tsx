@@ -1,3 +1,5 @@
+'use client';
+
 import { Dispatch, SetStateAction } from 'react';
 
 import { TIngredient } from '@/types';
@@ -9,6 +11,7 @@ import {
   DialogContent,
   DialogTitle,
 } from '@mui/material';
+import IngredientForm from './ingredient-form';
 
 type TIngredientModal = {
   open: boolean;
@@ -19,6 +22,9 @@ type TIngredientModal = {
 export default function IngredientModal({ open, setOpen }: TIngredientModal) {
   const onClose = () => setOpen(false);
   const handleConfirm = () => {};
+  const onSubmit = () => {
+    console.log('oi');
+  };
 
   return (
     <Dialog
@@ -27,19 +33,21 @@ export default function IngredientModal({ open, setOpen }: TIngredientModal) {
       PaperProps={{
         sx: {
           borderRadius: 4,
-          backgroundColor: 'primary.light',
+          backgroundColor: 'secondary.main',
           border: '2px solid #000',
         },
       }}
     >
-      <DialogTitle></DialogTitle>
-      <DialogContent>{/* form */}</DialogContent>
+      <DialogTitle sx={{ color: 'white' }}>Novo Ingrediente</DialogTitle>
+      <DialogContent>
+        <IngredientForm onSubmit={onSubmit} />
+      </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={onClose}>
-          Não
+          Cancelar
         </Button>
         <LoadingButton onClick={handleConfirm} autoFocus>
-          Sim
+          Adicionar
         </LoadingButton>
       </DialogActions>
     </Dialog>

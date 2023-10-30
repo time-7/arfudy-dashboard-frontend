@@ -1,10 +1,14 @@
+'use client';
+
+import { useForm } from 'react-hook-form';
+
 import NumberFormField from '@/components/fields/number-form-field';
 import TextFormField from '@/components/fields/text-form-field';
+
 import { TIngredient } from '@/types';
 import { ingredientZod } from '@/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
 
 type IngredientForm = {
   onSubmit: (ingredient: TIngredient) => void;
@@ -19,44 +23,45 @@ export default function IngredientForm({ onSubmit }: IngredientForm) {
     resolver: zodResolver(ingredientZod),
   });
 
+  console.log(errors);
+
   return (
     <Box
       component="form"
       onSubmit={handleSubmit(onSubmit)}
-      // sx={{
-      //   display: 'flex',
-      //   flexDirection: 'column',
-      //   gap: 4,
-      //   height: '100%',
-      //   backgroundColor: 'secondary.main',
-      //   margin: 2,
-      //   padding: 5.5,
-      //   borderRadius: 2,
-      // }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
+        height: '100%',
+        backgroundColor: 'secondary.main',
+      }}
     >
-      <Typography variant="h5">Dados gerais</Typography>
+      <Typography sx={{ color: 'white' }} variant="h5">
+        Dados gerais
+      </Typography>
 
       <Box sx={{ display: 'flex', gap: 4 }}>
         <TextFormField<TIngredient>
           sx={{ flex: 1 }}
           name="name"
-          label="Token"
+          label="Nome"
           control={control}
-          disabled
           error={errors.name}
         />
 
         <TextFormField<TIngredient>
           sx={{ flex: 1 }}
           name="quantity"
-          label="Token"
+          label="Quantidade"
           control={control}
-          disabled
           error={errors.quantity}
         />
       </Box>
 
-      <Typography variant="h5">Fatores Nutricionais</Typography>
+      <Typography sx={{ color: 'white' }} variant="h5">
+        Fatores Nutricionais
+      </Typography>
 
       <Box sx={{ display: 'flex', gap: 4 }}>
         <NumberFormField<TIngredient>
