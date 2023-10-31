@@ -187,7 +187,10 @@ export default function PratosForm({
             display: 'flex',
           }}
         >
-          <IngredientsGrid data={getValues('ingredients')} />
+          <IngredientsGrid
+            data={getValues('ingredients')}
+            loading={isFetching}
+          />
         </Box>
 
         <Box

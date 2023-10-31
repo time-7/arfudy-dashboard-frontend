@@ -6,6 +6,7 @@ import { GridColDef, GridRowsProp } from '@mui/x-data-grid';
 
 type TIngredientsGrid = {
   data: TIngredient[] | undefined;
+  loading: boolean;
 };
 
 const getRows = (ingredients: TIngredient[] | undefined): GridRowsProp => {
@@ -24,7 +25,7 @@ const getRows = (ingredients: TIngredient[] | undefined): GridRowsProp => {
   return [];
 };
 
-export default function IngredientsGrid({ data }: TIngredientsGrid) {
+export default function IngredientsGrid({ data, loading }: TIngredientsGrid) {
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Nome', flex: 1 },
     { field: 'quantity', headerName: 'Quantidade', flex: 1 },
@@ -64,5 +65,12 @@ export default function IngredientsGrid({ data }: TIngredientsGrid) {
 
   const rows = getRows(data);
 
-  return <DataGrid columns={columns} rows={rows} rowCount={rows.length} />;
+  return (
+    <DataGrid
+      columns={columns}
+      rows={rows}
+      rowCount={rows.length}
+      loading={loading}
+    />
+  );
 }
