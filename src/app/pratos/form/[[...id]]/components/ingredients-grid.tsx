@@ -27,30 +27,34 @@ const getRows = (ingredients: TIngredient[] | undefined): GridRowsProp => {
 
 export default function IngredientsGrid({ data, loading }: TIngredientsGrid) {
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Nome', flex: 1 },
-    { field: 'quantity', headerName: 'Quantidade' },
+    { field: 'name', headerName: 'Nome', minWidth: 150, flex: 1 },
+    { field: 'quantity', headerName: 'Quantidade', minWidth: 110 },
     {
       field: 'carbohydrate',
       headerName: 'Carboidrato',
       valueFormatter: ({ value }) => `${value} grama(s)`,
+      minWidth: 110,
     },
     {
       field: 'protein',
       headerName: 'Proteína',
       valueFormatter: ({ value }) => `${value} grama(s)`,
+      minWidth: 110,
     },
     {
       field: 'totalFat',
       headerName: 'Total de gordura',
       valueFormatter: ({ value }) => `${value} grama(s)`,
+      minWidth: 110,
     },
-    { field: 'totalCalories', headerName: 'Total de calorías' },
+    { field: 'totalCalories', headerName: 'Total de calorías', minWidth: 110 },
     {
       field: 'Ações',
       headerAlign: 'center',
       align: 'center',
       sortable: false,
       filterable: false,
+      minWidth: 110,
       renderCell: ({ row }) => (
         <DataGridActionButtons
           deleteUrl={`/products/${row.id}`}
