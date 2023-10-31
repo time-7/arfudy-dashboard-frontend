@@ -184,6 +184,7 @@ export default function PratosForm({
         <Box
           sx={{
             height: '400px',
+            maxWidth: '100%',
             display: 'flex',
           }}
         >
