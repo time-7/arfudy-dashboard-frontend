@@ -27,7 +27,7 @@ const getRows = (ingredients: TIngredient[] | undefined): GridRowsProp => {
 
 export default function IngredientsGrid({ data, loading }: TIngredientsGrid) {
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Nome', minWidth: 150, flex: 1 },
+    { field: 'name', headerName: 'Nome', minWidth: 150 },
     { field: 'quantity', headerName: 'Quantidade', minWidth: 110 },
     {
       field: 'carbohydrate',
