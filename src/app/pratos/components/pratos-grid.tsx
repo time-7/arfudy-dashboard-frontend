@@ -5,16 +5,19 @@ import Image from 'next/image';
 import DataGrid from '@/components/data-grid/data-grid';
 import DataGridActionButtons from '@/components/data-grid/data-grid-action-buttons';
 
-import { TProduct, TRequest } from '@/types';
+import { TGet, TProduct } from '@/types';
+import { Api } from '@/utils/axios';
 import { money } from '@/utils/format';
 import { Box } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
+import { useQuery } from '@tanstack/react-query';
 
-type TPratosGrid = {
-  data: TRequest<TProduct[]>;
-};
+export default function PratosGrid() {
+  const { data, isFetching } = useQuery<TGet<TProduct[]>>({
+    queryKey: ['getProductList'],
+    queryFn: () => Api.get('/products').then((res) => res.data),
+  });
 
-export default function PratosGrid({ data }: TPratosGrid) {
   const columns: GridColDef[] = [
     {
       field: 'Imagem',
@@ -79,7 +82,7 @@ export default function PratosGrid({ data }: TPratosGrid) {
       columns={columns}
       rows={data?.data || []}
       rowCount={data?.data.length || 0}
-      loading={false}
+      loading={isFetching}
     />
   );
 }

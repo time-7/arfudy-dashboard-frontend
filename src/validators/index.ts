@@ -11,8 +11,11 @@ const nutritionFactsZod = z.object({
 });
 
 export const ingredientZod = z.object({
-  name: z.string().nonempty(),
-  quantity: z.number(),
+  name: z.string({ required_error: required }),
+  quantity: z.number({
+    required_error: required,
+    invalid_type_error: required,
+  }),
   nutritionFacts: nutritionFactsZod,
 });
 

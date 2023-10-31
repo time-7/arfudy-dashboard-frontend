@@ -30,9 +30,11 @@ export type TPost<TPost> = {
 };
 
 export type TForm<TData> = {
-  defaultValues?: TData;
-  showSkeleton?: boolean;
   id: string | null;
+  data?: TData;
+  isFetching: boolean;
+  isPending: boolean;
+  onSubmit: (data: TData) => void;
 };
 
 export type TPostReturn = {

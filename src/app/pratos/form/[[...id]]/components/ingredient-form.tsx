@@ -1,5 +1,6 @@
 'use client';
 
+import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 
 import NumberFormField from '@/components/fields/number-form-field';
@@ -8,13 +9,14 @@ import TextFormField from '@/components/fields/text-form-field';
 import { TIngredient } from '@/types';
 import { ingredientZod } from '@/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 type IngredientForm = {
   onSubmit: (ingredient: TIngredient) => void;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function IngredientForm({ onSubmit }: IngredientForm) {
+export default function IngredientForm({ onSubmit, setOpen }: IngredientForm) {
   const {
     control,
     handleSubmit,
@@ -22,8 +24,6 @@ export default function IngredientForm({ onSubmit }: IngredientForm) {
   } = useForm<TIngredient>({
     resolver: zodResolver(ingredientZod),
   });
-
-  console.log(errors);
 
   return (
     <Box
@@ -37,7 +37,7 @@ export default function IngredientForm({ onSubmit }: IngredientForm) {
         backgroundColor: 'secondary.main',
       }}
     >
-      <Typography sx={{ color: 'white' }} variant="h5">
+      <Typography sx={{ color: 'white' }} variant="h6">
         Dados gerais
       </Typography>
 
@@ -50,7 +50,7 @@ export default function IngredientForm({ onSubmit }: IngredientForm) {
           error={errors.name}
         />
 
-        <TextFormField<TIngredient>
+        <NumberFormField<TIngredient>
           sx={{ flex: 1 }}
           name="quantity"
           label="Quantidade"
@@ -59,7 +59,7 @@ export default function IngredientForm({ onSubmit }: IngredientForm) {
         />
       </Box>
 
-      <Typography sx={{ color: 'white' }} variant="h5">
+      <Typography sx={{ color: 'white' }} variant="h6">
         Fatores Nutricionais
       </Typography>
 
@@ -101,6 +101,17 @@ export default function IngredientForm({ onSubmit }: IngredientForm) {
           control={control}
           error={errors.nutritionFacts?.totalCalories}
         />
+      </Box>
+
+      <Box
+        sx={{ mt: 'auto', display: 'flex', justifyContent: 'flex-end', gap: 2 }}
+      >
+        <Button variant="contained" onClick={() => setOpen(false)}>
+          Cancelar
+        </Button>
+        <Button variant="contained" size="large" type="submit">
+          Salvar
+        </Button>
       </Box>
     </Box>
   );

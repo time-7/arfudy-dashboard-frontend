@@ -1,91 +1,56 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import AddButton from '@/components/button/add-button';
+import PageContainer from '@/components/containers/page-container';
 import CheckboxFormField from '@/components/fields/checkbox-form-field';
 import NumberFormField from '@/components/fields/number-form-field';
 import TextFormField from '@/components/fields/text-form-field';
 
+import IngredientModal from './ingredient-modal';
 import IngredientsGrid from './ingredients-grid';
 
-import { patchProduct, postProduct } from '@/api/api';
-import { TProduct, TForm, TPostReturn, TPatchReturn } from '@/types';
+import { TProduct, TForm } from '@/types';
 import { pratosFormSchema } from '@/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import { Box, Typography } from '@mui/material';
-import { useSnackbar } from 'notistack';
-import IngredientModal from './ingredient-modal';
 
 export default function PratosForm({
-  defaultValues,
-  showSkeleton,
   id,
+  data,
+  onSubmit,
+  isFetching,
+  isPending,
 }: TForm<TProduct>) {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [openIngredientModal, setOpenIngredientModal] =
     useState<boolean>(false);
-  const router = useRouter();
-  const { enqueueSnackbar } = useSnackbar();
   const {
     control,
     handleSubmit,
     watch,
+    getValues,
+    setValue,
     reset,
     formState: { errors },
   } = useForm<TProduct>({
     resolver: zodResolver(pratosFormSchema),
   });
 
-  useEffect(() => reset(defaultValues), [defaultValues]);
-
-  const onSubmit = (data: TProduct) => {
-    setIsSubmitting(true);
-
-    if (id) {
-      patchProduct({ data, id })
-        .then(async (response) => {
-          const { message }: TPatchReturn = await response.json();
-
-          enqueueSnackbar(message, { variant: 'success' });
-        })
-        .finally(() => setIsSubmitting(false));
-    } else {
-      postProduct({ data })
-        .then(async (response) => {
-          const { data, message }: TPostReturn = await response.json();
-
-          router.push(`/pratos/form/${data.id}`);
-
-          enqueueSnackbar(message, { variant: 'success' });
-        })
-        .finally(() => setIsSubmitting(false));
-    }
-  };
+  useEffect(() => reset(data), [data]);
 
   return (
     <>
       <IngredientModal
+        setValue={setValue}
+        getValues={getValues}
         open={openIngredientModal}
         setOpen={setOpenIngredientModal}
       />
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 4,
-          backgroundColor: 'secondary.main',
-          height: '100%',
-          margin: 2,
-          padding: 5.5,
-          borderRadius: 2,
-        }}
-      >
+
+      <PageContainer component="form" onSubmit={handleSubmit(onSubmit)}>
         <Typography variant="h4">
           {id?.length ? 'Editar' : 'Cadastrar'} prato
         </Typography>
@@ -97,8 +62,8 @@ export default function PratosForm({
             label="Nome"
             control={control}
             error={errors.name}
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
 
           <TextFormField<TProduct>
@@ -107,8 +72,8 @@ export default function PratosForm({
             label="Descrição"
             control={control}
             error={errors.description}
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
         </Box>
 
@@ -122,8 +87,8 @@ export default function PratosForm({
             fixedDecimalScale
             control={control}
             error={errors.price}
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
 
           <TextFormField<TProduct>
@@ -132,16 +97,16 @@ export default function PratosForm({
             label="URL da imagem"
             control={control}
             error={errors.imageUrl}
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
 
           <CheckboxFormField<TProduct>
             control={control}
             label="Possui modelo 3D"
             name="has3dModel"
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
 
           <TextFormField<TProduct>
@@ -151,8 +116,8 @@ export default function PratosForm({
             control={control}
             disabled={!watch('has3dModel')}
             error={errors.unityModelId}
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
         </Box>
 
@@ -166,8 +131,8 @@ export default function PratosForm({
             suffix=" grama(s)"
             control={control}
             error={errors.nutritionFacts?.carbohydrate}
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
 
           <NumberFormField<TProduct>
@@ -177,8 +142,8 @@ export default function PratosForm({
             suffix=" grama(s)"
             control={control}
             error={errors.nutritionFacts?.protein}
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
         </Box>
 
@@ -190,8 +155,8 @@ export default function PratosForm({
             suffix=" grama(s)"
             control={control}
             error={errors.nutritionFacts?.totalFat}
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
 
           <NumberFormField<TProduct>
@@ -201,8 +166,8 @@ export default function PratosForm({
             suffix=" kcal"
             control={control}
             error={errors.nutritionFacts?.totalCalories}
-            showSkeleton={showSkeleton}
-            isSubmitting={isSubmitting}
+            showSkeleton={isFetching}
+            isSubmitting={isPending}
           />
         </Box>
 
@@ -218,24 +183,30 @@ export default function PratosForm({
 
         <Box
           sx={{
-            minHeight: '200px',
+            height: '400px',
             display: 'flex',
           }}
         >
-          <IngredientsGrid />
+          <IngredientsGrid data={getValues('ingredients')} />
         </Box>
 
-        <Box sx={{ mt: 'auto', display: 'flex', justifyContent: 'flex-end' }}>
+        <Box
+          sx={{
+            mt: 'auto',
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
           <LoadingButton
             variant="contained"
             size="large"
             type="submit"
-            loading={isSubmitting}
+            loading={isPending}
           >
             Salvar
           </LoadingButton>
         </Box>
-      </Box>
+      </PageContainer>
     </>
   );
 }

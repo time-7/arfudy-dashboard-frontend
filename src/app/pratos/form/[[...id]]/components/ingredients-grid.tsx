@@ -1,9 +1,30 @@
 import DataGrid from '@/components/data-grid/data-grid';
 import DataGridActionButtons from '@/components/data-grid/data-grid-action-buttons';
-import { GridColDef } from '@mui/x-data-grid';
-import React from 'react';
 
-export default function IngredientsGrid() {
+import { TIngredient } from '@/types';
+import { GridColDef, GridRowsProp } from '@mui/x-data-grid';
+
+type TIngredientsGrid = {
+  data: TIngredient[] | undefined;
+};
+
+const getRows = (ingredients: TIngredient[] | undefined): GridRowsProp => {
+  if (ingredients?.length) {
+    return ingredients.map((item, index) => ({
+      id: index + 1,
+      quantity: item.quantity,
+      name: item.name,
+      protein: item.nutritionFacts.protein,
+      carbohydrate: item.nutritionFacts.carbohydrate,
+      totalFat: item.nutritionFacts.totalFat,
+      totalCalories: item.nutritionFacts.totalCalories,
+    }));
+  }
+
+  return [];
+};
+
+export default function IngredientsGrid({ data }: TIngredientsGrid) {
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Nome', flex: 1 },
     { field: 'quantity', headerName: 'Quantidade', flex: 1 },
@@ -41,5 +62,7 @@ export default function IngredientsGrid() {
     },
   ];
 
-  return <DataGrid columns={columns} rows={[]} rowCount={0} />;
+  const rows = getRows(data);
+
+  return <DataGrid columns={columns} rows={rows} rowCount={rows.length} />;
 }

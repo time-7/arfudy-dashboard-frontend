@@ -1,29 +1,34 @@
 'use client';
 
 import { Dispatch, SetStateAction } from 'react';
+import { UseFormSetValue, UseFormGetValues } from 'react-hook-form';
 
-import { TIngredient } from '@/types';
-import { LoadingButton } from '@mui/lab';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from '@mui/material';
 import IngredientForm from './ingredient-form';
+
+import { TIngredient, TProduct } from '@/types';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 type TIngredientModal = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  ingredient: TIngredient;
+  getValues: UseFormGetValues<TProduct>;
+  setValue: UseFormSetValue<TProduct>;
 };
 
-export default function IngredientModal({ open, setOpen }: TIngredientModal) {
+export default function IngredientModal({
+  open,
+  setOpen,
+  getValues,
+  setValue,
+}: TIngredientModal) {
   const onClose = () => setOpen(false);
-  const handleConfirm = () => {};
-  const onSubmit = () => {
-    console.log('oi');
+
+  const onSubmit = (data: TIngredient) => {
+    const ingredients = getValues('ingredients');
+
+    setValue('ingredients', [...ingredients, data]);
+
+    onClose();
   };
 
   return (
@@ -40,16 +45,8 @@ export default function IngredientModal({ open, setOpen }: TIngredientModal) {
     >
       <DialogTitle sx={{ color: 'white' }}>Novo Ingrediente</DialogTitle>
       <DialogContent>
-        <IngredientForm onSubmit={onSubmit} />
+        <IngredientForm onSubmit={onSubmit} setOpen={setOpen} />
       </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={onClose}>
-          Cancelar
-        </Button>
-        <LoadingButton onClick={handleConfirm} autoFocus>
-          Adicionar
-        </LoadingButton>
-      </DialogActions>
     </Dialog>
   );
 }

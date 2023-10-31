@@ -3,14 +3,17 @@
 import DataGrid from '@/components/data-grid/data-grid';
 import DataGridActionButtons from '@/components/data-grid/data-grid-action-buttons';
 
-import { TRequest, TTable } from '@/types';
+import { TGet, TTable } from '@/types';
+import { Api } from '@/utils/axios';
 import { GridColDef } from '@mui/x-data-grid';
+import { useQuery } from '@tanstack/react-query';
 
-type TMesasGrid = {
-  data: TRequest<TTable[]>;
-};
+export default function MesasGrid() {
+  const { data } = useQuery<TGet<TTable[]>>({
+    queryKey: ['getTableList'],
+    queryFn: () => Api.get('/tables').then((res) => res.data),
+  });
 
-export default function MesasGrid({ data }: TMesasGrid) {
   const columns: GridColDef[] = [
     {
       field: 'tableNum',

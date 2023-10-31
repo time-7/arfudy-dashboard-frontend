@@ -125,7 +125,7 @@ const theme = createTheme(
       MuiFormHelperText: {
         styleOverrides: {
           root: {
-            '&.Mui-error': { color: '#BC7A00', fontWeight: 500 },
+            '&.Mui-error': { color: '#FFAF1A', fontWeight: 500 },
           },
         },
       },
