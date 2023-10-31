@@ -28,26 +28,23 @@ const getRows = (ingredients: TIngredient[] | undefined): GridRowsProp => {
 export default function IngredientsGrid({ data, loading }: TIngredientsGrid) {
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Nome', flex: 1 },
-    { field: 'quantity', headerName: 'Quantidade', flex: 1 },
+    { field: 'quantity', headerName: 'Quantidade' },
     {
       field: 'carbohydrate',
       headerName: 'Carboidrato',
       valueFormatter: ({ value }) => `${value} grama(s)`,
-      flex: 1,
     },
     {
       field: 'protein',
       headerName: 'Proteína',
       valueFormatter: ({ value }) => `${value} grama(s)`,
-      flex: 1,
     },
     {
       field: 'totalFat',
       headerName: 'Total de gordura',
       valueFormatter: ({ value }) => `${value} grama(s)`,
-      flex: 1,
     },
-    { field: 'totalCalories', headerName: 'Total de calorías', flex: 1 },
+    { field: 'totalCalories', headerName: 'Total de calorías' },
     {
       field: 'Ações',
       headerAlign: 'center',
