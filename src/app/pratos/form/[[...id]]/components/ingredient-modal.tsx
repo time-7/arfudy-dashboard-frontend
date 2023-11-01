@@ -26,7 +26,7 @@ export default function IngredientModal({
   const isIngredientIdNumber = typeof ingredientId === 'number';
 
   const onSubmit = (data: TIngredient) => {
-    const ingredients = getValues('ingredients');
+    const ingredients = getValues('ingredients') || [];
 
     let newIngredients: typeof ingredients = [];
 

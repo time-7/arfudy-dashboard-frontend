@@ -44,7 +44,7 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
         router.push(`/pratos/form/${id}`);
       }
 
-      enqueueSnackbar('Mesa salva com sucesso!', { variant: 'success' });
+      enqueueSnackbar('Prato salvo com sucesso!', { variant: 'success' });
     },
     onError: (error) => {
       enqueueSnackbar(

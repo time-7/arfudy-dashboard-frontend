@@ -199,6 +199,7 @@ export default function PratosForm({
           <AddButton
             text="Novo ingrediente"
             variant="contained"
+            disabled={isFetching || isPending}
             onClick={() => setOpenIngredientModal(true)}
           />
         </Box>
@@ -212,7 +213,7 @@ export default function PratosForm({
         >
           <IngredientsGrid
             data={watch('ingredients')}
-            loading={isFetching}
+            loading={isFetching || isPending}
             removeIngredient={removeIngredient}
             editIngredient={editIngredient}
           />
