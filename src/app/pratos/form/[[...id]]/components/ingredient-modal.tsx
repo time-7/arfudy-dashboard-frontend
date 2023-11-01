@@ -59,7 +59,7 @@ export default function IngredientModal({
           onSubmit={onSubmit}
           setOpen={setOpen}
           data={
-            isIngredientIdNumber
+            isIngredientIdNumber && getValues('ingredients')
               ? getValues('ingredients')[ingredientId]
               : undefined
           }
