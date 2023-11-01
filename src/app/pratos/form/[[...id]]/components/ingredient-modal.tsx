@@ -13,6 +13,7 @@ type TIngredientModal = {
   setOpen: Dispatch<SetStateAction<boolean>>;
   getValues: UseFormGetValues<TProduct>;
   setValue: UseFormSetValue<TProduct>;
+  ingredientId: number | null;
 };
 
 export default function IngredientModal({
@@ -20,21 +21,30 @@ export default function IngredientModal({
   setOpen,
   getValues,
   setValue,
+  ingredientId,
 }: TIngredientModal) {
-  const onClose = () => setOpen(false);
+  const isIngredientIdNumber = typeof ingredientId === 'number';
 
   const onSubmit = (data: TIngredient) => {
     const ingredients = getValues('ingredients');
 
-    setValue('ingredients', [...ingredients, data]);
+    let newIngredients: typeof ingredients = [];
 
-    onClose();
+    if (isIngredientIdNumber) {
+      newIngredients = ingredients.toSpliced(ingredientId, 1, data);
+    } else {
+      newIngredients = [...ingredients, data];
+    }
+
+    setValue('ingredients', newIngredients);
+
+    setOpen(false);
   };
 
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={() => setOpen(false)}
       PaperProps={{
         sx: {
           borderRadius: 4,
@@ -45,7 +55,15 @@ export default function IngredientModal({
     >
       <DialogTitle sx={{ color: 'white' }}>Novo Ingrediente</DialogTitle>
       <DialogContent>
-        <IngredientForm onSubmit={onSubmit} setOpen={setOpen} />
+        <IngredientForm
+          onSubmit={onSubmit}
+          setOpen={setOpen}
+          data={
+            isIngredientIdNumber
+              ? getValues('ingredients')[ingredientId]
+              : undefined
+          }
+        />
       </DialogContent>
     </Dialog>
   );

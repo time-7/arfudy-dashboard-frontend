@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import NumberFormField from '@/components/fields/number-form-field';
@@ -14,16 +14,24 @@ import { Box, Button, Typography } from '@mui/material';
 type IngredientForm = {
   onSubmit: (ingredient: TIngredient) => void;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  data?: TIngredient;
 };
 
-export default function IngredientForm({ onSubmit, setOpen }: IngredientForm) {
+export default function IngredientForm({
+  onSubmit,
+  setOpen,
+  data,
+}: IngredientForm) {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TIngredient>({
     resolver: zodResolver(ingredientZod),
   });
+
+  useEffect(() => reset(data), [data]);
 
   return (
     <Box

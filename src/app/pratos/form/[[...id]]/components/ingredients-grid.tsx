@@ -7,6 +7,8 @@ import { GridColDef, GridRowsProp } from '@mui/x-data-grid';
 type TIngredientsGrid = {
   data: TIngredient[] | undefined;
   loading: boolean;
+  editIngredient: (id: number) => void;
+  removeIngredient: (id: number) => void;
 };
 
 const getRows = (ingredients: TIngredient[] | undefined): GridRowsProp => {
@@ -25,40 +27,49 @@ const getRows = (ingredients: TIngredient[] | undefined): GridRowsProp => {
   return [];
 };
 
-export default function IngredientsGrid({ data, loading }: TIngredientsGrid) {
+export default function IngredientsGrid({
+  data,
+  loading,
+  editIngredient,
+  removeIngredient,
+}: TIngredientsGrid) {
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Nome', minWidth: 150 },
-    { field: 'quantity', headerName: 'Quantidade', minWidth: 110 },
+    { field: 'name', headerName: 'Nome', flex: 1, width: 150 },
+    { field: 'quantity', headerName: 'Quantidade', width: 110 },
     {
       field: 'carbohydrate',
       headerName: 'Carboidrato',
       valueFormatter: ({ value }) => `${value} grama(s)`,
-      minWidth: 110,
+      width: 110,
     },
     {
       field: 'protein',
       headerName: 'Proteína',
       valueFormatter: ({ value }) => `${value} grama(s)`,
-      minWidth: 110,
+      width: 110,
     },
     {
       field: 'totalFat',
       headerName: 'Total de gordura',
       valueFormatter: ({ value }) => `${value} grama(s)`,
-      minWidth: 110,
+      width: 110,
     },
-    { field: 'totalCalories', headerName: 'Total de calorías', minWidth: 110 },
+    {
+      field: 'totalCalories',
+      headerName: 'Total de calorías',
+      width: 110,
+    },
     {
       field: 'Ações',
       headerAlign: 'center',
       align: 'center',
       sortable: false,
       filterable: false,
-      minWidth: 110,
+      width: 110,
       renderCell: ({ row }) => (
         <DataGridActionButtons
-          deleteUrl={`/products/${row.id}`}
-          editRoute={`/pratos/form/${row.id}`}
+          onEdit={() => editIngredient(row.id)}
+          onDelete={() => removeIngredient(row.id)}
         />
       ),
     },

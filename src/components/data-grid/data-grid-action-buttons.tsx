@@ -13,17 +13,21 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 
 type DataGridActionButtons = {
-  editRoute: string;
-  deleteUrl: string;
+  editRoute?: string;
+  deleteUrl?: string;
+  onEdit?: () => void;
+  onDelete?: () => void;
 };
 
 export default function DataGridActionButtons({
-  editRoute,
-  deleteUrl,
+  editRoute = '',
+  deleteUrl = '',
+  onDelete,
+  onEdit,
 }: DataGridActionButtons) {
   const router = useRouter();
-  const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState<boolean>(false);
 
   const { mutate, isPending } = useMutation({
@@ -42,7 +46,15 @@ export default function DataGridActionButtons({
       <ConfirmModal
         open={open}
         setOpen={setOpen}
-        handleConfirm={() => mutate()}
+        handleConfirm={() => {
+          if (onDelete) {
+            onDelete();
+
+            setOpen(false);
+          } else if (deleteUrl) {
+            mutate();
+          }
+        }}
         text="Você tem certeza que deseja excluir esse item?"
         title="Confirmação"
         loading={isPending}
@@ -50,7 +62,11 @@ export default function DataGridActionButtons({
 
       <Box sx={{ display: 'flex' }}>
         <Tooltip title="Editar">
-          <IconButton onClick={() => router.push(editRoute)}>
+          <IconButton
+            onClick={() =>
+              onEdit ? onEdit() : editRoute && router.push(editRoute)
+            }
+          >
             <EditIcon />
           </IconButton>
         </Tooltip>

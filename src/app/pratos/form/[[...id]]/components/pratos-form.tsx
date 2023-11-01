@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import AddButton from '@/components/button/add-button';
@@ -27,6 +27,8 @@ export default function PratosForm({
 }: TForm<TProduct>) {
   const [openIngredientModal, setOpenIngredientModal] =
     useState<boolean>(false);
+  const ingredientIdRef = useRef<number | null>(null);
+
   const {
     control,
     handleSubmit,
@@ -41,6 +43,25 @@ export default function PratosForm({
 
   useEffect(() => reset(data), [data]);
 
+  const removeIngredient = (id: number) => {
+    const ingredients = getValues('ingredients');
+    const newIngredients = ingredients.toSpliced(id - 1, 1);
+
+    setValue('ingredients', newIngredients);
+  };
+
+  const editIngredient = (id: number) => {
+    ingredientIdRef.current = id - 1;
+
+    setOpenIngredientModal(true);
+  };
+
+  useEffect(() => {
+    if (!openIngredientModal) {
+      ingredientIdRef.current = null;
+    }
+  }, [openIngredientModal]);
+
   return (
     <>
       <IngredientModal
@@ -48,6 +69,7 @@ export default function PratosForm({
         getValues={getValues}
         open={openIngredientModal}
         setOpen={setOpenIngredientModal}
+        ingredientId={ingredientIdRef.current}
       />
 
       <PageContainer component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -189,8 +211,10 @@ export default function PratosForm({
           }}
         >
           <IngredientsGrid
-            data={getValues('ingredients')}
+            data={watch('ingredients')}
             loading={isFetching}
+            removeIngredient={removeIngredient}
+            editIngredient={editIngredient}
           />
         </Box>
 
