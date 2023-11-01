@@ -34,7 +34,7 @@ export default function IngredientsGrid({
   removeIngredient,
 }: TIngredientsGrid) {
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Nome', flex: 1, width: 150 },
+    { field: 'name', headerName: 'Nome', width: 150 },
     { field: 'quantity', headerName: 'Quantidade', width: 110 },
     {
       field: 'carbohydrate',
