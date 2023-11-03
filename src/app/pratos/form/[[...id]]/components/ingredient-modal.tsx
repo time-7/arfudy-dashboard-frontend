@@ -1,7 +1,11 @@
 'use client';
 
 import { Dispatch, SetStateAction } from 'react';
-import { UseFormSetValue, UseFormGetValues } from 'react-hook-form';
+import {
+  UseFormSetValue,
+  UseFormGetValues,
+  UseFormClearErrors,
+} from 'react-hook-form';
 
 import IngredientForm from './ingredient-form';
 
@@ -13,6 +17,7 @@ type TIngredientModal = {
   setOpen: Dispatch<SetStateAction<boolean>>;
   getValues: UseFormGetValues<TProduct>;
   setValue: UseFormSetValue<TProduct>;
+  clearErrors: UseFormClearErrors<TProduct>;
   ingredientId: number | null;
 };
 
@@ -22,6 +27,7 @@ export default function IngredientModal({
   getValues,
   setValue,
   ingredientId,
+  clearErrors,
 }: TIngredientModal) {
   const isIngredientIdNumber = typeof ingredientId === 'number';
 
@@ -37,6 +43,9 @@ export default function IngredientModal({
     }
 
     setValue('ingredients', newIngredients);
+    setValue('nutritionFacts', {});
+    
+    clearErrors(['nutritionFacts']);
 
     setOpen(false);
   };

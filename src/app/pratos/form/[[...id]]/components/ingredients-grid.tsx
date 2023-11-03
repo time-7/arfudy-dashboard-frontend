@@ -39,24 +39,25 @@ export default function IngredientsGrid({
     {
       field: 'carbohydrate',
       headerName: 'Carboidrato',
-      valueFormatter: ({ value }) => `${value} grama(s)`,
+      valueFormatter: ({ value }) => (value ? `${value} grama(s)` : ''),
       width: 110,
     },
     {
       field: 'protein',
       headerName: 'Proteína',
-      valueFormatter: ({ value }) => `${value} grama(s)`,
+      valueFormatter: ({ value }) => (value ? `${value} grama(s)` : ''),
       width: 110,
     },
     {
       field: 'totalFat',
       headerName: 'Total de gordura',
-      valueFormatter: ({ value }) => `${value} grama(s)`,
+      valueFormatter: ({ value }) => (value ? `${value} grama(s)` : ''),
       width: 110,
     },
     {
       field: 'totalCalories',
       headerName: 'Total de calorías',
+      valueFormatter: ({ value }) => (value ? `${value} kcal` : ''),
       width: 110,
     },
     {

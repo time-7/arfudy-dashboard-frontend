@@ -36,6 +36,7 @@ export default function PratosForm({
     getValues,
     setValue,
     reset,
+    clearErrors,
     formState: { errors },
   } = useForm<TProduct>({
     resolver: zodResolver(pratosFormSchema),
@@ -67,6 +68,7 @@ export default function PratosForm({
       <IngredientModal
         setValue={setValue}
         getValues={getValues}
+        clearErrors={clearErrors}
         open={openIngredientModal}
         setOpen={setOpenIngredientModal}
         ingredientId={ingredientIdRef.current}
@@ -85,7 +87,7 @@ export default function PratosForm({
             control={control}
             error={errors.name}
             showSkeleton={isFetching}
-            isSubmitting={isPending}
+            disabled={isPending}
           />
 
           <TextFormField<TProduct>
@@ -95,7 +97,7 @@ export default function PratosForm({
             control={control}
             error={errors.description}
             showSkeleton={isFetching}
-            isSubmitting={isPending}
+            disabled={isPending}
           />
         </Box>
 
@@ -110,7 +112,7 @@ export default function PratosForm({
             control={control}
             error={errors.price}
             showSkeleton={isFetching}
-            isSubmitting={isPending}
+            disabled={isPending}
           />
 
           <TextFormField<TProduct>
@@ -120,7 +122,7 @@ export default function PratosForm({
             control={control}
             error={errors.imageUrl}
             showSkeleton={isFetching}
-            isSubmitting={isPending}
+            disabled={isPending}
           />
 
           <CheckboxFormField<TProduct>
@@ -128,7 +130,7 @@ export default function PratosForm({
             label="Possui modelo 3D"
             name="has3dModel"
             showSkeleton={isFetching}
-            isSubmitting={isPending}
+            disabled={isPending}
           />
 
           <TextFormField<TProduct>
@@ -136,10 +138,9 @@ export default function PratosForm({
             name="unityModelId"
             label="ID modelo Unity"
             control={control}
-            disabled={!watch('has3dModel')}
+            disabled={!watch('has3dModel') || isPending}
             error={errors.unityModelId}
             showSkeleton={isFetching}
-            isSubmitting={isPending}
           />
         </Box>
 
@@ -154,7 +155,7 @@ export default function PratosForm({
             control={control}
             error={errors.nutritionFacts?.carbohydrate}
             showSkeleton={isFetching}
-            isSubmitting={isPending}
+            disabled={isPending || Boolean(watch('ingredients')?.length)}
           />
 
           <NumberFormField<TProduct>
@@ -165,7 +166,7 @@ export default function PratosForm({
             control={control}
             error={errors.nutritionFacts?.protein}
             showSkeleton={isFetching}
-            isSubmitting={isPending}
+            disabled={isPending || Boolean(watch('ingredients')?.length)}
           />
         </Box>
 
@@ -178,7 +179,7 @@ export default function PratosForm({
             control={control}
             error={errors.nutritionFacts?.totalFat}
             showSkeleton={isFetching}
-            isSubmitting={isPending}
+            disabled={isPending || Boolean(watch('ingredients')?.length)}
           />
 
           <NumberFormField<TProduct>
@@ -189,7 +190,7 @@ export default function PratosForm({
             control={control}
             error={errors.nutritionFacts?.totalCalories}
             showSkeleton={isFetching}
-            isSubmitting={isPending}
+            disabled={isPending || Boolean(watch('ingredients')?.length)}
           />
         </Box>
 

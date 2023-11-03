@@ -1,14 +1,15 @@
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
-import { Checkbox, FormControlLabel } from '@mui/material';
 import SkeletonFormField from '../skeletons/skeleton-form-field';
+
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 type TInputField<TFieldValues extends FieldValues> = {
   label: string;
   name: Path<TFieldValues>;
   control: Control<TFieldValues, unknown>;
   showSkeleton?: boolean;
-  isSubmitting: boolean;
+  disabled?: boolean;
 };
 
 export default function CheckboxFormField<TFieldValues extends FieldValues>({
@@ -16,7 +17,7 @@ export default function CheckboxFormField<TFieldValues extends FieldValues>({
   name,
   label,
   showSkeleton,
-  isSubmitting,
+  disabled,
 }: TInputField<TFieldValues>) {
   if (showSkeleton) {
     return <SkeletonFormField />;
@@ -29,7 +30,7 @@ export default function CheckboxFormField<TFieldValues extends FieldValues>({
       render={({ field: { onChange, value } }) => (
         <FormControlLabel
           label={label}
-          disabled={isSubmitting}
+          disabled={disabled}
           control={<Checkbox value={value} onChange={onChange} />}
         />
       )}

@@ -18,7 +18,7 @@ type TInputField<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues, unknown>;
   sx?: SxProps;
   showSkeleton?: boolean;
-  isSubmitting?: boolean;
+  disabled?: boolean;
   suffix?: string;
   prefix?: string;
   decimalScale?: number;
@@ -33,7 +33,7 @@ export default function NumberFormField<TFieldValues extends FieldValues>({
   error,
   showSkeleton,
   suffix,
-  isSubmitting = false,
+  disabled,
   decimalScale,
   fixedDecimalScale,
   prefix,
@@ -49,7 +49,7 @@ export default function NumberFormField<TFieldValues extends FieldValues>({
       render={({ field: { onChange, value } }) => (
         <NumericFormat
           size="small"
-          disabled={isSubmitting}
+          disabled={disabled}
           suffix={suffix}
           prefix={prefix}
           value={value}

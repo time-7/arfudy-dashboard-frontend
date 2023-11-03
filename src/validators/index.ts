@@ -1,12 +1,12 @@
 import { messages } from '@/utils/messages';
 import { z } from 'zod';
 
-const { noempty, required, url } = messages;
+const { required, url } = messages;
 
 const nutritionFactsZod = z.object({
-  carbohydrate: z.number({ required_error: required }),
-  protein: z.number({ required_error: required }),
-  totalFat: z.number({ required_error: required }),
+  carbohydrate: z.number().optional(),
+  protein: z.number().optional(),
+  totalFat: z.number().optional(),
   totalCalories: z.number().optional(),
 });
 
@@ -16,20 +16,63 @@ export const ingredientZod = z.object({
     required_error: required,
     invalid_type_error: required,
   }),
-  nutritionFacts: nutritionFactsZod,
+  nutritionFacts: nutritionFactsZod
+    .refine((data) => data.carbohydrate || data.totalCalories, {
+      message: required,
+      path: ['carbohydrate'],
+    })
+    .refine((data) => data.protein || data.totalCalories, {
+      message: required,
+      path: ['protein'],
+    })
+    .refine((data) => data.totalFat || data.totalCalories, {
+      message: required,
+      path: ['totalFat'],
+    }),
 });
 
-export const pratosFormSchema = z.object({
-  id: z.string().optional(),
-  name: z.string({ required_error: required }).nonempty(noempty),
-  description: z.string({ required_error: required }).nonempty(noempty),
-  price: z.number({ required_error: required, invalid_type_error: required }),
-  imageUrl: z.string({ required_error: required }).url(url).nonempty(noempty),
-  unityModelId: z.string().nullish(),
-  has3dModel: z.boolean().default(false),
-  nutritionFacts: nutritionFactsZod,
-  ingredients: z.array(ingredientZod).optional().default([]),
-});
+export const pratosFormSchema = z
+  .object({
+    id: z.string().optional(),
+    name: z.string({ required_error: required }),
+    description: z.string({ required_error: required }),
+    price: z.number({ required_error: required, invalid_type_error: required }),
+    imageUrl: z.string({ required_error: required }).url({ message: url }),
+    unityModelId: z.string().nullish(),
+    has3dModel: z.boolean().default(false),
+    nutritionFacts: nutritionFactsZod,
+    ingredients: z.array(ingredientZod).optional().default([]),
+  })
+  .refine(
+    (data) =>
+      data.ingredients?.length ||
+      data.nutritionFacts?.carbohydrate ||
+      data.nutritionFacts?.totalCalories,
+    {
+      message: required,
+      path: ['nutritionFacts.carbohydrate'],
+    },
+  )
+  .refine(
+    (data) =>
+      data.ingredients?.length ||
+      data.nutritionFacts?.protein ||
+      data.nutritionFacts?.totalCalories,
+    {
+      message: required,
+      path: ['nutritionFacts.protein'],
+    },
+  )
+  .refine(
+    (data) =>
+      data.ingredients?.length ||
+      data.nutritionFacts?.totalFat ||
+      data.nutritionFacts?.totalCalories,
+    {
+      message: required,
+      path: ['nutritionFacts.totalFat'],
+    },
+  );
 
 export const mesasFormSchema = z.object({
   id: z.string().optional(),
