@@ -43,8 +43,13 @@ export default function IngredientModal({
     }
 
     setValue('ingredients', newIngredients);
-    setValue('nutritionFacts', {});
-    
+    setValue('nutritionFacts', {
+      carbohydrate: null,
+      protein: null,
+      totalCalories: null,
+      totalFat: null,
+    });
+
     clearErrors(['nutritionFacts']);
 
     setOpen(false);

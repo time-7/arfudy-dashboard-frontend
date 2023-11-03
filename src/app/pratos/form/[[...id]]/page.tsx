@@ -22,6 +22,13 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
 
+  const formatData = (data: TProduct): TProduct => {
+    if (data.ingredients?.length) {
+      data.nutritionFacts = undefined;
+    }
+    return data;
+  };
+
   const { data, isFetching } = useQuery<TGet<TProduct>>({
     queryKey: ['getProductList'],
     queryFn: () => Api.get(`/products/${id[0]}`).then((res) => res.data),
@@ -33,10 +40,13 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
     AxiosError<TRequestError>,
     TProduct
   >({
-    mutationFn: (data) =>
-      hasId
-        ? Api.patch(`/products/${id.at(0)}`, data)
-        : Api.post('/products', data),
+    mutationFn: (data) => {
+      const formattedData = formatData(data);
+
+      return hasId
+        ? Api.patch(`/products/${id.at(0)}`, formattedData)
+        : Api.post('/products', formattedData);
+    },
     onSuccess: ({ data: { data } }) => {
       if (!hasId) {
         const { id } = data;

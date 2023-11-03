@@ -4,10 +4,10 @@ import { z } from 'zod';
 const { required, url } = messages;
 
 const nutritionFactsZod = z.object({
-  carbohydrate: z.number().optional(),
-  protein: z.number().optional(),
-  totalFat: z.number().optional(),
-  totalCalories: z.number().optional(),
+  carbohydrate: z.number().nullish(),
+  protein: z.number().nullish(),
+  totalFat: z.number().nullish(),
+  totalCalories: z.number().nullish(),
 });
 
 export const ingredientZod = z.object({
@@ -40,7 +40,7 @@ export const pratosFormSchema = z
     imageUrl: z.string({ required_error: required }).url({ message: url }),
     unityModelId: z.string().nullish(),
     has3dModel: z.boolean().default(false),
-    nutritionFacts: nutritionFactsZod,
+    nutritionFacts: nutritionFactsZod.optional(),
     ingredients: z.array(ingredientZod).optional().default([]),
   })
   .refine(

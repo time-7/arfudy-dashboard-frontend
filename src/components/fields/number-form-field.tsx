@@ -46,25 +46,31 @@ export default function NumberFormField<TFieldValues extends FieldValues>({
     <Controller
       name={name}
       control={control}
-      render={({ field: { onChange, value } }) => (
-        <NumericFormat
-          size="small"
-          disabled={disabled}
-          suffix={suffix}
-          prefix={prefix}
-          value={value}
-          label={label}
-          decimalScale={decimalScale}
-          fixedDecimalScale={fixedDecimalScale}
-          decimalSeparator=","
-          variant="filled"
-          sx={sx}
-          error={!!error}
-          helperText={error ? error?.message : ''}
-          onValueChange={(values) => onChange(values.floatValue)}
-          customInput={TextField}
-        />
-      )}
+      render={({ field: { onChange, value } }) => {
+        if (name === 'nutritionFacts.totalFat') {
+          console.log(value);
+        }
+
+        return (
+          <NumericFormat
+            size="small"
+            disabled={disabled}
+            suffix={suffix}
+            prefix={prefix}
+            value={value || ''}
+            label={label}
+            decimalScale={decimalScale}
+            fixedDecimalScale={fixedDecimalScale}
+            decimalSeparator=","
+            variant="filled"
+            sx={sx}
+            error={!!error}
+            helperText={error ? error?.message : ''}
+            onValueChange={(values) => onChange(values.floatValue)}
+            customInput={TextField}
+          />
+        );
+      }}
     />
   );
 }
