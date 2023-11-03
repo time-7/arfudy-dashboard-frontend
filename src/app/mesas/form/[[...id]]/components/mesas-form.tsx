@@ -45,7 +45,7 @@ export default function MesasForm({
           control={control}
           error={errors.tableNum}
           showSkeleton={isFetching}
-          isSubmitting={isPending}
+          disabled={isPending}
         />
 
         <NumberFormField<TTable>
@@ -55,7 +55,7 @@ export default function MesasForm({
           control={control}
           error={errors.seatNum}
           showSkeleton={isFetching}
-          isSubmitting={isPending}
+          disabled={isPending}
         />
       </Box>
 
@@ -68,7 +68,6 @@ export default function MesasForm({
           disabled
           error={errors.activeToken}
           showSkeleton={isFetching}
-          isSubmitting={isPending}
         />
       </Box>
 
