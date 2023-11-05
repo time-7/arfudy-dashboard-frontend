@@ -29,7 +29,7 @@ export default function MesasFormPage({ params: { id } }: TPratosForm) {
   });
 
   const { mutate, isPending } = useMutation<
-    TPost<TPostReturn>,
+    TPost<TPostReturn<Pick<TTable, 'id'>>>,
     AxiosError<TRequestError>,
     TTable
   >({
