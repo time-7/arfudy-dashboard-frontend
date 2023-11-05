@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import ConfirmModal from '../modal/confirm-modal';
 
-import { Api } from '@/utils/axios';
+import { Api } from '@/lib/axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, IconButton, Tooltip } from '@mui/material';

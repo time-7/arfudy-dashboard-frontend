@@ -104,7 +104,7 @@ export default function PratosForm({
 
         <Box sx={{ display: 'flex', gap: 4 }}>
           <NumberFormField<TProduct>
-            sx={{ flex: 1 }}
+            sx={{ flex: 0.8 }}
             name="price"
             label="Preço"
             prefix="R$ "
@@ -128,7 +128,7 @@ export default function PratosForm({
 
           <UploadImageButton
             disabled={isFetching || isPending}
-            sx={{ flex: 0.5 }}
+            sx={{ flex: 0.7 }}
             setImage={(url) => setValue('imageUrl', url)}
           />
 
