@@ -5,8 +5,8 @@ import Image from 'next/image';
 import DataGrid from '@/components/data-grid/data-grid';
 import DataGridActionButtons from '@/components/data-grid/data-grid-action-buttons';
 
+import { Api } from '@/lib/axios';
 import { TGet, TProduct } from '@/types';
-import { Api } from '@/utils/axios';
 import { money } from '@/utils/format';
 import { Box } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';

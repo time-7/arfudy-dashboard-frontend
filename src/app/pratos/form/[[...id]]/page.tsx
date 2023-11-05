@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import PratosForm from './components/pratos-form';
 
+import { Api } from '@/lib/axios';
 import {
   TGet,
   TPostReturn,
@@ -12,7 +13,6 @@ import {
   TProduct,
   TRequestError,
 } from '@/types';
-import { Api } from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbar } from 'notistack';

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import MesasForm from './components/mesas-form';
 
+import { Api } from '@/lib/axios';
 import {
   TPratosForm,
   TGet,
@@ -12,7 +13,6 @@ import {
   TPostReturn,
   TRequestError,
 } from '@/types';
-import { Api } from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';

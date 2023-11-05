@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import AddButton from '@/components/button/add-button';
+import UploadImageButton from '@/components/button/upload-image-button';
 import PageContainer from '@/components/containers/page-container';
 import CheckboxFormField from '@/components/fields/checkbox-form-field';
 import NumberFormField from '@/components/fields/number-form-field';
@@ -17,7 +18,6 @@ import { pratosFormSchema } from '@/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import { Box, Typography } from '@mui/material';
-import UploadImageButton from '@/components/button/upload-image-button';
 
 export default function PratosForm({
   id,

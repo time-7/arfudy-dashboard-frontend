@@ -3,8 +3,8 @@
 import DataGrid from '@/components/data-grid/data-grid';
 import DataGridActionButtons from '@/components/data-grid/data-grid-action-buttons';
 
+import { Api } from '@/lib/axios';
 import { TGet, TTable } from '@/types';
-import { Api } from '@/utils/axios';
 import { GridColDef } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
 
