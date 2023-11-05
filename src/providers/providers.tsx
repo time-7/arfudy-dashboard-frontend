@@ -2,6 +2,7 @@
 
 import { Montserrat, Noto_Serif_HK } from 'next/font/google';
 
+import { EdgeStoreProvider } from '@/lib/edgestore';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { ptBR } from '@mui/material/locale';
 import { ptBR as ptBRGrid } from '@mui/x-data-grid';
@@ -154,7 +155,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <SnackbarProvider className={montserrat.className}>
-          {children}
+          <EdgeStoreProvider>{children}</EdgeStoreProvider>
         </SnackbarProvider>
       </QueryClientProvider>
     </ThemeProvider>

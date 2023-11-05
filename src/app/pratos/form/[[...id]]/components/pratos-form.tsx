@@ -17,6 +17,7 @@ import { pratosFormSchema } from '@/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import { Box, Typography } from '@mui/material';
+import UploadImageButton from '@/components/button/upload-image-button';
 
 export default function PratosForm({
   id,
@@ -123,6 +124,12 @@ export default function PratosForm({
             error={errors.imageUrl}
             showSkeleton={isFetching}
             disabled={isPending}
+          />
+
+          <UploadImageButton
+            disabled={isFetching || isPending}
+            sx={{ flex: 0.5 }}
+            setImage={(url) => setValue('imageUrl', url)}
           />
 
           <CheckboxFormField<TProduct>
