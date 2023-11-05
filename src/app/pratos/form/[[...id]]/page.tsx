@@ -1,12 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import PratosForm from './components/pratos-form';
 
 import {
   TGet,
-  TPost,
   TPostReturn,
   TPratosForm,
   TProduct,
@@ -14,18 +14,20 @@ import {
 } from '@/types';
 import { Api } from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbar } from 'notistack';
 
 export default function PratosFormPage({ params: { id } }: TPratosForm) {
   const hasId = Boolean(id && id[0]);
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
+  const [formData, setFormData] = useState<TProduct | null>(null);
 
   const formatData = (data: TProduct): TProduct => {
     if (data.ingredients?.length) {
       data.nutritionFacts = undefined;
     }
+
     return data;
   };
 
@@ -36,7 +38,7 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
   });
 
   const { mutate, isPending } = useMutation<
-    TPost<TPostReturn>,
+    AxiosResponse<TPostReturn<TProduct>>,
     AxiosError<TRequestError>,
     TProduct
   >({
@@ -47,14 +49,18 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
         ? Api.patch(`/products/${id.at(0)}`, formattedData)
         : Api.post('/products', formattedData);
     },
-    onSuccess: ({ data: { data } }) => {
+    onSuccess: ({ data: responseData }) => {
+      const { data, message } = responseData;
+
       if (!hasId) {
         const { id } = data;
 
         router.push(`/pratos/form/${id}`);
+      } else {
+        setFormData(data);
       }
 
-      enqueueSnackbar('Prato salvo com sucesso!', { variant: 'success' });
+      enqueueSnackbar(message, { variant: 'success' });
     },
     onError: (error) => {
       enqueueSnackbar(
@@ -69,7 +75,7 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
   return (
     <PratosForm
       id={id && id[0]}
-      data={data?.data}
+      data={formData || data?.data}
       isFetching={isFetching}
       isPending={isPending}
       onSubmit={(data) => mutate(data)}

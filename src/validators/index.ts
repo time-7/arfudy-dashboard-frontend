@@ -17,15 +17,15 @@ export const ingredientZod = z.object({
     invalid_type_error: required,
   }),
   nutritionFacts: nutritionFactsZod
-    .refine((data) => data.carbohydrate || data.totalCalories, {
+    .refine((data) => data.carbohydrate, {
       message: required,
       path: ['carbohydrate'],
     })
-    .refine((data) => data.protein || data.totalCalories, {
+    .refine((data) => data.protein, {
       message: required,
       path: ['protein'],
     })
-    .refine((data) => data.totalFat || data.totalCalories, {
+    .refine((data) => data.totalFat, {
       message: required,
       path: ['totalFat'],
     }),
@@ -44,35 +44,20 @@ export const pratosFormSchema = z
     ingredients: z.array(ingredientZod).optional().default([]),
   })
   .refine(
-    (data) =>
-      data.ingredients?.length ||
-      data.nutritionFacts?.carbohydrate ||
-      data.nutritionFacts?.totalCalories,
+    (data) => data.ingredients?.length || data.nutritionFacts?.carbohydrate,
     {
       message: required,
       path: ['nutritionFacts.carbohydrate'],
     },
   )
-  .refine(
-    (data) =>
-      data.ingredients?.length ||
-      data.nutritionFacts?.protein ||
-      data.nutritionFacts?.totalCalories,
-    {
-      message: required,
-      path: ['nutritionFacts.protein'],
-    },
-  )
-  .refine(
-    (data) =>
-      data.ingredients?.length ||
-      data.nutritionFacts?.totalFat ||
-      data.nutritionFacts?.totalCalories,
-    {
-      message: required,
-      path: ['nutritionFacts.totalFat'],
-    },
-  );
+  .refine((data) => data.ingredients?.length || data.nutritionFacts?.protein, {
+    message: required,
+    path: ['nutritionFacts.protein'],
+  })
+  .refine((data) => data.ingredients?.length || data.nutritionFacts?.totalFat, {
+    message: required,
+    path: ['nutritionFacts.totalFat'],
+  });
 
 export const mesasFormSchema = z.object({
   id: z.string().optional(),

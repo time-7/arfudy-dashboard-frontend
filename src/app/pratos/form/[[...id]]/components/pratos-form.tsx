@@ -190,7 +190,7 @@ export default function PratosForm({
             control={control}
             error={errors.nutritionFacts?.totalCalories}
             showSkeleton={isFetching}
-            disabled={isPending || Boolean(watch('ingredients')?.length)}
+            disabled
           />
         </Box>
 

@@ -37,11 +37,9 @@ export type TForm<TData> = {
   onSubmit: (data: TData) => void;
 };
 
-export type TPostReturn = {
+export type TPostReturn<TData> = {
   message: string;
-  data: {
-    id: string;
-  };
+  data: TData;
 };
 
 export type TPatchReturn = {

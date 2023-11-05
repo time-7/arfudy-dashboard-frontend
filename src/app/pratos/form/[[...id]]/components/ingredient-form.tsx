@@ -108,6 +108,7 @@ export default function IngredientForm({
           suffix=" kcal"
           control={control}
           error={errors.nutritionFacts?.totalCalories}
+          disabled
         />
       </Box>
 
