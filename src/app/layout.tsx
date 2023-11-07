@@ -28,16 +28,18 @@ export default function RootLayout({
             backgroundColor: 'secondary.dark',
           }}
         >
+          <Navbar />
+
           <Box
             component="main"
             sx={{
               flex: 1,
+              marginTop: '76px',
               display: 'flex',
               flexDirection: 'column',
               maxHeight: '100%',
             }}
           >
-            {/* <Navbar /> */}
             {children}
           </Box>
         </Box>
