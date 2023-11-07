@@ -1,6 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 
+import Navbar from '@/components/navbar';
+
 import { Providers } from '@/providers/providers';
 import { Box } from '@mui/material';
 
@@ -35,6 +37,7 @@ export default function RootLayout({
               maxHeight: '100%',
             }}
           >
+            {/* <Navbar /> */}
             {children}
           </Box>
         </Box>

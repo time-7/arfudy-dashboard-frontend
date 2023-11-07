@@ -1,10 +1,10 @@
-import { Paper } from '@mui/material';
+import { Box } from '@mui/material';
+import Image from 'next/image';
 
 export default function Navbar() {
   return (
-    <Paper
-      elevation={4}
-      sx={{ backgroundColor: '#0c55a8', width: '9rem', borderRadius: 3 }}
-    ></Paper>
+    <Box sx={{ height: '72px' }}>
+      <Image src="/arfudy.png" alt="Logo" height={32} />
+    </Box>
   );
 }
