@@ -54,6 +54,6 @@ export type TOrder = {
     id: string;
     name: string;
     quantity: number;
-    status: string;
+    status: 'PENDING' | 'IN_PREPARE' | 'DONE';
   };
 };
