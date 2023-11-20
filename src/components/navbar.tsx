@@ -19,6 +19,7 @@ export default function Navbar() {
         position: 'fixed',
         top: 0,
         zIndex: 101,
+        marginBottom: '-76px',
       }}
     >
       <Link href="/">

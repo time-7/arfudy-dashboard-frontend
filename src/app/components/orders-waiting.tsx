@@ -12,8 +12,6 @@ export default function OrdersWaiting() {
         gap: 3,
         height: 280,
         marginY: 2,
-        scrollbarWidth: 'thin',
-        scrollbarColor: 'red',
       }}
     >
       <OrderCard />

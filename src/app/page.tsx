@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 
 export default function Home() {
   return (
-    <Box sx={{ display: 'flex', height: '100%' }}>
+    <Box sx={{ display: 'flex', maxHeight: '100%' }}>
       <Orders />
       <Tables />
     </Box>

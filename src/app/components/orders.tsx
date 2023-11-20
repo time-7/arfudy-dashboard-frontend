@@ -9,7 +9,7 @@ export default function Orders() {
         width: '75vw',
         display: 'flex',
         flexDirection: 'column',
-        paddingX: 2,
+        paddingLeft: 2,
         maxHeight: '100%',
       }}
     >

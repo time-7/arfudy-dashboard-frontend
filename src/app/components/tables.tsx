@@ -27,6 +27,10 @@ export default function Tables() {
         alignItems: 'center',
         width: 336,
         zIndex: 100,
+        position: 'fixed',
+        bottom: 0,
+        top: 76,
+        right: 0,
       }}
     >
       <Typography variant="h5" sx={{ textAlign: 'center' }}>
