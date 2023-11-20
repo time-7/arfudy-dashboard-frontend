@@ -45,3 +45,15 @@ export type TPostReturn<TData> = {
 export type TPatchReturn = {
   message: string;
 };
+
+export type TOrder = {
+  id: string;
+  serviceId: string;
+  clientName: string;
+  product: {
+    id: string;
+    name: string;
+    quantity: number;
+    status: string;
+  };
+};

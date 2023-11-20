@@ -1,9 +1,25 @@
-import { Box, Paper, Typography } from '@mui/material';
+'use client';
+
 import Image from 'next/image';
 
-export default function OrderCard() {
+import { TOrder } from '@/types';
+import { Box, Paper, Typography } from '@mui/material';
+import { useDrag } from 'react-dnd';
+
+type TOrderCard = {
+  order: TOrder;
+};
+
+export default function OrderCard({ order }: TOrderCard) {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    item: order,
+    type: 'TOrder',
+    collect: (monitor) => ({ isDragging: Boolean(monitor.isDragging) }),
+  }));
+
   return (
     <Paper
+      ref={drag}
       elevation={2}
       sx={{
         backgroundColor: 'secondary.main',
