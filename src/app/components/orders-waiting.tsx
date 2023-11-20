@@ -53,6 +53,8 @@ export default function OrdersWaiting() {
     collect: (monitor) => ({ isOver: Boolean(monitor.isOver) }),
   }));
 
+  console.log(options);
+
   return (
     <Box
       ref={drop}

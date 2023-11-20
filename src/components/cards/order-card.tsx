@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { useDrag } from 'react-dnd';
 
 import { TOrder } from '@/types';
 import { Box, Paper, Typography } from '@mui/material';
-import { useDrag } from 'react-dnd';
 
 type TOrderCard = {
   order: TOrder;
@@ -16,6 +16,7 @@ export default function OrderCard({ order }: TOrderCard) {
     type: 'TOrder',
     collect: (monitor) => ({ isDragging: Boolean(monitor.isDragging) }),
   }));
+  console.log(isDragging);
 
   return (
     <Paper
