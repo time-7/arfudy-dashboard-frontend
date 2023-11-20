@@ -1,15 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import OrdersList from './orders-list';
 
-import { TOrder } from '@/types';
+import { Api } from '@/lib/axios';
+import { TGet, TOrder } from '@/types';
 import { Box, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 
 const orderLista: TOrder[] = [
   {
-    id: '1',
+    id: '655a95d7feda2b022da41499',
     serviceId: '655a9559feda2b022da41498',
     product: {
       id: '1',
@@ -48,6 +50,15 @@ export default function Orders() {
     useState<TOrder[]>(orderLista);
   const [orderInPrepareList, setOrderInPrepareList] = useState<TOrder[]>([]);
   const [orderDoneList, setOrderDoneList] = useState<TOrder[]>([]);
+
+  const { data } = useQuery<TGet<TOrder[]>>({
+    queryKey: ['getTableList'],
+    queryFn: () => Api.get('/orders').then((res) => res.data),
+  });
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   const removeOrder = (order: TOrder) => {
     const { status } = order.product;
