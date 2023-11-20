@@ -14,29 +14,39 @@ export default function OrderCard() {
         border: '2px solid #000',
       }}
     >
-      <Image
-        src="https://files.edgestore.dev/k1h85kjlhc106fdq/publicFiles/_public/4c5a4b46-affc-4b28-b5b3-13a3dcc35361.png"
-        alt="kk"
-        unoptimized
-        width={290}
-        height={150}
-      />
+      <Box
+        sx={{
+          width: 286,
+          height: 150,
+          position: 'relative',
+        }}
+      >
+        <Image
+          src="https://files.edgestore.dev/k1h85kjlhc106fdq/publicFiles/_public/4c5a4b46-affc-4b28-b5b3-13a3dcc35361.png"
+          alt="kk"
+          unoptimized
+          fill
+          style={{
+            borderTopLeftRadius: '30px',
+            borderTopRightRadius: '30px',
+          }}
+        />
+      </Box>
       <Box
         sx={{
           borderTop: '2px solid #000',
           display: 'flex',
           height: '100px',
           flexDirection: 'column',
+          paddingLeft: 1.5,
+          paddingRight: 1.5,
           justifyContent: 'center',
         }}
       >
-        <Typography
-          variant="h6"
-          sx={{ color: '#fff', fontSize: '26px', fontWeight: 600 }}
-        >
+        <Typography sx={{ color: '#fff', fontSize: '20px', fontWeight: 600 }}>
           Pizza de Calabresa
         </Typography>
-        <Typography sx={{ fontSize: '20px', color: '#fff' }}>
+        <Typography sx={{ fontSize: '16px', color: '#fff' }}>
           Mesa 01
         </Typography>
       </Box>

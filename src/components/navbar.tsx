@@ -7,9 +7,9 @@ export default function Navbar() {
     <Box
       sx={{
         paddingX: '120px',
-        paddingY: '18px',
+        paddingY: '8px',
         width: '100%',
-        height: 76,
+        height: 66,
         backgroundColor: 'secondary.light',
         borderRadius: '0px 0px 36px 36px',
         border: '2px solid #000',
@@ -18,7 +18,7 @@ export default function Navbar() {
         alignItems: 'center',
         position: 'fixed',
         top: 0,
-        zIndex: 3,
+        zIndex: 101,
       }}
     >
       <Link href="/">
@@ -33,15 +33,15 @@ export default function Navbar() {
         }}
       >
         <Link href="/">
-          <Typography>Dashboard</Typography>
+          <Typography sx={{ fontWeight: 500 }}>Dashboard</Typography>
         </Link>
 
         <Link href="/mesas">
-          <Typography>Mesas</Typography>
+          <Typography sx={{ fontWeight: 500 }}>Mesas</Typography>
         </Link>
 
         <Link href="/pratos">
-          <Typography>Pratos</Typography>
+          <Typography sx={{ fontWeight: 500 }}>Pratos</Typography>
         </Link>
       </Box>
     </Box>
