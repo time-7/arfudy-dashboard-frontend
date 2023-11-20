@@ -5,60 +5,39 @@ import { useEffect, useState } from 'react';
 import OrdersList from './orders-list';
 
 import { Api } from '@/lib/axios';
+import { socket } from '@/lib/socket';
 import { TGet, TOrder } from '@/types';
 import { Box, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-
-const orderLista: TOrder[] = [
-  {
-    id: '655a95d7feda2b022da41499',
-    serviceId: '655a9559feda2b022da41498',
-    product: {
-      id: '1',
-      name: 'Macarrao',
-      quantity: 1,
-      status: 'PENDING',
-    },
-    clientName: 'Steven Reis',
-  },
-  {
-    id: '2',
-    serviceId: '655a9559feda2b022da41498',
-    product: {
-      id: '2',
-      name: 'Macarrao',
-      quantity: 1,
-      status: 'PENDING',
-    },
-    clientName: 'Steven Reis',
-  },
-  {
-    id: '3',
-    serviceId: '655a9559feda2b022da41498',
-    product: {
-      id: '3',
-      name: 'Macarrao',
-      quantity: 1,
-      status: 'PENDING',
-    },
-    clientName: 'Steven Reis',
-  },
-];
+import { useSnackbar } from 'notistack';
 
 export default function Orders() {
-  const [orderPendingList, setOrderPendingList] =
-    useState<TOrder[]>(orderLista);
+  const [orderPendingList, setOrderPendingList] = useState<TOrder[]>([]);
   const [orderInPrepareList, setOrderInPrepareList] = useState<TOrder[]>([]);
   const [orderDoneList, setOrderDoneList] = useState<TOrder[]>([]);
+  const { enqueueSnackbar } = useSnackbar();
 
-  const { data } = useQuery<TGet<TOrder[]>>({
-    queryKey: ['getTableList'],
-    queryFn: () => Api.get('/orders').then((res) => res.data),
-  });
+  const addOrder = (orderList: TOrder[][]) => {
+    orderList.forEach((order) => {
+      order.forEach((item) => {
+        const { status } = item.product;
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+        if (status === 'PENDING') {
+          setOrderPendingList((oldOrderPendingList) => [
+            ...oldOrderPendingList,
+            item,
+          ]);
+        } else if (status === 'IN_PREPARE') {
+          setOrderInPrepareList((oldOrderInPendingList) => [
+            ...oldOrderInPendingList,
+            item,
+          ]);
+        } else if (status === 'DONE') {
+          setOrderDoneList((oldOrderDoneList) => [...oldOrderDoneList, item]);
+        }
+      });
+    });
+  };
 
   const removeOrder = (order: TOrder) => {
     const { status } = order.product;
@@ -86,6 +65,30 @@ export default function Orders() {
       );
     }
   };
+
+  useEffect(() => {
+    const onOrder = (value: TGet<TOrder[][]>) => {
+      addOrder(value.data);
+      enqueueSnackbar('Novos pedidos chegaram', { variant: 'success' });
+    };
+
+    socket.on('onOrder', onOrder);
+
+    return () => {
+      socket.off('onOrder', onOrder);
+    };
+  }, []);
+
+  const { data } = useQuery<TGet<TOrder[][]>>({
+    queryKey: ['getTableList'],
+    queryFn: () => Api.get('/orders').then((res) => res.data),
+  });
+
+  useEffect(() => {
+    if (data?.data) {
+      addOrder(data.data);
+    }
+  }, [data]);
 
   return (
     <Box
