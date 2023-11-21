@@ -41,7 +41,7 @@ export default function OrderModal({ order, open, setOpen }: TOrderModal) {
       maxWidth="md"
       PaperProps={{
         sx: {
-          borderRadius: 4,
+          borderRadius: 6,
           backgroundColor: 'secondary.main',
           border: '2px solid #000',
         },
