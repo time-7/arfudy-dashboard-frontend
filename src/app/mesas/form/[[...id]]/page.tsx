@@ -23,9 +23,10 @@ export default function MesasFormPage({ params: { id } }: TPratosForm) {
   const { enqueueSnackbar } = useSnackbar();
 
   const { data, isFetching } = useQuery<TGet<TTable>>({
-    queryKey: ['getTableList'],
+    queryKey: ['getTable'],
     queryFn: () => Api.get(`/tables/${id[0]}`).then((res) => res.data),
     enabled: hasId,
+    gcTime: 0,
   });
 
   const { mutate, isPending } = useMutation<

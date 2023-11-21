@@ -36,14 +36,14 @@ export default function ConfirmModal({
       PaperProps={{
         sx: {
           borderRadius: 4,
-          backgroundColor: 'primary.light',
+          backgroundColor: 'secondary.main',
           border: '2px solid #000',
         },
       }}
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle sx={{ color: 'white' }}>{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{text}</DialogContentText>
+        <DialogContentText sx={{ color: 'white' }}>{text}</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={onClose}>

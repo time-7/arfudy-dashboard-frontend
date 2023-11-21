@@ -34,31 +34,31 @@ export default function IngredientsGrid({
   removeIngredient,
 }: TIngredientsGrid) {
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Nome', width: 150 },
-    { field: 'quantity', headerName: 'Quantidade', width: 110 },
+    { field: 'name', headerName: 'Nome', width: 150, flex: 1 },
+    { field: 'quantity', headerName: 'Quantidade', width: 130 },
     {
       field: 'carbohydrate',
       headerName: 'Carboidrato',
       valueFormatter: ({ value }) => (value ? `${value} grama(s)` : ''),
-      width: 110,
+      width: 130,
     },
     {
       field: 'protein',
       headerName: 'Proteína',
       valueFormatter: ({ value }) => (value ? `${value} grama(s)` : ''),
-      width: 110,
+      width: 130,
     },
     {
       field: 'totalFat',
       headerName: 'Total de gordura',
       valueFormatter: ({ value }) => (value ? `${value} grama(s)` : ''),
-      width: 110,
+      width: 130,
     },
     {
       field: 'totalCalories',
       headerName: 'Total de calorías',
       valueFormatter: ({ value }) => (value ? `${value} kcal` : ''),
-      width: 110,
+      width: 130,
     },
     {
       field: 'Ações',
@@ -66,7 +66,7 @@ export default function IngredientsGrid({
       align: 'center',
       sortable: false,
       filterable: false,
-      width: 110,
+      width: 130,
       renderCell: ({ row }) => (
         <DataGridActionButtons
           onEdit={() => editIngredient(row.id)}

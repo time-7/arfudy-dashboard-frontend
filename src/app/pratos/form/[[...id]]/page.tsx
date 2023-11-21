@@ -32,9 +32,10 @@ export default function PratosFormPage({ params: { id } }: TPratosForm) {
   };
 
   const { data, isFetching } = useQuery<TGet<TProduct>>({
-    queryKey: ['getProductList'],
+    queryKey: ['getProduct'],
     queryFn: () => Api.get(`/products/${id[0]}`).then((res) => res.data),
     enabled: hasId,
+    gcTime: 0,
   });
 
   const { mutate, isPending } = useMutation<
