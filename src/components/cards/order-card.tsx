@@ -61,7 +61,7 @@ export default function OrderCard({ order }: TOrderCard) {
         }}
       >
         <Typography sx={{ color: '#fff', fontSize: '20px', fontWeight: 600 }}>
-          Pizza de Calabresa
+          {order.product.name}
         </Typography>
         <Typography sx={{ fontSize: '16px', color: '#fff' }}>
           Mesa 01

@@ -44,23 +44,24 @@ export default function Orders() {
 
     if (status === 'PENDING') {
       setOrderPendingList((oldOrderPendingList) =>
-        oldOrderPendingList.filter(
-          (item) =>
-            item.id !== order.id && item.product.id !== order.product.id,
-        ),
+        oldOrderPendingList.filter((item) => {
+          return (
+            `${item.id}${item.product.id}` !== `${order.id}${order.product.id}`
+          );
+        }),
       );
     } else if (status === 'IN_PREPARE') {
       setOrderInPrepareList((oldOrderInPendingList) =>
         oldOrderInPendingList.filter(
           (item) =>
-            item.id !== order.id && item.product.id !== order.product.id,
+            `${item.id}${item.product.id}` !== `${order.id}${order.product.id}`,
         ),
       );
     } else if (status === 'DONE') {
       setOrderDoneList((oldOrderDoneList) =>
         oldOrderDoneList.filter(
           (item) =>
-            item.id !== order.id && item.product.id !== order.product.id,
+            `${item.id}${item.product.id}` !== `${order.id}${order.product.id}`,
         ),
       );
     }
@@ -80,7 +81,7 @@ export default function Orders() {
   }, []);
 
   const { data } = useQuery<TGet<TOrder[][]>>({
-    queryKey: ['getTableList'],
+    queryKey: ['getOrderList'],
     queryFn: () => Api.get('/orders').then((res) => res.data),
   });
 
