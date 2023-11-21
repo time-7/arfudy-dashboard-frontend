@@ -46,6 +46,8 @@ export type TPatchReturn = {
   message: string;
 };
 
+export type TStatusOrder = 'PENDING' | 'IN_PREPARE' | 'DONE';
+
 export type TOrder = {
   orderProductId: string;
   id: string;
@@ -55,6 +57,6 @@ export type TOrder = {
     id: string;
     name: string;
     quantity: number;
-    status: 'PENDING' | 'IN_PREPARE' | 'DONE';
+    status: TStatusOrder;
   };
 };

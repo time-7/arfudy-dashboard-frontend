@@ -6,7 +6,7 @@ import { useDrop } from 'react-dnd';
 import OrderCard from '@/components/cards/order-card';
 
 import { Api } from '@/lib/axios';
-import { TOrder, TPostReturn, TRequestError } from '@/types';
+import { TOrder, TPostReturn, TRequestError, TStatusOrder } from '@/types';
 import { Box } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -15,13 +15,13 @@ type TOrdersList = {
   orderList: TOrder[];
   setOrderList: Dispatch<SetStateAction<TOrder[]>>;
   removeOrder: (order: TOrder) => void;
-  type: 'PENDING' | 'IN_PREPARE' | 'DONE';
+  type: TStatusOrder;
 };
 
 type TPostOrder = {
   productId: string;
   orderId: string;
-  status: TOrdersList['type'];
+  status: TStatusOrder;
 };
 
 export default function OrdersList({
