@@ -61,12 +61,16 @@ export default function OrdersList({
     <Box
       ref={drop}
       sx={{
+        backgroundColor: 'secondary.light',
+        border: '2px solid black',
+        borderRadius: '46px',
         width: '100%',
         display: 'flex',
         overflowX: 'auto',
         gap: 3,
-        height: 280,
+        height: 242,
         marginY: 2,
+        padding: 2,
       }}
     >
       {orderList.map((item) => (

@@ -16,7 +16,7 @@ export default function TableCard({ table }: TTableCard) {
         alignItems: 'center',
         backgroundColor: 'secondary.light',
         border: '2px solid black',
-        borderRadius: 6,
+        borderRadius: '30px',
         cursor: 'pointer',
       }}
     >

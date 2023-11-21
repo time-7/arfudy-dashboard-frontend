@@ -23,7 +23,7 @@ export default function OrderCard({ order }: TOrderCard) {
       elevation={2}
       sx={{
         backgroundColor: 'secondary.main',
-        height: 250,
+        height: 200,
         width: 290,
         boxShadow: '0px 7px 0px 0px #000',
         borderRadius: '30px',
@@ -33,7 +33,7 @@ export default function OrderCard({ order }: TOrderCard) {
       <Box
         sx={{
           width: 286,
-          height: 150,
+          height: 100,
           position: 'relative',
         }}
       >

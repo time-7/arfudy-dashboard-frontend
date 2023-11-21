@@ -92,10 +92,10 @@ export default function Orders() {
   return (
     <Box
       sx={{
-        width: '75vw',
+        width: 'calc(100% - 368px)',
         display: 'flex',
         flexDirection: 'column',
-        paddingLeft: 2,
+        paddingLeft: 4,
         maxHeight: '100%',
       }}
     >
