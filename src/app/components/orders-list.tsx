@@ -5,10 +5,10 @@ import { useDrop } from 'react-dnd';
 
 import OrderCard from '@/components/cards/order-card';
 
+import { Api } from '@/lib/axios';
 import { TOrder, TPostReturn, TRequestError } from '@/types';
 import { Box } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import { Api } from '@/lib/axios';
 import { AxiosError, AxiosResponse } from 'axios';
 
 type TOrdersList = {
@@ -19,8 +19,8 @@ type TOrdersList = {
 };
 
 type TPostOrder = {
-  idProduto: string;
-  idPedido: string;
+  productId: string;
+  orderId: string;
   status: TOrdersList['type'];
 };
 
@@ -35,27 +35,27 @@ export default function OrdersList({
     AxiosError<TRequestError>,
     TPostOrder
   >({
-    mutationFn: (data) => Api.post(`/orders/${data.idPedido}`, data),
+    mutationFn: (data) => Api.post(`/orders/${data.orderId}`, data),
   });
 
-  const [options, drop] = useDrop(() => ({
+  const drop = useDrop(() => ({
     accept: 'TOrder',
     drop: (item: TOrder) => {
       removeOrder(item);
+
       setOrderList((oldOrderList) => [
         ...oldOrderList,
         { ...item, product: { ...item.product, status: type } },
       ]);
+
       mutate({
-        idProduto: item.product.id,
-        idPedido: item.id,
-        status: item.product.status,
+        productId: item.product.id,
+        orderId: item.id,
+        status: type,
       });
     },
     collect: (monitor) => ({ isOver: Boolean(monitor.isOver) }),
-  }));
-
-  console.log(options);
+  }))[1];
 
   return (
     <Box
@@ -70,7 +70,7 @@ export default function OrdersList({
       }}
     >
       {orderList.map((item) => (
-        <OrderCard key={item.id} order={item} />
+        <OrderCard key={item.orderProductId} order={item} />
       ))}
     </Box>
   );

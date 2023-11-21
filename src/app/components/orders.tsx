@@ -22,6 +22,8 @@ export default function Orders() {
       order.forEach((item) => {
         const { status } = item.product;
 
+        item.orderProductId = `${item.id}${item.product.id}`;
+
         if (status === 'PENDING') {
           setOrderPendingList((oldOrderPendingList) => [
             ...oldOrderPendingList,
@@ -44,24 +46,20 @@ export default function Orders() {
 
     if (status === 'PENDING') {
       setOrderPendingList((oldOrderPendingList) =>
-        oldOrderPendingList.filter((item) => {
-          return (
-            `${item.id}${item.product.id}` !== `${order.id}${order.product.id}`
-          );
-        }),
+        oldOrderPendingList.filter(
+          (item) => item.orderProductId !== order.orderProductId,
+        ),
       );
     } else if (status === 'IN_PREPARE') {
       setOrderInPrepareList((oldOrderInPendingList) =>
         oldOrderInPendingList.filter(
-          (item) =>
-            `${item.id}${item.product.id}` !== `${order.id}${order.product.id}`,
+          (item) => item.orderProductId !== order.orderProductId,
         ),
       );
     } else if (status === 'DONE') {
       setOrderDoneList((oldOrderDoneList) =>
         oldOrderDoneList.filter(
-          (item) =>
-            `${item.id}${item.product.id}` !== `${order.id}${order.product.id}`,
+          (item) => item.orderProductId !== order.orderProductId,
         ),
       );
     }

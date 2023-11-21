@@ -11,12 +11,11 @@ type TOrderCard = {
 };
 
 export default function OrderCard({ order }: TOrderCard) {
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const drag = useDrag(() => ({
     item: order,
     type: 'TOrder',
     collect: (monitor) => ({ isDragging: Boolean(monitor.isDragging) }),
-  }));
-  console.log(isDragging);
+  }))[1];
 
   return (
     <Paper

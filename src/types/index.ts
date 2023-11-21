@@ -47,6 +47,7 @@ export type TPatchReturn = {
 };
 
 export type TOrder = {
+  orderProductId: string;
   id: string;
   serviceId: string;
   clientName: string;
