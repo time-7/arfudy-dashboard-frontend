@@ -94,6 +94,10 @@ export default function OrderModal({ order, open, setOpen }: TOrderModal) {
           </Typography>
 
           <Typography sx={{ fontSize: '20px' }}>
+            Mesa: <strong>{order.tableNum}</strong>
+          </Typography>
+
+          <Typography sx={{ fontSize: '20px' }}>
             Quantidade: <strong>{order.product.quantity}</strong>
           </Typography>
 

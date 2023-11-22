@@ -31,7 +31,7 @@ export default function OrderCard({ order }: TOrderCard) {
         onClick={() => setIsModalOpen(true)}
         sx={{
           backgroundColor: 'secondary.main',
-          height: 200,
+          height: 180,
           width: 290,
           boxShadow: '0px 7px 0px 0px #000',
           borderRadius: '30px',
@@ -42,7 +42,7 @@ export default function OrderCard({ order }: TOrderCard) {
         <Box
           sx={{
             width: 286,
-            height: 100,
+            height: 90,
             position: 'relative',
           }}
         >
@@ -52,8 +52,8 @@ export default function OrderCard({ order }: TOrderCard) {
             unoptimized
             fill
             style={{
-              borderTopLeftRadius: '30px',
-              borderTopRightRadius: '30px',
+              borderTopLeftRadius: '28px',
+              borderTopRightRadius: '28px',
             }}
           />
         </Box>
@@ -61,7 +61,7 @@ export default function OrderCard({ order }: TOrderCard) {
           sx={{
             borderTop: '2px solid #000',
             display: 'flex',
-            height: '100px',
+            height: 90,
             flexDirection: 'column',
             paddingLeft: 1.5,
             paddingRight: 1.5,
@@ -72,7 +72,7 @@ export default function OrderCard({ order }: TOrderCard) {
             {order.product.name}
           </Typography>
           <Typography sx={{ fontSize: '16px', color: '#fff' }}>
-            Mesa 01
+            Mesa {order.tableNum}
           </Typography>
         </Box>
       </Paper>

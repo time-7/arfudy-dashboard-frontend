@@ -18,26 +18,24 @@ export default function Orders() {
   const { enqueueSnackbar } = useSnackbar();
 
   const addOrder = (orderList: TOrder[][]) => {
-    orderList.forEach((order) => {
-      order.forEach((item) => {
-        const { status } = item.product;
+    orderList.flat().forEach((order) => {
+      const { status } = order.product;
 
-        item.orderProductId = `${item.id}${item.product.id}`;
+      order.orderProductId = `${order.id}${order.product.id}`;
 
-        if (status === 'PENDING') {
-          setOrderPendingList((oldOrderPendingList) => [
-            ...oldOrderPendingList,
-            item,
-          ]);
-        } else if (status === 'IN_PREPARE') {
-          setOrderInPrepareList((oldOrderInPendingList) => [
-            ...oldOrderInPendingList,
-            item,
-          ]);
-        } else if (status === 'DONE') {
-          setOrderDoneList((oldOrderDoneList) => [...oldOrderDoneList, item]);
-        }
-      });
+      if (status === 'PENDING') {
+        setOrderPendingList((oldOrderPendingList) => [
+          ...oldOrderPendingList,
+          order,
+        ]);
+      } else if (status === 'IN_PREPARE') {
+        setOrderInPrepareList((oldOrderInPendingList) => [
+          ...oldOrderInPendingList,
+          order,
+        ]);
+      } else if (status === 'DONE') {
+        setOrderDoneList((oldOrderDoneList) => [...oldOrderDoneList, order]);
+      }
     });
   };
 
@@ -67,6 +65,7 @@ export default function Orders() {
 
   useEffect(() => {
     const onOrder = (value: TGet<TOrder[][]>) => {
+      console.log(value);
       addOrder(value.data);
       enqueueSnackbar('Novos pedidos chegaram', { variant: 'success' });
     };
@@ -96,6 +95,7 @@ export default function Orders() {
         display: 'flex',
         flexDirection: 'column',
         paddingLeft: 4,
+        paddingBottom: 2,
         maxHeight: '100%',
       }}
     >

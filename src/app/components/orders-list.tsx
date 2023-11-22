@@ -66,10 +66,11 @@ export default function OrdersList({
         borderRadius: '46px',
         width: '100%',
         display: 'flex',
+        alignItems: 'center',
         overflowX: 'auto',
         gap: 3,
-        height: 242,
-        marginY: 2,
+        height: 230,
+        marginTop: 2,
         padding: 2,
       }}
     >

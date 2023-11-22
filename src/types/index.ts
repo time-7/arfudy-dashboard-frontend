@@ -53,6 +53,7 @@ export type TOrder = {
   id: string;
   serviceId: string;
   clientName: string;
+  tableNum: number;
   product: {
     id: string;
     name: string;
