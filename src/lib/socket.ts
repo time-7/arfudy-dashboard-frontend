@@ -1,3 +1,5 @@
 import io from 'socket.io-client';
 
-export const socket = io('https://arfudy-nestjs-backend.onrender.com/');
+export const socketOrder = io('https://arfudy-nestjs-backend.onrender.com/');
+
+export const socketTable = io('https://arfudy-nestjs-backend.onrender.com/');

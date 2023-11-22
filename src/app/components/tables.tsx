@@ -3,15 +3,31 @@
 import TableCard from '@/components/cards/table-card';
 
 import { Api } from '@/lib/axios';
+import { socketTable } from '@/lib/socket';
 import { TGet, TTable } from '@/types';
 import { Box, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 export default function Tables() {
   const { data } = useQuery<TGet<TTable[]>>({
     queryKey: ['getTableList'],
     queryFn: () => Api.get('/tables').then((res) => res.data),
   });
+
+  useEffect(() => {
+    const onOrder = (value: TGet<TTable[][]>) => {
+      console.log(value);
+      // addOrder(value.data);
+      // enqueueSnackbar('Novos pedidos chegaram', { variant: 'success' });
+    };
+
+    socketTable.on('onOrder', onOrder);
+
+    return () => {
+      socketTable.off('onOrder', onOrder);
+    };
+  }, []);
 
   return (
     <Box

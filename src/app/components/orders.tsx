@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import OrdersList from './orders-list';
 
 import { Api } from '@/lib/axios';
-import { socket } from '@/lib/socket';
+import { socketOrder } from '@/lib/socket';
 import { TGet, TOrder } from '@/types';
 import { Box, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -70,10 +70,10 @@ export default function Orders() {
       enqueueSnackbar('Novos pedidos chegaram', { variant: 'success' });
     };
 
-    socket.on('onOrder', onOrder);
+    socketOrder.on('onOrder', onOrder);
 
     return () => {
-      socket.off('onOrder', onOrder);
+      socketOrder.off('onOrder', onOrder);
     };
   }, []);
 
