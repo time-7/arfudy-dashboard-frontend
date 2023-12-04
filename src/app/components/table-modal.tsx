@@ -41,6 +41,7 @@ export default function TableModal({ table, open, setOpen }: TTableModal) {
     queryKey: ['getOrderByTable', table.id],
     queryFn: () => Api.get(`/orders/table/${table.id}`).then((res) => res.data),
     gcTime: 0,
+    retry: false,
   });
 
   useEffect(() => {
