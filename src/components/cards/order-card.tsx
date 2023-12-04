@@ -47,7 +47,7 @@ export default function OrderCard({ order }: TOrderCard) {
           }}
         >
           <Image
-            src="https://files.edgestore.dev/k1h85kjlhc106fdq/publicFiles/_public/4c5a4b46-affc-4b28-b5b3-13a3dcc35361.png"
+            src="https://www.vaipormim.com/storage/posts/files/d703f0eec8ddd82afb907dafa11d1c0c7028f9de.webp"
             alt="kk"
             unoptimized
             fill
