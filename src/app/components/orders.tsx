@@ -17,8 +17,8 @@ export default function Orders() {
   const [orderDoneList, setOrderDoneList] = useState<TOrder[]>([]);
   const { enqueueSnackbar } = useSnackbar();
 
-  const addOrder = (orderList: TOrder[][]) => {
-    orderList.flat().forEach((order) => {
+  const addOrder = (orderList: TOrder[]) => {
+    orderList.forEach((order) => {
       const { status } = order.product;
 
       order.orderProductId = `${order.id}${order.product.id}`;
@@ -64,9 +64,9 @@ export default function Orders() {
   };
 
   useEffect(() => {
-    const onOrder = (value: TGet<TOrder[][]>) => {
-      console.log(value);
+    const onOrder = (value: TGet<TOrder[]>) => {
       addOrder(value.data);
+
       enqueueSnackbar('Novos pedidos chegaram', { variant: 'success' });
     };
 
@@ -84,7 +84,7 @@ export default function Orders() {
 
   useEffect(() => {
     if (data?.data) {
-      addOrder(data.data);
+      addOrder(data.data.flat());
     }
   }, [data]);
 

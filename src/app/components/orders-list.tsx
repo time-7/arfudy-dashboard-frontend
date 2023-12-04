@@ -69,7 +69,7 @@ export default function OrdersList({
         alignItems: 'center',
         overflowX: 'auto',
         gap: 3,
-        height: 230,
+        height: 234,
         marginTop: 2,
         padding: 2,
       }}
