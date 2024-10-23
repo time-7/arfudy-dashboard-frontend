@@ -8,7 +8,7 @@ import NumberFormField from '@/components/fields/number-form-field';
 import TextFormField from '@/components/fields/text-form-field';
 
 import { TTable, TForm } from '@/types';
-import { mesasFormSchema } from '@/validators';
+import { mesasFormSchema } from '@/utils/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import { Box, Typography } from '@mui/material';

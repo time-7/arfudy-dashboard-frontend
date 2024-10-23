@@ -14,7 +14,7 @@ import IngredientModal from './ingredient-modal';
 import IngredientsGrid from './ingredients-grid';
 
 import { TProduct, TForm } from '@/types';
-import { pratosFormSchema } from '@/validators';
+import { pratosFormSchema } from '@/utils/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import { Box, Typography } from '@mui/material';
