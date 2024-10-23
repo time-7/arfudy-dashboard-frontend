@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import TableModal from '@/app/components/table-modal';
+import TableModal from '@/app/(pedidos)/components/table-modal';
 
 import { TTable } from '@/types';
 import { Box, Typography } from '@mui/material';

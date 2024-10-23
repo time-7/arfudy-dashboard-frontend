@@ -5,7 +5,7 @@ import { useDrag } from 'react-dnd';
 
 import { TOrder } from '@/types';
 import { Box, Paper, Typography } from '@mui/material';
-import OrderModal from '@/app/components/order-modal';
+import OrderModal from '@/app/(pedidos)/components/order-modal';
 import { useState } from 'react';
 
 type TOrderCard = {
