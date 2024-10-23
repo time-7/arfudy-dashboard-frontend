@@ -1,4 +1,8 @@
-import { pratosFormSchema, mesasFormSchema, ingredientZod } from '@/validators';
+import {
+  pratosFormSchema,
+  mesasFormSchema,
+  ingredientZod,
+} from '@/utils/validators';
 import { z } from 'zod';
 
 export type TGet<TData> = {

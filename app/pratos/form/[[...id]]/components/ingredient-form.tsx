@@ -7,7 +7,7 @@ import NumberFormField from '@/components/fields/number-form-field';
 import TextFormField from '@/components/fields/text-form-field';
 
 import { TIngredient } from '@/types';
-import { ingredientZod } from '@/validators';
+import { ingredientZod } from '@/utils/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Typography } from '@mui/material';
 
