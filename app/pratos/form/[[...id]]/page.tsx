@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { use, useState } from 'react';
 
 import PratosForm from './components/pratos-form';
 
@@ -17,7 +17,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbar } from 'notistack';
 
-export default function PratosFormPage({ params: { id } }: TPratosForm) {
+export default function PratosFormPage({ params }: TPratosForm) {
+  const { id } = use(params);
   const hasId = Boolean(id && id[0]);
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();

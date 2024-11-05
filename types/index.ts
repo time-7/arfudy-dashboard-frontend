@@ -15,7 +15,7 @@ export type TRequestError = {
 };
 
 export type TPratosForm = {
-  params: { id: string[] };
+  params: Promise<{ id: string[] }>;
 };
 
 export type TProduct = z.infer<typeof pratosFormSchema>;

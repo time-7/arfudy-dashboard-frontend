@@ -16,8 +16,10 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';
+import { use } from 'react';
 
-export default function MesasFormPage({ params: { id } }: TPratosForm) {
+export default function MesasFormPage({ params }: TPratosForm) {
+  const { id } = use(params);
   const hasId = Boolean(id && id[0]);
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
