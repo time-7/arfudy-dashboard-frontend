@@ -157,22 +157,3 @@ export default function TableModal({ table, open, setOpen }: TTableModal) {
     </Dialog>
   );
 }
-
-{
-  /* <Box
-            key={order.orderProductId}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 0.5,
-              justifyContent: 'center',
-              color: 'white',
-            }}
-          >
-            <Typography sx={{ fontSize: '20px' }}>
-              Cliente: <strong>{order.clientName}</strong>
-            </Typography>
-
-            
-          </Box> */
-}
