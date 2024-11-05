@@ -49,7 +49,6 @@ export default function MesasGrid() {
     <DataGrid
       columns={columns}
       rows={data?.data || []}
-      rowCount={data?.data.length || 0}
     />
   );
 }

@@ -2,7 +2,6 @@ import { Montserrat, Noto_Serif_HK } from 'next/font/google';
 
 import { createTheme } from '@mui/material';
 import { ptBR } from '@mui/material/locale';
-import { ptBR as ptBRGrid } from '@mui/x-data-grid';
 
 export const montserrat = Montserrat({
   subsets: ['latin'],
@@ -139,5 +138,4 @@ export const theme = createTheme(
     },
   },
   ptBR,
-  ptBRGrid,
 );

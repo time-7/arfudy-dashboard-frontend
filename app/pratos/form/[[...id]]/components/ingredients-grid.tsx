@@ -82,7 +82,6 @@ export default function IngredientsGrid({
     <DataGrid
       columns={columns}
       rows={rows}
-      rowCount={rows.length}
       loading={loading}
     />
   );

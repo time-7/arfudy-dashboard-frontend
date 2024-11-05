@@ -78,11 +78,6 @@ export default function PratosGrid() {
   ];
 
   return (
-    <DataGrid
-      columns={columns}
-      rows={data?.data || []}
-      rowCount={data?.data.length || 0}
-      loading={isFetching}
-    />
+    <DataGrid columns={columns} rows={data?.data || []} loading={isFetching} />
   );
 }
