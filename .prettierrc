@@ -1,23 +1,26 @@
 {
-	"tabWidth": 4,
-	"endOfLine": "lf",
-	"trailingComma": "none",
-	"semi": true,
-	"singleQuote": true,
-	"bracketSpacing": true,
-	"plugins": ["@ianvs/prettier-plugin-sort-imports"],
+    "tabWidth": 4,
+    "endOfLine": "lf",
+    "trailingComma": "none",
+    "semi": true,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "plugins": [
+        "@ianvs/prettier-plugin-sort-imports",
+        "prettier-plugin-tailwindcss"
+    ],
 
-	"importOrderTypeScriptVersion": "5.0.0",
-	"importOrderCaseSensitive": false,
-	"importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
-	"importOrder": [
-		"^(react/(.*)$)|^(react$)",
-		"^(next/(.*)$)|^(next$)",
-		"",
-		"<THIRD_PARTY_MODULES>",
-		"",
-		"^@/(.*)$",
-		"",
-		"^[./]"
-	]
+    "importOrderTypeScriptVersion": "5.0.0",
+    "importOrderCaseSensitive": false,
+    "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+    "importOrder": [
+        "^(react/(.*)$)|^(react$)",
+        "^(next/(.*)$)|^(next$)",
+        "",
+        "<THIRD_PARTY_MODULES>",
+        "",
+        "^@/(.*)$",
+        "",
+        "^[./]"
+    ]
 }
