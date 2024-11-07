@@ -1,13 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
-import { useDrag } from 'react-dnd';
 
-import { TOrder } from '@/types';
 import { Box, Paper, Typography } from '@mui/material';
 
 import OrderModal from '@/app/(pedidos)/components/order-modal';
-import { useState } from 'react';
+import { TOrder } from '@/types';
 
 type TOrderCard = {
     order: TOrder;
@@ -16,11 +15,11 @@ type TOrderCard = {
 export default function OrderCard({ order }: TOrderCard) {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-    const drag = useDrag(() => ({
-        item: order,
-        type: 'TOrder',
-        collect: (monitor) => ({ isDragging: Boolean(monitor.isDragging) })
-    }))[1];
+    // const drag = useDrag(() => ({
+    //     item: order,
+    //     type: 'TOrder',
+    //     collect: (monitor) => ({ isDragging: Boolean(monitor.isDragging) })
+    // }))[1];
 
     return (
         <>

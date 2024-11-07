@@ -1,14 +1,14 @@
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import importHelpers from 'eslint-plugin-import-helpers';
-import { fixupPluginRules } from '@eslint/compat';
-import globals from 'globals';
-import tsParser from '@typescript-eslint/parser';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
+
+import { fixupPluginRules } from '@eslint/compat';
 import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+import typescriptEslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import globals from 'globals';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,8 +31,7 @@ export default [
         plugins: {
             '@typescript-eslint': typescriptEslint,
             react,
-            'react-hooks': fixupPluginRules(reactHooks),
-            'import-helpers': importHelpers
+            'react-hooks': fixupPluginRules(reactHooks)
         },
 
         languageOptions: {
@@ -55,28 +54,7 @@ export default [
             'react-hooks/rules-of-hooks': 'error',
             'react-hooks/exhaustive-deps': 'warn',
             'react/react-in-jsx-scope': 'off',
-            'prettier/prettier': 'error',
-
-            'import-helpers/order-imports': [
-                'warn',
-                {
-                    newlinesBetween: 'always',
-
-                    groups: [
-                        ['/^react/', '/^next/', '/@next/'],
-                        '/components/',
-                        '/module/',
-                        '/^@shared/',
-                        '/absolute/',
-                        ['parent', 'sibling', 'index']
-                    ],
-
-                    alphabetize: {
-                        order: 'asc',
-                        ignoreCase: true
-                    }
-                }
-            ]
+            'prettier/prettier': 'error'
         }
     }
 ];

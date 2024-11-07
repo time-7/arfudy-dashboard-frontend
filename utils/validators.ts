@@ -1,5 +1,6 @@
-import { messages } from '@/utils/messages';
 import { z } from 'zod';
+
+import { messages } from '@/utils/messages';
 
 const { required, url } = messages;
 

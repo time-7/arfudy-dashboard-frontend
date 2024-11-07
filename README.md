@@ -4,7 +4,7 @@ Arfudy Dashboard é um site para realizar o controle dos pedidos realizados atra
 
 Atualmente, o link para acesso ao site é este [https://arfudy-dashboard-frontend.vercel.app/pratos/form](https://arfudy-dashboard-frontend.vercel.app/pratos/form)
 
- Ele contém uma tela inicial, que exibe os pedidos em três status: pedidos novos, em preparo e prontos:
+Ele contém uma tela inicial, que exibe os pedidos em três status: pedidos novos, em preparo e prontos:
 
 ![imagem da tela inicial](https://github.com/user-attachments/assets/d58b44d8-696d-4dea-b1fe-49f65b32a3cd)
 
@@ -21,13 +21,13 @@ As últimas funcionalidades existentes são as telas para listar e cadastrar pra
 ![imagem da tela de cadastro de prato](https://github.com/user-attachments/assets/7139eb94-ea27-4858-90a3-b60b43a994d8)
 
 ## Tecnologias utilizadas
-- Framework: `Next.js`
-- Biblioteca de componentes: `MUI`
-- Bibliotecas para auxiliar no controle de requests: `Axios`, `React Query`, `Socket.io`
-- Biblioteca para conexão com store de imagens: `Edgestore`
-- Bibliotecas para auxiliar nos formulários: `React-hook-form`, `Zod`
-- Biblioteca para auxiliar com cards: `React-dnd`
 
+-   Framework: `Next.js`
+-   Biblioteca de componentes: `MUI`
+-   Bibliotecas para auxiliar no controle de requests: `Axios`, `React Query`, `Socket.io`
+-   Biblioteca para conexão com store de imagens: `Edgestore`
+-   Bibliotecas para auxiliar nos formulários: `React-hook-form`, `Zod`
+-   Biblioteca para auxiliar com cards: `React-dnd`
 
 ## Iniciando
 
