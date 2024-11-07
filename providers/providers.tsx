@@ -11,15 +11,17 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { SnackbarProvider } from 'notistack';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <SnackbarProvider className={montserrat.className}>
-          <EdgeStoreProvider>
-            <DndProvider backend={HTML5Backend}>{children}</DndProvider>
-          </EdgeStoreProvider>
-        </SnackbarProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<QueryClientProvider client={queryClient}>
+				<SnackbarProvider className={montserrat.className}>
+					<EdgeStoreProvider>
+						<DndProvider backend={HTML5Backend}>
+							{children}
+						</DndProvider>
+					</EdgeStoreProvider>
+				</SnackbarProvider>
+			</QueryClientProvider>
+		</ThemeProvider>
+	);
 }

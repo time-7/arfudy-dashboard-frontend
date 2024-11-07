@@ -5,15 +5,19 @@ import PageContainer from '@/components/containers/page-container';
 import { Box, Typography } from '@mui/material';
 
 export default async function Pratos() {
-  return (
-    <PageContainer>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h4">Pratos</Typography>
+	return (
+		<PageContainer>
+			<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+				<Typography variant="h4">Pratos</Typography>
 
-        <AddButton text="Novo prato" variant="contained" route="/pratos/form" />
-      </Box>
+				<AddButton
+					text="Novo prato"
+					variant="contained"
+					route="/pratos/form"
+				/>
+			</Box>
 
-      <PratosGrid />
-    </PageContainer>
-  );
+			<PratosGrid />
+		</PageContainer>
+	);
 }
