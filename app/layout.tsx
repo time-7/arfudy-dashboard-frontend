@@ -1,49 +1,33 @@
 import './globals.css';
 
+import { ReactNode } from 'react';
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-import { Box } from '@mui/material';
-
-import Navbar from '@/components/navbar';
+import Header from '@/components/header';
+import { cn } from '@/lib/utils';
 import { Providers } from '@/providers/providers';
 
+const inter = Inter({ subsets: ['latin'] });
+
 export const metadata: Metadata = {
-    title: 'Dashboard ARFudy',
+    title: 'Dashboard Arfudy',
     description: 'Dashboard de controle de pedidos e pratos.'
 };
 
-export default function RootLayout({
-    children
-}: {
-    children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
             <Providers>
-                <Box
-                    component="body"
-                    sx={{
-                        minWidth: '100%',
-                        minHeight: '100dvh',
-                        display: 'flex',
-                        backgroundColor: 'secondary.dark'
-                    }}
+                <body
+                    className={cn(
+                        'flex min-h-dvh min-w-full flex-col bg-primary-main',
+                        inter.className
+                    )}
                 >
-                    <Navbar />
-
-                    <Box
-                        component="main"
-                        sx={{
-                            flex: 1,
-                            marginTop: '76px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            maxHeight: '100%'
-                        }}
-                    >
-                        {children}
-                    </Box>
-                </Box>
+                    <Header />
+                    <main className="flex flex-1 flex-col">{children}</main>
+                </body>
             </Providers>
         </html>
     );

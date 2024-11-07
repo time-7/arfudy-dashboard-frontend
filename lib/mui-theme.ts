@@ -1,30 +1,30 @@
-import { Montserrat, Noto_Serif_HK } from 'next/font/google';
+// import { Montserrat, Noto_Serif_HK } from 'next/font/google';
 
 import { createTheme } from '@mui/material';
 import { ptBR } from '@mui/material/locale';
 
-export const montserrat = Montserrat({
-    subsets: ['latin'],
-    display: 'swap',
-    adjustFontFallback: false
-});
+// export const montserrat = Montserrat({
+//     subsets: ['latin'],
+//     display: 'swap',
+//     adjustFontFallback: false
+// });
 
-const notoSerif = Noto_Serif_HK({ subsets: ['latin'] });
+// const notoSerif = Noto_Serif_HK({ subsets: ['latin'] });
 
 export const theme = createTheme(
     {
-        typography: {
-            fontFamily: montserrat.style.fontFamily,
-            h1: {
-                fontFamily: notoSerif.style.fontStyle
-            },
-            h2: {
-                fontFamily: notoSerif.style.fontStyle
-            },
-            h3: {
-                fontFamily: notoSerif.style.fontStyle
-            }
-        },
+        // typography: {
+        //     fontFamily: montserrat.style.fontFamily,
+        //     h1: {
+        //         fontFamily: notoSerif.style.fontStyle
+        //     },
+        //     h2: {
+        //         fontFamily: notoSerif.style.fontStyle
+        //     },
+        //     h3: {
+        //         fontFamily: notoSerif.style.fontStyle
+        //     }
+        // },
         palette: {
             primary: {
                 light: '#FFAF1A',
