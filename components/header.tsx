@@ -1,26 +1,34 @@
-import Image from 'next/image';
 import Link from 'next/link';
+
+import { Grid2x2Plus, LogOut, UserIcon } from 'lucide-react';
+
+import { Button } from './ui/button';
 
 export default function Header() {
     return (
-        <header className="flex h-16 w-full flex-row justify-between">
-            <Link href="/">
-                <Image src="/arfudy.png" alt="Logo" height={32} width={96} />
+        <header className="flex w-full justify-end">
+            <Link href="/pratos" className="font-medium">
+                <Button variant="ghost" size="icon" className="text-primary">
+                    <Grid2x2Plus />
+                </Button>
             </Link>
 
-            <div className="flex items-center gap-2">
-                <Link href="/" className="font-medium">
-                    Dashboard
-                </Link>
+            <Link href="/" className="font-medium">
+                <Button variant="ghost" size="icon" className="text-primary">
+                    <UserIcon />
+                </Button>
+            </Link>
 
-                <Link href="/mesas" className="font-medium">
-                    Mesas
-                </Link>
-
-                <Link href="/pratos" className="font-medium">
-                    Pratos
-                </Link>
-            </div>
+            <Link href="/mesas" className="font-medium">
+                <Button
+                    disabled
+                    size="icon"
+                    variant="ghost"
+                    className="h-9 text-primary"
+                >
+                    <LogOut />
+                </Button>
+            </Link>
         </header>
     );
 }
