@@ -11,7 +11,7 @@ export default function Home() {
 
     return (
         <>
-            <div className="flex gap-2">
+            <div className="flex h-8 gap-2">
                 <FolderButton
                     title="Comidas"
                     folder="FOOD"
@@ -34,7 +34,7 @@ export default function Home() {
                 />
             </div>
 
-            <div className="bg-white z-10 flex h-[calc(100%-64px)] flex-1 gap-6 rounded-b-2xl rounded-tr-2xl p-6">
+            <div className="z-10 flex h-[calc(100%-32px)] flex-1 gap-4 rounded-b-2xl rounded-tr-2xl border bg-white p-4 shadow-md">
                 {!isService && <OrderContainer title="Aguardando" />}
 
                 {!isService && <OrderContainer title="Fazendo" />}

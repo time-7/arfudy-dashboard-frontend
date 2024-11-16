@@ -23,11 +23,11 @@ export default function FolderButton({
         <button
             data-open={open}
             onClick={() => setCurrentFolder(folder)}
-            className="block h-16 w-72 translate-y-8 transform-gpu rounded-t-2xl p-0 transition duration-300 hover:transform-none data-[open=true]:pointer-events-none data-[open=true]:transform-none"
+            className="block h-16 w-72 transform-gpu rounded-t-2xl p-0 transition duration-300 hover:-translate-y-[31px] data-[open=true]:pointer-events-none data-[open=true]:z-20 data-[open=true]:-translate-y-[31px]"
         >
             <div className="h-8 rounded-t-2xl bg-primary" />
 
-            <div className="bg-white h-8 leading-8">{title}</div>
+            <div className="h-8 border-x bg-white leading-8">{title}</div>
         </button>
     );
 }

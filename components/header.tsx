@@ -9,19 +9,19 @@ export default function Header() {
         <header className="flex w-full items-center justify-end gap-2">
             <Button variant="header" size="icon">
                 <Link href="/pratos" className="font-medium">
-                    <Grid2x2Plus size={32} />
+                    <Grid2x2Plus size={28} />
                 </Link>
             </Button>
 
             <Button variant="header" size="icon">
                 <Link href="/" className="font-medium">
-                    <UserIcon size={32} />
+                    <UserIcon size={28} />
                 </Link>
             </Button>
 
             <Button disabled variant="header" size="icon">
                 <Link href="/mesas" className="font-medium">
-                    <LogOut size={32} />
+                    <LogOut size={28} />
                 </Link>
             </Button>
         </header>
