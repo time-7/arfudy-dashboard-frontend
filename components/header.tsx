@@ -6,29 +6,24 @@ import { Button } from './ui/button';
 
 export default function Header() {
     return (
-        <header className="flex w-full justify-end">
-            <Link href="/pratos" className="font-medium">
-                <Button variant="ghost" size="icon" className="text-primary">
-                    <Grid2x2Plus />
-                </Button>
-            </Link>
+        <header className="flex w-full items-center justify-end gap-2">
+            <Button variant="header" size="icon">
+                <Link href="/pratos" className="font-medium">
+                    <Grid2x2Plus size={32} />
+                </Link>
+            </Button>
 
-            <Link href="/" className="font-medium">
-                <Button variant="ghost" size="icon" className="text-primary">
-                    <UserIcon />
-                </Button>
-            </Link>
+            <Button variant="header" size="icon">
+                <Link href="/" className="font-medium">
+                    <UserIcon size={32} />
+                </Link>
+            </Button>
 
-            <Link href="/mesas" className="font-medium">
-                <Button
-                    disabled
-                    size="icon"
-                    variant="ghost"
-                    className="h-9 text-primary"
-                >
-                    <LogOut />
-                </Button>
-            </Link>
+            <Button disabled variant="header" size="icon">
+                <Link href="/mesas" className="font-medium">
+                    <LogOut size={32} />
+                </Link>
+            </Button>
         </header>
     );
 }
