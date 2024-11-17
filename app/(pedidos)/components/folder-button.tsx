@@ -27,7 +27,9 @@ export default function FolderButton({
         >
             <div className="h-8 rounded-t-2xl bg-primary" />
 
-            <div className="h-8 border-x bg-white leading-8">{title}</div>
+            <div className="h-8 border-x bg-white font-semibold leading-8">
+                {title}
+            </div>
         </button>
     );
 }

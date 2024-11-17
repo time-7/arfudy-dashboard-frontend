@@ -7,7 +7,7 @@ type TOrderContainer = {
 export default function OrderContainer({ title }: TOrderContainer) {
     return (
         <div className="flex flex-1 flex-col">
-            <div className="h-16 rounded-t-2xl bg-primary text-center text-lg font-semibold leading-[64px] text-white">
+            <div className="text-md h-10 rounded-t-2xl bg-primary text-center font-semibold leading-10 text-white">
                 {title}
             </div>
 
