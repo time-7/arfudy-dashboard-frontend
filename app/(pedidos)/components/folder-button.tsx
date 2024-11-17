@@ -1,22 +1,15 @@
 'use client';
 
-import { Dispatch, SetStateAction } from 'react';
-
-export type TFolder = 'DRINK' | 'FOOD' | 'SERVICE';
+import { useFolderContext } from '../contexts/FolderContext';
+import { TFolder } from '../types';
 
 type TFolderButton = {
     folder: TFolder;
     title: string;
-    currentFolder: TFolder;
-    setCurrentFolder: Dispatch<SetStateAction<TFolder>>;
 };
 
-export default function FolderButton({
-    folder,
-    title,
-    currentFolder,
-    setCurrentFolder
-}: TFolderButton) {
+export default function FolderButton({ folder, title }: TFolderButton) {
+    const { currentFolder, setCurrentFolder } = useFolderContext();
     const open = folder === currentFolder;
 
     return (
