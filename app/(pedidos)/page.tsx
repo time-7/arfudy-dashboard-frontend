@@ -2,7 +2,7 @@
 
 import FolderContainer from './components/folder-container';
 import OrderPanel from './components/order-panel';
-import { FolderProvider } from './contexts/FolderContext';
+import { FolderProvider } from './contexts/folder-context';
 
 export default function Home() {
     return (

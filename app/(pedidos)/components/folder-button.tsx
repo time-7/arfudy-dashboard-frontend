@@ -1,6 +1,6 @@
 'use client';
 
-import { useFolderContext } from '../contexts/FolderContext';
+import { useFolderContext } from '../contexts/folder-context';
 import { TFolder } from '../types';
 
 type TFolderButton = {
