@@ -15,6 +15,9 @@ import { Axios } from '@/lib/axios';
 import { TFolder, TOrder } from '../types';
 
 export type TOrderContext = {
+    isFetched: boolean;
+    isFetching: boolean;
+
     currentFolder: TFolder;
     setCurrentFolder: Dispatch<SetStateAction<TFolder>>;
 
@@ -41,7 +44,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     const [doneOrders, setDoneOrders] = useState<TOrder[]>([]);
     const [deliveredOrders, setDeliveredOrders] = useState<TOrder[]>([]);
 
-    const { data, isFetching } = useQuery<TOrder[]>({
+    const { data, isFetching, isFetched } = useQuery<TOrder[]>({
         queryKey: ['orders'],
         queryFn: () => Axios.get('/orders').then((res) => res.data.data.flat())
     });
@@ -64,6 +67,8 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     return (
         <OrderContext.Provider
             value={{
+                isFetched,
+                isFetching,
                 currentFolder,
                 setCurrentFolder,
                 pendingOrders,

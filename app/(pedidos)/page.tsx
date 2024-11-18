@@ -4,7 +4,7 @@ import FolderContainer from './components/folder-container';
 import OrderPanel from './components/order-panel';
 import { OrderProvider } from './contexts/order-context';
 
-export default function Home() {
+export default function OrderPage() {
     return (
         <OrderProvider>
             <FolderContainer />
