@@ -1,16 +1,23 @@
 import Loading from '@/components/loader';
 
 import { useOrderContext } from '../contexts/order-context';
-import { TOrder } from '../types';
+import { TOrderStatus } from '../types';
 import OrderCard from './order-card';
 
 type TOrderContainer = {
     title: string;
-    orders: TOrder[];
+    orderStatus: TOrderStatus;
 };
 
-export default function OrderContainer({ title, orders }: TOrderContainer) {
-    const { isFetching, isFetched } = useOrderContext();
+export default function OrderContainer({
+    title,
+    orderStatus
+}: TOrderContainer) {
+    const { isFetching, isFetched, orders } = useOrderContext();
+
+    const filteredOrders = orders.filter(
+        (order) => order.product.status === orderStatus
+    );
 
     return (
         <div className="flex flex-1 flex-col">
@@ -21,12 +28,13 @@ export default function OrderContainer({ title, orders }: TOrderContainer) {
             <div className="flex flex-1 flex-col gap-4 overflow-y-auto rounded-b-2xl border p-4">
                 {isFetching && <Loading />}
 
-                {isFetched && orders.length === 0 && (
+                {isFetched && filteredOrders.length === 0 && (
                     <div className="flex flex-1 items-center justify-center text-gray-400">
                         Sem pedidos
                     </div>
                 )}
-                {orders.map((order, index) => (
+
+                {filteredOrders.map((order, index) => (
                     <OrderCard key={index} />
                 ))}
             </div>
