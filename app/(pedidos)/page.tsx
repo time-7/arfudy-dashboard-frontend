@@ -2,14 +2,14 @@
 
 import FolderContainer from './components/folder-container';
 import OrderPanel from './components/order-panel';
-import { FolderProvider } from './contexts/folder-context';
+import { OrderProvider } from './contexts/order-context';
 
 export default function Home() {
     return (
-        <FolderProvider>
+        <OrderProvider>
             <FolderContainer />
 
             <OrderPanel />
-        </FolderProvider>
+        </OrderProvider>
     );
 }

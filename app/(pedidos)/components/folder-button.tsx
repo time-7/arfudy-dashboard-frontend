@@ -1,6 +1,6 @@
 'use client';
 
-import { useFolderContext } from '../contexts/folder-context';
+import { useOrderContext } from '../contexts/order-context';
 import { TFolder } from '../types';
 
 type TFolderButton = {
@@ -9,7 +9,7 @@ type TFolderButton = {
 };
 
 export default function FolderButton({ folder, title }: TFolderButton) {
-    const { currentFolder, setCurrentFolder } = useFolderContext();
+    const { currentFolder, setCurrentFolder } = useOrderContext();
     const open = folder === currentFolder;
 
     return (

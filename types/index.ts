@@ -50,19 +50,3 @@ export type TPostReturn<TData> = {
 export type TPatchReturn = {
     message: string;
 };
-
-export type TStatusOrder = 'PENDING' | 'IN_PREPARE' | 'DONE';
-
-export type TOrder = {
-    orderProductId: string;
-    id: string;
-    serviceId: string;
-    clientName: string;
-    tableNum: number;
-    product: {
-        id: string;
-        name: string;
-        quantity: number;
-        status: TStatusOrder;
-    };
-};
