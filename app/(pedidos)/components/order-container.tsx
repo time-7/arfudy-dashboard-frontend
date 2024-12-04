@@ -1,5 +1,7 @@
 'use client';
 
+import { useDroppable } from '@dnd-kit/core';
+
 import Loading from '@/components/loader';
 
 import { useOrderContext } from '../contexts/order-context';
@@ -19,8 +21,12 @@ export default function OrderContainer({
     const { isFetching, isFetched } = useOrderContext();
     const { filteredOrders } = useFilteredOrders({ orderStatus });
 
+    const { setNodeRef } = useDroppable({
+        id: orderStatus
+    });
+
     return (
-        <div className="flex flex-1 flex-col">
+        <div ref={setNodeRef} className="z-10 flex flex-1 flex-col">
             <div className="text-md h-10 rounded-t-2xl bg-primary text-center font-semibold leading-10 text-white">
                 {title}
             </div>
@@ -35,7 +41,7 @@ export default function OrderContainer({
                 )}
 
                 {filteredOrders.map((order, index) => (
-                    <OrderCard key={index} />
+                    <OrderCard key={index} order={order} />
                 ))}
             </div>
         </div>

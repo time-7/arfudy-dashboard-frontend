@@ -13,6 +13,7 @@ export type TOrder = {
     product: {
         id: string;
         name: string;
+        date: string;
         quantity: number;
         status: TOrderStatus;
         category: TCategory;
