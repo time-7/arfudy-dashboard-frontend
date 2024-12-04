@@ -8,10 +8,9 @@ import {
     useState
 } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { socketOrder } from '@/lib/socket';
 
-import { Axios } from '@/lib/axios';
-
+import { useQueryOrders } from '../hooks/use-query-orders';
 import { TFolder, TOrder } from '../types';
 
 export type TOrderContext = {
@@ -29,19 +28,35 @@ const OrderContext = createContext<TOrderContext>({} as TOrderContext);
 
 export function OrderProvider({ children }: { children: ReactNode }) {
     const [currentFolder, setCurrentFolder] = useState<TFolder>('FOOD');
-
     const [orders, setOrders] = useState<TOrder[]>([]);
 
-    const { data, isFetching, isFetched, isSuccess } = useQuery<TOrder[]>({
-        queryKey: ['orders'],
-        queryFn: () => Axios.get('/orders').then((res) => res.data.data.flat())
-    });
+    const { data, isFetching, isFetched, isSuccess } = useQueryOrders();
 
-    useEffect(() => {
+    /**
+     * Adiciona os pedidos iniciais.
+     */
+    const addInitialOrders = () => {
         if (isSuccess) {
             setOrders(data);
         }
-    }, [data]);
+    };
+
+    /**
+     * Implementa o socket para ouvir novos pedidos.
+     */
+    const implementSocket = () => {
+        socketOrder.on('onOrder', (data: { data: TOrder[] }) =>
+            setOrders((prev) => [...prev, ...data.data])
+        );
+
+        return () => {
+            socketOrder.off();
+        };
+    };
+
+    useEffect(addInitialOrders, [data]);
+
+    useEffect(implementSocket, []);
 
     return (
         <OrderContext.Provider
