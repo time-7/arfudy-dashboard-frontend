@@ -8,9 +8,10 @@ type TOrderCard = {
 };
 
 export default function OrderCard({ order }: TOrderCard) {
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id: order.id
-    });
+    const { attributes, listeners, setNodeRef, transform, isDragging } =
+        useDraggable({
+            id: order.id
+        });
 
     const style = transform
         ? { transform: `translate(${transform.x}px, ${transform.y}px)` }
@@ -18,11 +19,12 @@ export default function OrderCard({ order }: TOrderCard) {
 
     return (
         <div
-            ref={setNodeRef}
             {...listeners}
             {...attributes}
+            ref={setNodeRef}
             style={style}
-            className="z-20 flex rounded-md border bg-white text-lg shadow-md"
+            data-dragging={isDragging}
+            className="z-50 flex cursor-grab rounded-md border bg-white text-lg shadow-md hover:scale-[1.02] hover:shadow-xl hover:transition-shadow data-[dragging=true]:cursor-grabbing"
         >
             <div className="flex w-5 items-center rounded-l-md bg-gray-300">
                 <GripVertical size={20} strokeWidth={1} />
