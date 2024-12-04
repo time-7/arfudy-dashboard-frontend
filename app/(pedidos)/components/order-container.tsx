@@ -1,6 +1,9 @@
+'use client';
+
 import Loading from '@/components/loader';
 
 import { useOrderContext } from '../contexts/order-context';
+import { useFilteredOrders } from '../hooks/use-filtered-orders';
 import { TOrderStatus } from '../types';
 import OrderCard from './order-card';
 
@@ -13,11 +16,8 @@ export default function OrderContainer({
     title,
     orderStatus
 }: TOrderContainer) {
-    const { isFetching, isFetched, orders } = useOrderContext();
-
-    const filteredOrders = orders.filter(
-        (order) => order.product.status === orderStatus
-    );
+    const { isFetching, isFetched } = useOrderContext();
+    const { filteredOrders } = useFilteredOrders({ orderStatus });
 
     return (
         <div className="flex flex-1 flex-col">
