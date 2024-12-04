@@ -1,32 +1,13 @@
-import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import { DndContext } from '@dnd-kit/core';
 
 import { useOrderContext } from '../contexts/order-context';
-import { TOrderStatus } from '../types';
+import { useDrag } from '../hooks/use-drag';
 import OrderContainer from './order-container';
 
 export default function OrderPanel() {
-    const { currentFolder, setOrders } = useOrderContext();
+    const { currentFolder } = useOrderContext();
+    const { handleDragEnd } = useDrag();
     const isService = currentFolder === 'SERVICE';
-
-    const handleDragEnd = (event: DragEndEvent) => {
-        const { active, over } = event;
-
-        if (!over) return;
-
-        const orderId = active.id as string;
-        const orderStatus = over.id as TOrderStatus;
-
-        setOrders((orders) =>
-            orders.map((order) =>
-                order.id === orderId
-                    ? {
-                          ...order,
-                          product: { ...order.product, status: orderStatus }
-                      }
-                    : order
-            )
-        );
-    };
 
     return (
         <DndContext onDragEnd={handleDragEnd}>

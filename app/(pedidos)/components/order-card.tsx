@@ -10,7 +10,8 @@ type TOrderCard = {
 export default function OrderCard({ order }: TOrderCard) {
     const { attributes, listeners, setNodeRef, transform, isDragging } =
         useDraggable({
-            id: order.id
+            id: order.id,
+            data: order
         });
 
     const style = transform
