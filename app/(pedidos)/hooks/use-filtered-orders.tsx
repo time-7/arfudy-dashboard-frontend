@@ -1,7 +1,7 @@
 'use client';
 
 import { useOrderContext } from '../contexts/order-context';
-import { TOrderStatus } from '../types';
+import { TOrder, TOrderStatus } from '../types';
 
 type TUseFilteredOrders = {
     orderStatus: TOrderStatus;
@@ -21,5 +21,22 @@ export function useFilteredOrders({ orderStatus }: TUseFilteredOrders) {
         return isSameOrderStatus && (isFolderService || isSameFolder);
     });
 
-    return { filteredOrders };
+    /**
+     * Agrupa os pedidos filtrados pelo status por sua respectiva mesa.
+     */
+    const groupedOrders = Object.values(
+        filteredOrders.reduce((acc: Record<number, TOrder[]>, pedido) => {
+            const { tableNum } = pedido;
+
+            if (!acc[tableNum]) {
+                acc[tableNum] = [];
+            }
+
+            acc[tableNum].push(pedido);
+
+            return acc;
+        }, {})
+    );
+
+    return { groupedOrders };
 }

@@ -19,7 +19,7 @@ export default function OrderContainer({
     orderStatus
 }: TOrderContainer) {
     const { isFetching, isFetched } = useOrderContext();
-    const { filteredOrders } = useFilteredOrders({ orderStatus });
+    const { groupedOrders } = useFilteredOrders({ orderStatus });
 
     const { setNodeRef } = useDroppable({
         id: orderStatus
@@ -31,17 +31,17 @@ export default function OrderContainer({
                 {title}
             </div>
 
-            <div className="flex flex-1 flex-col gap-4  rounded-b-2xl border p-4">
+            <div className="flex flex-1 flex-col gap-4 rounded-b-2xl border p-4">
                 {isFetching && <Loading />}
 
-                {isFetched && filteredOrders.length === 0 && (
+                {isFetched && groupedOrders.length === 0 && (
                     <div className="flex flex-1 items-center justify-center text-gray-400">
                         Sem pedidos
                     </div>
                 )}
 
-                {filteredOrders.map((order, index) => (
-                    <OrderCard key={index} order={order} />
+                {groupedOrders.map((order, index) => (
+                    <OrderCard key={index} orders={order} />
                 ))}
             </div>
         </div>

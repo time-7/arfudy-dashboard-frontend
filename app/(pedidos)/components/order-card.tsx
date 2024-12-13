@@ -4,14 +4,16 @@ import { GripVertical } from 'lucide-react';
 import { TOrder } from '../types';
 
 type TOrderCard = {
-    order: TOrder;
+    orders: TOrder[];
 };
 
-export default function OrderCard({ order }: TOrderCard) {
+export default function OrderCard({ orders }: TOrderCard) {
+    const dragId = orders.map((order) => order.id).join('-');
+
     const { attributes, listeners, setNodeRef, transform, isDragging } =
         useDraggable({
-            id: order.id,
-            data: order
+            id: dragId,
+            data: orders
         });
 
     const style = transform
@@ -31,28 +33,31 @@ export default function OrderCard({ order }: TOrderCard) {
                 <GripVertical size={20} strokeWidth={1} />
             </div>
 
-            <div className="flex flex-1 flex-col gap-1 p-4">
+            <div className="flex flex-1 flex-col gap-2 p-4">
                 <div className="flex justify-between">
-                    <p className="font-semibold">Mesa</p>
-
-                    <p className="font-semibold">01</p>
+                    <p className="font-semibold">Mesa {orders[0].tableNum}</p>
                 </div>
 
-                <div className="flex justify-between">
-                    <p className="font-semibold text-gray-400">Código</p>
+                {orders.map((order) => (
+                    <div
+                        key={order.id}
+                        className="flex justify-between gap-1 rounded-md border-2 p-2 text-sm"
+                    >
+                        <p>
+                            {order.product.name} - {order.clientName}
+                        </p>
 
-                    <p className="font-semibold text-gray-400">123</p>
-                </div>
-
-                <div className="flex justify-between">
-                    <p className="font-semibold text-gray-400">Data</p>
-
-                    <p className="font-semibold text-gray-400">
-                        {new Date(
-                            order.product.date.slice(0, -1)
-                        ).toLocaleString()}
-                    </p>
-                </div>
+                        <p>
+                            {new Date(
+                                order.product.date.slice(0, -1)
+                            ).toLocaleTimeString('pt-BR', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: false
+                            })}
+                        </p>
+                    </div>
+                ))}
             </div>
         </div>
     );
