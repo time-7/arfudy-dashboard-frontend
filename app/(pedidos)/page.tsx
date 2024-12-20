@@ -1,13 +1,15 @@
-import Orders from './components/orders';
-import Tables from './components/tables';
+'use client';
 
-import { Box } from '@mui/material';
+import FolderContainer from './components/folder-container';
+import OrderPanel from './components/order-panel';
+import { OrderProvider } from './contexts/order-context';
 
-export default function Home() {
-  return (
-    <Box sx={{ display: 'flex', maxHeight: '100%' }}>
-      <Orders />
-      <Tables />
-    </Box>
-  );
+export default function OrderPage() {
+    return (
+        <OrderProvider>
+            <FolderContainer />
+
+            <OrderPanel />
+        </OrderProvider>
+    );
 }

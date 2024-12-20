@@ -1,49 +1,37 @@
 import './globals.css';
+
+import { ReactNode } from 'react';
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-import Navbar from '@/components/navbar';
-
+import Header from '@/components/header';
+import { cn } from '@/lib/utils';
 import { Providers } from '@/providers/providers';
-import { Box } from '@mui/material';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Dashboard ARFudy',
-  description: 'Dashboard de controle de pedidos e pratos.',
+    title: 'Dashboard Arfudy',
+    description: 'Dashboard de controle de pedidos e pratos'
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <Providers>
-        <Box
-          component="body"
-          sx={{
-            minWidth: '100%',
-            minHeight: '100dvh',
-            display: 'flex',
-            backgroundColor: 'secondary.dark',
-          }}
-        >
-          <Navbar />
+export default function RootLayout({ children }: { children: ReactNode }) {
+    return (
+        <html lang="en">
+            <Providers>
+                <body
+                    className={cn(
+                        'flex h-dvh min-w-full flex-col bg-background p-4 antialiased',
+                        inter.className
+                    )}
+                >
+                    <Header />
 
-          <Box
-            component="main"
-            sx={{
-              flex: 1,
-              marginTop: '76px',
-              display: 'flex',
-              flexDirection: 'column',
-              maxHeight: '100%',
-            }}
-          >
-            {children}
-          </Box>
-        </Box>
-      </Providers>
-    </html>
-  );
+                    <main className="flex h-[calc(100%-40px)] flex-1 flex-col">
+                        {children}
+                    </main>
+                </body>
+            </Providers>
+        </html>
+    );
 }

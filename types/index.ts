@@ -1,21 +1,22 @@
-import {
-  pratosFormSchema,
-  mesasFormSchema,
-  ingredientZod,
-} from '@/utils/validators';
 import { z } from 'zod';
 
+import {
+    ingredientZod,
+    mesasFormSchema,
+    pratosFormSchema
+} from '@/utils/validators';
+
 export type TGet<TData> = {
-  data: TData;
+    data: TData;
 };
 
 export type TRequestError = {
-  message: string;
-  status: number;
+    message: string;
+    status: number;
 };
 
 export type TPratosForm = {
-  params: { id: string[] };
+    params: Promise<{ id: string[] }>;
 };
 
 export type TProduct = z.infer<typeof pratosFormSchema>;
@@ -25,43 +26,27 @@ export type TTable = z.infer<typeof mesasFormSchema>;
 export type TIngredient = z.infer<typeof ingredientZod>;
 
 export type TPatch<TData> = {
-  data: TData;
-  id: string;
+    data: TData;
+    id: string;
 };
 
 export type TPost<TPost> = {
-  data: TPost;
+    data: TPost;
 };
 
 export type TForm<TData> = {
-  id: string | null;
-  data?: TData;
-  isFetching: boolean;
-  isPending: boolean;
-  onSubmit: (data: TData) => void;
+    id: string | null;
+    data?: TData;
+    isFetching: boolean;
+    isPending: boolean;
+    onSubmit: (data: TData) => void;
 };
 
 export type TPostReturn<TData> = {
-  message: string;
-  data: TData;
+    message: string;
+    data: TData;
 };
 
 export type TPatchReturn = {
-  message: string;
-};
-
-export type TStatusOrder = 'PENDING' | 'IN_PREPARE' | 'DONE';
-
-export type TOrder = {
-  orderProductId: string;
-  id: string;
-  serviceId: string;
-  clientName: string;
-  tableNum: number;
-  product: {
-    id: string;
-    name: string;
-    quantity: number;
-    status: TStatusOrder;
-  };
+    message: string;
 };
