@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Grid2x2Plus, LogOut, UserIcon } from 'lucide-react';
@@ -7,6 +8,8 @@ import { Button } from './ui/button';
 export default function Header() {
     return (
         <header className="flex w-full items-center justify-end gap-2">
+            <Image src="/arfudy.png" alt="Logo" width={100} height={100} />
+
             <Button variant="header" size="icon">
                 <Link href="/produtos" className="font-medium">
                     <Grid2x2Plus size={28} />
