@@ -8,13 +8,13 @@ export default {
     theme: {
         extend: {
             colors: {
+                background: '#e0e5ee',
                 primary: '#1f53be',
                 secondary: {
                     light: '#fad717',
                     main: '#FFAF1A'
                 },
-                terciary: '#58bc04',
-                quaternary: '#e0e5ee'
+                terciary: '#58bc04'
             }
         }
     },

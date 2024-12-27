@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Providers>
                 <body
                     className={cn(
-                        'bg-quaternary flex h-dvh min-w-full flex-col p-4 antialiased',
+                        'flex h-dvh min-w-full flex-col bg-background p-4 antialiased',
                         inter.className
                     )}
                 >
