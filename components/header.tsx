@@ -8,7 +8,7 @@ export default function Header() {
     return (
         <header className="flex w-full items-center justify-end gap-2">
             <Button variant="header" size="icon">
-                <Link href="/pratos" className="font-medium">
+                <Link href="/produtos" className="font-medium">
                     <Grid2x2Plus size={28} />
                 </Link>
             </Button>
