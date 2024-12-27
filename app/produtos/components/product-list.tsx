@@ -13,7 +13,7 @@ export default function ProductList() {
             {isFetching && <Loading />}
 
             {!isFetching && (
-                <div className="grid h-full auto-rows-min grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid h-full flex-1 auto-rows-min grid-cols-1 gap-4 overflow-y-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {data.map((product) => (
                         <ProductCard key={product.id} product={product} />
                     ))}
