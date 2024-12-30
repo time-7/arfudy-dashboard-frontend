@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import Header from '@/components/header';
+import { AppSidebar } from '@/components/app-sidebar';
 import { cn } from '@/lib/utils';
 import { Providers } from '@/providers/providers';
 
@@ -18,20 +18,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
-            <Providers>
-                <body
-                    className={cn(
-                        'flex h-dvh min-w-full flex-col bg-background p-4 antialiased',
-                        inter.className
-                    )}
-                >
-                    <Header />
+            <body className="bg-background antialiased">
+                <Providers>
+                    <AppSidebar />
 
-                    <main className="flex h-[calc(100%-40px)] flex-1 flex-col">
+                    <main
+                        className={cn(
+                            inter.className,
+                            'flex h-dvh w-full flex-col p-4'
+                        )}
+                    >
                         {children}
                     </main>
-                </body>
-            </Providers>
+                </Providers>
+            </body>
         </html>
     );
 }
