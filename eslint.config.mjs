@@ -6,17 +6,30 @@ export default {
         node: true,
         es2021: true
     },
+    parser: '@typescript-eslint/parser',
     extends: [
         'eslint:recommended',
         'plugin:react/recommended',
         'plugin:react-hooks/recommended',
-        'plugin:prettier/recommended'
+        'plugin:prettier/recommended',
+        'plugin:import/recommended',
+        'plugin:@next/next/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@tanstack/query/recommended'
     ],
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module'
     },
-    plugins: ['react', 'react-hooks', 'prettier'],
+    plugins: [
+        'react',
+        'react-hooks',
+        'prettier',
+        'import',
+        '@next/eslint-plugin-next',
+        '@typescript-eslint',
+        '@tanstack/query'
+    ],
     rules: {
         'react/prop-types': 'off', // Desabilitar verificação de prop-types
         'no-console': 'warn', // Aviso sobre uso de console
