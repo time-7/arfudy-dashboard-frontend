@@ -41,12 +41,6 @@ export function AppSidebar() {
 
     return (
         <Sidebar collapsible="icon">
-            <SidebarHeader className="flex-row">
-                <SidebarTrigger />
-            </SidebarHeader>
-
-            <SidebarSeparator />
-
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupContent>

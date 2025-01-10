@@ -18,14 +18,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
-            <body className="bg-zinc-100 antialiased">
+            <body className="bg-white antialiased">
                 <Providers>
                     <AppSidebar />
 
                     <main
                         className={cn(
                             inter.className,
-                            'flex h-dvh w-full flex-col gap-3 p-3'
+                            'flex h-dvh w-full flex-col gap-4 p-4'
                         )}
                     >
                         {children}
