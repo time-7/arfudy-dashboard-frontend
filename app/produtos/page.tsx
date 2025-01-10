@@ -5,10 +5,10 @@ import ProductTopBar from './components/product-top-bar';
 
 export default function ProductPage() {
     return (
-        <PageContainer>
+        <>
             <ProductTopBar />
 
             <ProductList />
-        </PageContainer>
+        </>
     );
 }
