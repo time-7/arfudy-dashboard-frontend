@@ -2,12 +2,14 @@ import FolderButton from './folder-button';
 
 export default function FolderContainer() {
     return (
-        <div className="flex h-8 flex-col gap-2">
-            <FolderButton title="Comidas" folder="FOOD" />
+        <div>
+            <div className="inline-flex items-center justify-center rounded-xl border bg-neutral-100 p-[6px] text-neutral-500 shadow-sm">
+                <FolderButton title="Comidas" folder="FOOD" />
 
-            <FolderButton title="Bebidas" folder="DRINK" />
+                <FolderButton title="Bebidas" folder="DRINK" />
 
-            <FolderButton title="Garçom" folder="SERVICE" />
+                <FolderButton title="Garçom" folder="SERVICE" />
+            </div>
         </div>
     );
 }

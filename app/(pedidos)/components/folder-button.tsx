@@ -16,13 +16,9 @@ export default function FolderButton({ folder, title }: TFolderButton) {
         <button
             data-open={open}
             onClick={() => setCurrentFolder(folder)}
-            className="block h-16 w-72 transform-gpu rounded-t-2xl p-0 transition duration-300 hover:-translate-y-[31px] data-[open=true]:pointer-events-none data-[open=true]:z-20 data-[open=true]:-translate-y-[31px]"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-1 text-sm font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 data-[open=true]:bg-white data-[open=true]:text-neutral-950 data-[open=true]:shadow"
         >
-            <div className="h-8 rounded-t-2xl bg-primary" />
-
-            <div className="h-8 border-x bg-white font-semibold leading-8">
-                {title}
-            </div>
+            {title}
         </button>
     );
 }

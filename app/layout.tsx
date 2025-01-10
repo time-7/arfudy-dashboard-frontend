@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     <main
                         className={cn(
                             inter.className,
-                            'flex h-dvh w-full flex-col p-4'
+                            'flex h-dvh w-full flex-col gap-3 p-3'
                         )}
                     >
                         {children}
