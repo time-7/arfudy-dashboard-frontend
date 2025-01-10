@@ -36,7 +36,7 @@ export default function OrderCard({ orders }: TOrderCard) {
                 style={style}
                 data-dragging={isDragging}
                 onClick={() => setIsModalOpen(true)}
-                className="z-50 flex cursor-pointer rounded-md border bg-white text-lg shadow-md hover:scale-[1.02] hover:shadow-xl hover:transition-shadow data-[dragging=true]:cursor-grabbing"
+                className="z-50 flex cursor-pointer rounded-md border bg-white text-lg shadow-sm hover:scale-[1.01] hover:shadow-xl hover:transition-shadow data-[dragging=true]:cursor-grabbing"
             >
                 <div
                     {...listeners}
@@ -57,7 +57,7 @@ export default function OrderCard({ orders }: TOrderCard) {
                     {orders.map((order) => (
                         <div
                             key={order.id}
-                            className="flex justify-between gap-1 rounded-md border-2 p-2 text-sm"
+                            className="flex justify-between gap-1 rounded-md border p-2 text-sm"
                         >
                             <p>
                                 {order.product.name} - {order.clientName}

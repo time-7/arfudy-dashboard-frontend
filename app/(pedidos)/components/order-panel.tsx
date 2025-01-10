@@ -11,7 +11,7 @@ export default function OrderPanel() {
 
     return (
         <DndContext onDragEnd={handleDragEnd}>
-            <div className="flex flex-1 gap-4 rounded-xl border bg-white p-4 shadow-xl">
+            <div className="flex flex-1 gap-2 rounded-xl border bg-white p-2 shadow-xl">
                 {!isService && (
                     <OrderContainer title="Aguardando" orderStatus="PENDING" />
                 )}
