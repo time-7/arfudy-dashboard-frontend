@@ -42,7 +42,7 @@ export default function OrderCard({ orders }: TOrderCard) {
                     {...listeners}
                     {...attributes}
                     ref={setNodeRef}
-                    className="flex w-5 cursor-grab items-center rounded-l-md bg-gray-300"
+                    className="flex w-5 cursor-grab items-center rounded-l-md bg-gray-200"
                 >
                     <GripVertical size={20} strokeWidth={1} />
                 </div>
