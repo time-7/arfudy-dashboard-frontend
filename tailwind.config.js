@@ -11,7 +11,8 @@ export default {
                 primary: '#1f53be',
                 secondary: {
                     light: '#fad717',
-                    main: '#FFAF1A'
+                    main: '#FFAF1A',
+                    dark: '#ef9c00'
                 },
                 terciary: '#58bc04',
                 sidebar: {

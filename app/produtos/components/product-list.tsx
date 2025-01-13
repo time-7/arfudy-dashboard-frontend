@@ -31,12 +31,14 @@ export default function ProductList() {
                             {productView.name}
                         </h2>
 
-                        <div
-                            className="cursor-pointer"
+                        <Button
+                            size="icon"
+                            variant="ghost"
+                            className="hover:bg-[#ef9c00] [&_svg]:size-6"
                             onClick={() => setProductView(null)}
                         >
-                            <X size={24} color="white" />
-                        </div>
+                            <X color="white" />
+                        </Button>
                     </div>
                 </div>
             </div>
