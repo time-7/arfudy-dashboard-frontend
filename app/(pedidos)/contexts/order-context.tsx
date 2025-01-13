@@ -14,7 +14,6 @@ import { useQueryOrders } from '../hooks/use-query-orders';
 import { TFolder, TOrder } from '../types';
 
 export type TOrderContext = {
-    isFetched: boolean;
     isFetching: boolean;
 
     currentFolder: TFolder;
@@ -30,7 +29,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     const [currentFolder, setCurrentFolder] = useState<TFolder>('FOOD');
     const [orders, setOrders] = useState<TOrder[]>([]);
 
-    const { data, isFetching, isFetched, isSuccess } = useQueryOrders();
+    const { data, isFetching, isSuccess } = useQueryOrders();
 
     /**
      * Adiciona os pedidos iniciais.
@@ -61,7 +60,6 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     return (
         <OrderContext.Provider
             value={{
-                isFetched,
                 isFetching,
                 currentFolder,
                 setCurrentFolder,

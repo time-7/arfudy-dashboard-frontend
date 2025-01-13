@@ -36,7 +36,7 @@ export default function OrderCard({ orders }: TOrderCard) {
                 style={style}
                 data-dragging={isDragging}
                 onClick={() => setIsModalOpen(true)}
-                className="z-50 flex cursor-pointer rounded-md border bg-white text-lg shadow-sm hover:scale-[1.01] hover:shadow-xl hover:transition-shadow data-[dragging=true]:cursor-grabbing"
+                className="z-50 flex cursor-pointer rounded-md border bg-white text-lg shadow-sm transition-[box-shadow,scale] hover:scale-[1.01] hover:shadow-xl data-[dragging=true]:cursor-grabbing"
             >
                 <div
                     {...listeners}
