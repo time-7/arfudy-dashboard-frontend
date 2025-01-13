@@ -2,10 +2,20 @@
 
 import Image from 'next/image';
 
-import { X } from 'lucide-react';
+import { Pencil, X } from 'lucide-react';
 
 import Loading from '@/components/loader';
 import { Button } from '@/components/ui/button';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TableHeader,
+    TableRow
+} from '@/components/ui/table';
 import { money } from '@/utils/format';
 
 import { useProductContext } from '../contexts/product-context';
@@ -22,7 +32,7 @@ export default function ProductList() {
     if (productView) {
         return (
             <div className="flex h-1 flex-1 gap-4">
-                <div className="grid h-full w-72 auto-rows-min grid-cols-1 gap-4 overflow-y-auto rounded-xl border p-2 lg:w-96">
+                <div className="hidden h-full w-72 auto-rows-min grid-cols-1 gap-4 overflow-y-auto rounded-xl border p-2 lg:grid lg:w-96">
                     {products.map((product) => (
                         <ProductCard key={product.id} product={product} />
                     ))}
@@ -34,27 +44,29 @@ export default function ProductList() {
                             {productView.name}
                         </h2>
 
-                        <Button
-                            size="icon"
-                            variant="ghost"
-                            className="hover:bg-secondary-dark [&_svg]:size-6"
-                            onClick={() => setProductView(null)}
-                        >
-                            <X color="white" />
-                        </Button>
+                        <div className="flex gap-2">
+                            <Button
+                                size="icon"
+                                variant="ghost"
+                                className="hover:bg-secondary-dark [&_svg]:size-5"
+                                onClick={() => setProductView(null)}
+                            >
+                                <Pencil color="white" />
+                            </Button>
+
+                            <Button
+                                size="icon"
+                                variant="ghost"
+                                className="hover:bg-secondary-dark [&_svg]:size-6"
+                                onClick={() => setProductView(null)}
+                            >
+                                <X color="white" />
+                            </Button>
+                        </div>
                     </div>
 
                     <div className="flex flex-col gap-3 p-3">
-                        <div className="flex gap-3">
-                            <div className="relative size-[220px] object-contain">
-                                <Image
-                                    fill
-                                    src={productView.imageUrl}
-                                    alt="Imagem do produto"
-                                    className="rounded-xl border"
-                                />
-                            </div>
-
+                        <div className="flex flex-col-reverse gap-3 md:flex-row">
                             <div className="flex flex-1 flex-col gap-3">
                                 <div className="grid grid-cols-2 gap-3">
                                     <div className="flex flex-col">
@@ -135,6 +147,18 @@ export default function ProductList() {
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="relative size-[180px]">
+                                <Image
+                                    fill
+                                    src={productView.imageUrl}
+                                    alt="Imagem do produto"
+                                    className="rounded-xl border"
+                                    style={{
+                                        objectFit: 'cover'
+                                    }}
+                                />
+                            </div>
                         </div>
 
                         <div className="flex flex-col">
@@ -144,20 +168,93 @@ export default function ProductList() {
                         </div>
 
                         {productView.ingredients.length > 0 && (
-                            <div className="flex flex-col">
+                            <div className="flex flex-col gap-2">
                                 <p className="text-sm text-gray-500">
                                     Ingredientes
                                 </p>
 
-                                <div className="flex flex-col gap-1">
-                                    {productView.ingredients.map(
-                                        (ingredient, index) => (
-                                            <p key={index} className="text-lg">
-                                                {ingredient.quantity}x{' '}
-                                                {ingredient.name}
-                                            </p>
-                                        )
-                                    )}
+                                <div className="rounded-xl border">
+                                    <Table>
+                                        <TableHeader className="">
+                                            <TableRow>
+                                                <TableHead>Nome</TableHead>
+
+                                                <TableHead className="text-right">
+                                                    Quantidade
+                                                </TableHead>
+
+                                                <TableHead className="text-right">
+                                                    Carboidratos
+                                                </TableHead>
+
+                                                <TableHead className="text-right">
+                                                    Proteínas
+                                                </TableHead>
+
+                                                <TableHead className="text-right">
+                                                    Gorduras totais
+                                                </TableHead>
+
+                                                <TableHead className="text-right">
+                                                    Calorías totais
+                                                </TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+
+                                        <TableBody>
+                                            {productView.ingredients.map(
+                                                (ingredient, index) => (
+                                                    <TableRow key={index}>
+                                                        <TableCell className="font-medium">
+                                                            {ingredient.name}
+                                                        </TableCell>
+
+                                                        <TableCell className="text-right">
+                                                            {
+                                                                ingredient.quantity
+                                                            }
+                                                        </TableCell>
+
+                                                        <TableCell className="text-right">
+                                                            {
+                                                                ingredient
+                                                                    .nutritionFacts
+                                                                    .carbohydrate
+                                                            }{' '}
+                                                            g
+                                                        </TableCell>
+
+                                                        <TableCell className="text-right">
+                                                            {
+                                                                ingredient
+                                                                    .nutritionFacts
+                                                                    .protein
+                                                            }{' '}
+                                                            g
+                                                        </TableCell>
+
+                                                        <TableCell className="text-right">
+                                                            {
+                                                                ingredient
+                                                                    .nutritionFacts
+                                                                    .totalFat
+                                                            }{' '}
+                                                            g
+                                                        </TableCell>
+
+                                                        <TableCell className="text-right">
+                                                            {
+                                                                ingredient
+                                                                    .nutritionFacts
+                                                                    .totalCalories
+                                                            }{' '}
+                                                            kcal
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )
+                                            )}
+                                        </TableBody>
+                                    </Table>
                                 </div>
                             </div>
                         )}
