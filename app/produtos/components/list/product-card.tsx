@@ -9,7 +9,7 @@ import { useProductContext } from '../../contexts/product-context';
 import { TProduct } from '../../types';
 
 export default function ProductCard({ product }: { product: TProduct }) {
-    const { setProductView } = useProductContext();
+    const { setProductView, setProductEdit } = useProductContext();
 
     return (
         <div className="flex overflow-hidden rounded-lg border shadow-sm transition-all">
@@ -40,7 +40,11 @@ export default function ProductCard({ product }: { product: TProduct }) {
                             <Eye className="h-5 w-5" />
                         </Button>
 
-                        <Button size="icon" variant="ghost">
+                        <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() => setProductEdit(product)}
+                        >
                             <Pencil className="h-4 w-4" />
                         </Button>
                     </div>
