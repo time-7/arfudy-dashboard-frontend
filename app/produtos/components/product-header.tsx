@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 
-export default function ProductTopBar() {
+export default function ProductHeader() {
     return (
         <div className="flex items-center gap-4">
             <SidebarTrigger className="h-9 w-9 rounded-xl bg-white shadow" />

@@ -5,8 +5,8 @@ import { Eye, Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { money } from '@/utils/format';
 
-import { useProductContext } from '../contexts/product-context';
-import { TProduct } from '../types';
+import { useProductContext } from '../../contexts/product-context';
+import { TProduct } from '../../types';
 
 export default function ProductCard({ product }: { product: TProduct }) {
     const { setProductView } = useProductContext();
