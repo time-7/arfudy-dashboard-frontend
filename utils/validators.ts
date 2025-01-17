@@ -32,7 +32,7 @@ export const ingredientZod = z.object({
         })
 });
 
-export const pratosFormSchema = z
+export const produtoSchema = z
     .object({
         id: z.string().optional(),
         name: z.string({ required_error: required }),

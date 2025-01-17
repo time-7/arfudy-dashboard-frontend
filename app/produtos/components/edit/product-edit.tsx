@@ -3,7 +3,6 @@
 import { useProductContext } from '../../contexts/product-context';
 import ProductList from '../list/product-list';
 import ProductEditContent from './product-edit-content';
-import ProductEditFooter from './product-edit-footer';
 import ProductEditHeader from './product-edit-header';
 
 export default function ProductEdit() {
@@ -19,8 +18,6 @@ export default function ProductEdit() {
                 <ProductEditHeader />
 
                 <ProductEditContent />
-
-                <ProductEditFooter />
             </div>
         </div>
     );
