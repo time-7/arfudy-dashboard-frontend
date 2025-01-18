@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Image, ImageUp, Save } from 'lucide-react';
+import { Image, ImageUp, Plus, Save } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -20,6 +20,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { produtoSchema } from '@/utils/validators';
 
 import { useProductContext } from '../../contexts/product-context';
+import ProductEditTable from './product-edit-table';
 
 export default function ProductEditContent() {
     const { productEdit } = useProductContext();
@@ -226,6 +227,16 @@ export default function ProductEditContent() {
                         )}
                     />
                 </div>
+
+                <div className="flex items-center justify-between">
+                    <h2 className="mt-2 text-lg font-bold">Ingredientes</h2>
+
+                    <Button variant="secondary" >
+                        <Plus /> Adicionar ingrediente
+                    </Button>
+                </div>
+
+                <ProductEditTable />
 
                 <div className="sticky bottom-0 -mx-3 mt-auto">
                     <div className="mt-auto flex items-center justify-end px-3">
