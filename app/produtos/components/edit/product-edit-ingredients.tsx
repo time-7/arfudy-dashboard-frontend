@@ -1,6 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table';
+import { Plus } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 
+import FormSubTitle from '@/components/form/form-subtitle';
+import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
 
 import { TIngredient } from '../../types';
@@ -28,8 +31,20 @@ const columns: ColumnDef<TIngredient>[] = [
     }
 ];
 
-export default function ProductEditTable() {
+export default function ProductEditIngredients() {
     const { watch } = useFormContext();
 
-    return <DataTable data={watch('ingredients')} columns={columns} />;
+    return (
+        <>
+            <div className="mt-4 flex items-center justify-between">
+                <FormSubTitle className="mt-0">Ingredientes</FormSubTitle>
+
+                <Button variant="secondary" size="sm">
+                    <Plus /> Adicionar ingrediente
+                </Button>
+            </div>
+
+            <DataTable data={watch('ingredients')} columns={columns} />
+        </>
+    );
 }

@@ -1,10 +1,11 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Image, ImageUp, Plus, Save } from 'lucide-react';
+import { ImageUp, Save } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import FormRow from '@/components/form/form-row';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -20,7 +21,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { produtoSchema } from '@/utils/validators';
 
 import { useProductContext } from '../../contexts/product-context';
-import ProductEditTable from './product-edit-table';
+import ProductEditFooter from './product-edit-footer';
+import ProductEditIngredients from './product-edit-ingredients';
+import ProductEditNutritionFacts from './product-edit-nutrition-facts';
 
 export default function ProductEditContent() {
     const { productEdit } = useProductContext();
@@ -42,7 +45,7 @@ export default function ProductEditContent() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="flex flex-1 flex-col gap-3 overflow-y-auto p-3"
             >
-                <div className="flex gap-3 [&>div]:flex-1">
+                <FormRow>
                     <FormField
                         control={form.control}
                         name="name"
@@ -74,7 +77,7 @@ export default function ProductEditContent() {
                             </FormItem>
                         )}
                     />
-                </div>
+                </FormRow>
 
                 <FormField
                     control={form.control}
@@ -95,7 +98,7 @@ export default function ProductEditContent() {
                     )}
                 />
 
-                <div className="flex gap-3">
+                <FormRow flexItems={false}>
                     <Button variant="secondary" className="mt-[32px] w-64">
                         <ImageUp /> Importar imagem
                     </Button>
@@ -118,9 +121,9 @@ export default function ProductEditContent() {
                             </FormItem>
                         )}
                     />
-                </div>
+                </FormRow>
 
-                <div className="flex gap-3">
+                <FormRow flexItems={false}>
                     <FormField
                         control={form.control}
                         name="has3dModel"
@@ -156,99 +159,13 @@ export default function ProductEditContent() {
                             </FormItem>
                         )}
                     />
-                </div>
+                </FormRow>
 
-                <h2 className="mt-2 text-lg font-bold">
-                    Informações nutricionais
-                </h2>
+                <ProductEditNutritionFacts />
 
-                <div className="flex gap-3 [&>div]:flex-1">
-                    <FormField
-                        control={form.control}
-                        name="nutritionFacts.protein"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Proteínas (g)</FormLabel>
+                <ProductEditIngredients />
 
-                                <FormControl>
-                                    <Input placeholder="50 g" {...field} />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="nutritionFacts.carbohydrate"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Carboidratos (g)</FormLabel>
-
-                                <FormControl>
-                                    <Input placeholder="50 g" {...field} />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="nutritionFacts.totalFat"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Gorduras totais (g)</FormLabel>
-
-                                <FormControl>
-                                    <Input placeholder="50 g" {...field} />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="nutritionFacts.totalCalories"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Calorías totais (kcal)</FormLabel>
-
-                                <FormControl>
-                                    <Input placeholder="100 kcal" {...field} />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </div>
-
-                <div className="flex items-center justify-between">
-                    <h2 className="mt-2 text-lg font-bold">Ingredientes</h2>
-
-                    <Button variant="secondary" >
-                        <Plus /> Adicionar ingrediente
-                    </Button>
-                </div>
-
-                <ProductEditTable />
-
-                <div className="sticky bottom-0 -mx-3 mt-auto">
-                    <div className="mt-auto flex items-center justify-end px-3">
-                        <Button
-                            variant="secondary"
-                            type="submit"
-                            className="bg-primary font-bold text-white shadow-2xl shadow-primary transition-opacity hover:bg-primary hover:opacity-90"
-                        >
-                            <Save /> Salvar
-                        </Button>
-                    </div>
-                </div>
+                <ProductEditFooter />
             </form>
         </Form>
     );

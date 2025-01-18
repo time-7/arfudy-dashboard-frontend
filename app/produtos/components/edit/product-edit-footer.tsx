@@ -1,0 +1,19 @@
+import { Save } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+
+export default function ProductEditFooter() {
+    return (
+        <div className="sticky bottom-0 -mx-3 mt-auto">
+            <div className="mt-auto flex items-center justify-end px-3">
+                <Button
+                    variant="secondary"
+                    type="submit"
+                    className="bg-primary font-bold text-white shadow-2xl shadow-primary transition-opacity hover:bg-primary hover:opacity-90"
+                >
+                    <Save /> Salvar
+                </Button>
+            </div>
+        </div>
+    );
+}
