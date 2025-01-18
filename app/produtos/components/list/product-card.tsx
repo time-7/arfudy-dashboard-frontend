@@ -35,7 +35,10 @@ export default function ProductCard({ product }: { product: TProduct }) {
                         <Button
                             size="icon"
                             variant="ghost"
-                            onClick={() => setProductView(product)}
+                            onClick={() => {
+                                setProductView(product);
+                                setProductEdit(null);
+                            }}
                         >
                             <Eye className="h-5 w-5" />
                         </Button>
@@ -43,7 +46,10 @@ export default function ProductCard({ product }: { product: TProduct }) {
                         <Button
                             size="icon"
                             variant="ghost"
-                            onClick={() => setProductEdit(product)}
+                            onClick={() => {
+                                setProductEdit(product);
+                                setProductView(null);
+                            }}
                         >
                             <Pencil className="h-4 w-4" />
                         </Button>
