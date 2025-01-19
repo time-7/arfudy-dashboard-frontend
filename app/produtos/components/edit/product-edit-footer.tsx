@@ -9,7 +9,7 @@ export default function ProductEditFooter() {
                 <Button
                     variant="secondary"
                     type="submit"
-                    className="bg-primary font-bold text-white shadow-2xl shadow-primary transition-opacity hover:bg-primary hover:opacity-90"
+                    className="bg-primary font-bold text-white shadow-2xl shadow-primary transition-all hover:scale-105 hover:bg-primary hover:opacity-90"
                 >
                     <Save /> Salvar
                 </Button>

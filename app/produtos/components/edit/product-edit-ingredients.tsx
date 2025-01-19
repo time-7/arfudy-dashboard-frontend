@@ -1,3 +1,5 @@
+'use client';
+
 import { ColumnDef } from '@tanstack/react-table';
 import { Plus } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
@@ -5,8 +7,7 @@ import { useFormContext } from 'react-hook-form';
 import FormSubTitle from '@/components/form/form-subtitle';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
-
-import { TIngredient } from '../../types';
+import { TIngredient, TProduct } from '@/utils/validators';
 
 const columns: ColumnDef<TIngredient>[] = [
     {
@@ -32,7 +33,7 @@ const columns: ColumnDef<TIngredient>[] = [
 ];
 
 export default function ProductEditIngredients() {
-    const { watch } = useFormContext();
+    const { watch } = useFormContext<TProduct>();
 
     return (
         <>

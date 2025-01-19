@@ -32,6 +32,8 @@ export const ingredientZod = z.object({
         })
 });
 
+export type TIngredient = z.infer<typeof ingredientZod>;
+
 export const produtoSchema = z
     .object({
         id: z.string().optional(),
@@ -68,6 +70,8 @@ export const produtoSchema = z
             path: ['nutritionFacts.totalFat']
         }
     );
+
+export type TProduct = z.infer<typeof produtoSchema>;
 
 export const mesasFormSchema = z.object({
     id: z.string().optional(),

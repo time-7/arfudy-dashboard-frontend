@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ImageUp, Save } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -18,7 +20,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { produtoSchema } from '@/utils/validators';
+import { produtoSchema, TIngredient } from '@/utils/validators';
 
 import { useProductContext } from '../../contexts/product-context';
 import ProductEditFooter from './product-edit-footer';
@@ -38,6 +40,12 @@ export default function ProductEditContent() {
     function onSubmit(values: z.infer<typeof produtoSchema>) {
         console.log(values);
     }
+
+    useEffect(() => {
+        if (productEdit) {
+            form.reset(productEdit);
+        }
+    }, [productEdit]);
 
     return (
         <Form {...form}>
@@ -170,3 +178,38 @@ export default function ProductEditContent() {
         </Form>
     );
 }
+
+// const { mutate, isPending } = useMutation<
+//     AxiosResponse<TPostReturn<TProduct>>,
+//     AxiosError<TRequestError>,
+//     TProduct
+//   >({
+//     mutationFn: (data) => {
+//       const formattedData = formatData(data);
+
+//       return hasId
+//         ? Api.patch(`/products/${id.at(0)}`, formattedData)
+//         : Api.post('/products', formattedData);
+//     },
+//     onSuccess: ({ data: responseData }) => {
+//       const { data, message } = responseData;
+
+//       if (!hasId) {
+//         const { id } = data;
+
+//         router.push(`/pratos/form/${id}`);
+//       } else {
+//         setFormData(data);
+//       }
+
+//       enqueueSnackbar(message, { variant: 'success' });
+//     },
+//     onError: (error) => {
+//       enqueueSnackbar(
+//         error?.response?.data.message || 'Falha ao salvar a mesa',
+//         {
+//           variant: 'error',
+//         },
+//       );
+//     },
+//   });
