@@ -1,12 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ImageUp } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
-import { z } from 'zod';
 
 import FormRow from '@/components/form/form-row';
 import { Button } from '@/components/ui/button';
@@ -31,18 +28,14 @@ import ProductEditNutritionFacts from './product-edit-nutrition-facts';
 
 export default function ProductEditContent() {
     const { productEdit } = useProductContext();
+    const { mutate, isPending } = useMutateProduct();
 
     const form = useForm<TProduct>({
         resolver: zodResolver(produtoSchema),
         values: productEdit as TProduct,
-        defaultValues: {
-            ...productEdit
-        }
+        defaultValues: productEdit as TProduct,
+        disabled: isPending
     });
-
-    const { mutate } = useMutateProduct({ form });
-
-    console.log('price', form.watch('price'));
 
     return (
         <Form {...form}>
@@ -118,7 +111,11 @@ export default function ProductEditContent() {
                 />
 
                 <FormRow flexItems={false}>
-                    <Button variant="secondary" className="mt-[32px] w-64">
+                    <Button
+                        disabled={isPending}
+                        variant="secondary"
+                        className="mt-[32px] w-64"
+                    >
                         <ImageUp /> Importar imagem
                     </Button>
 
@@ -146,6 +143,7 @@ export default function ProductEditContent() {
                     <FormField
                         control={form.control}
                         name="has3dModel"
+                        disabled={isPending}
                         render={({ field }) => (
                             <FormItem className="mt-10 flex flex-row items-start gap-3 space-y-0 rounded-md">
                                 <FormControl>
@@ -174,6 +172,7 @@ export default function ProductEditContent() {
                     <FormField
                         control={form.control}
                         name="unityModelId"
+                        disabled={!form.getValues('has3dModel')}
                         render={({ field }) => (
                             <FormItem className="flex-1">
                                 <FormLabel>Código do modelo Unity</FormLabel>
@@ -181,7 +180,6 @@ export default function ProductEditContent() {
                                 <FormControl>
                                     <Input
                                         {...field}
-                                        disabled={!form.getValues('has3dModel')}
                                         placeholder="ex: 12345678"
                                         value={field.value || ''}
                                     />
@@ -197,7 +195,7 @@ export default function ProductEditContent() {
 
                 <ProductEditIngredients />
 
-                <ProductEditFooter />
+                <ProductEditFooter isPending={isPending} />
             </form>
         </Form>
     );

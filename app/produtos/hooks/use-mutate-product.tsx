@@ -7,6 +7,8 @@ import { toast } from 'sonner';
 import { Axios } from '@/lib/axios';
 import { TProduct } from '@/utils/validators';
 
+import { useProductContext } from '../contexts/product-context';
+
 /**
  * Remove os dados de informações nutricionais caso existam ingredientes (backend calcula automaticamente)
  */
@@ -18,7 +20,9 @@ const formatData = (data: TProduct): TProduct => {
     return data;
 };
 
-export function useMutateProduct({ form }: { form: UseFormReturn<TProduct> }) {
+export function useMutateProduct() {
+    const { setProducts, setProductEdit } = useProductContext();
+
     return useMutation<any, any, TProduct>({
         mutationFn: (data) => {
             const formattedData = formatData(data);
@@ -28,12 +32,18 @@ export function useMutateProduct({ form }: { form: UseFormReturn<TProduct> }) {
                 : Axios.post('/products', formattedData);
         },
         onSuccess: ({ data }) => {
-            form.reset(data.data);
+            setProducts((oldProducts) =>
+                oldProducts.map((product) =>
+                    product.id === data.data.id ? data.data : product
+                )
+            );
 
-            toast(data.message);
+            setProductEdit(data.data);
+
+            toast.success(data.message);
         },
         onError: (error) => {
-            toast(error?.response?.data.message || 'Falha ao salvar a mesa');
+            toast.error(error?.response?.data.message || 'Falha ao salvar a mesa');
         }
     });
 }
