@@ -16,7 +16,7 @@ export default function ProductView() {
                 <ProductList className="hidden max-w-96 lg:grid lg:grid-cols-1 xl:grid-cols-1" />
             )}
 
-            <div className="flex-1 overflow-auto rounded-xl border">
+            <div className="flex flex-1 flex-col overflow-auto rounded-xl border">
                 <ProductViewHeader />
 
                 <ProductViewContent />

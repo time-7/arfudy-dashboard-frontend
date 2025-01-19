@@ -21,7 +21,7 @@ export default function TableViewHeader() {
                 <Button
                     size="icon"
                     variant="ghost"
-                    className="hover:bg-secondary-dark [&_svg]:size-5"
+                    className="hover:bg-primary[&_svg]:size-5"
                     onClick={() => {
                         setTableView(null);
 
@@ -34,7 +34,7 @@ export default function TableViewHeader() {
                 <Button
                     size="icon"
                     variant="ghost"
-                    className="hover:bg-secondary-dark [&_svg]:size-6"
+                    className="h hover:bg-primary [&_svg]:size-6"
                     onClick={() => setTableView(null)}
                 >
                     <X color="white" />

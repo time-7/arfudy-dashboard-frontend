@@ -13,7 +13,7 @@ export default function ProductViewContent() {
     if (!productView) return;
 
     return (
-        <div className="flex flex-col gap-3 p-3">
+        <div className="flex flex-1 flex-col gap-3 overflow-y-auto p-3">
             <div className="flex flex-col-reverse gap-3 md:flex-row">
                 <div className="flex flex-1 flex-col gap-3">
                     <div className="grid grid-cols-2 gap-3">
