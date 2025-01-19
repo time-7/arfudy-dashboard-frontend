@@ -18,7 +18,7 @@ const formatData = (data: TProduct): TProduct => {
     if (data.ingredients?.length) {
         data.nutritionFacts = undefined;
     } else if (data.nutritionFacts) {
-        data.nutritionFacts.totalCalories = 0;
+        data.nutritionFacts.totalCalories = null;
     }
 
     return data;

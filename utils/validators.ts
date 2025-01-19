@@ -8,7 +8,7 @@ const nutritionFactsZod = z.object({
     carbohydrate: z.number().optional(),
     protein: z.number().optional(),
     totalFat: z.number().optional(),
-    totalCalories: z.number().optional()
+    totalCalories: z.number().nullish()
 });
 
 export const ingredientZod = z.object({

@@ -33,7 +33,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     const [productView, setProductView] = useState<TProduct | null>(null);
     const [productEdit, setProductEdit] = useState<TProduct | null>(null);
     const [products, setProducts] = useState<TProduct[]>([]);
-    const [showProducts, setShowProducts] = useState<boolean>(false);
+    const [showProducts, setShowProducts] = useState<boolean>(true);
 
     const { data = [], isFetching, isSuccess } = useQueryProducts();
 
