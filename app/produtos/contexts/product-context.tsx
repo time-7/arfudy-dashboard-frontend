@@ -22,6 +22,9 @@ export type TProductContext = {
 
     productEdit: TProduct | null;
     setProductEdit: Dispatch<SetStateAction<TProduct | null>>;
+
+    showProducts: boolean;
+    setShowProducts: Dispatch<SetStateAction<boolean>>;
 };
 
 const ProductContext = createContext<TProductContext>({} as TProductContext);
@@ -30,6 +33,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     const [productView, setProductView] = useState<TProduct | null>(null);
     const [productEdit, setProductEdit] = useState<TProduct | null>(null);
     const [products, setProducts] = useState<TProduct[]>([]);
+    const [showProducts, setShowProducts] = useState<boolean>(false);
 
     const { data = [], isFetching, isSuccess } = useQueryProducts();
 
@@ -53,7 +57,9 @@ export function ProductProvider({ children }: { children: ReactNode }) {
                 productView,
                 setProductView,
                 productEdit,
-                setProductEdit
+                setProductEdit,
+                showProducts,
+                setShowProducts
             }}
         >
             {children}

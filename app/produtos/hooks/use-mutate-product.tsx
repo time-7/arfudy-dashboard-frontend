@@ -1,5 +1,7 @@
 'use client';
 
+import { isNull } from 'util';
+
 import { useMutation } from '@tanstack/react-query';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -15,6 +17,8 @@ import { useProductContext } from '../contexts/product-context';
 const formatData = (data: TProduct): TProduct => {
     if (data.ingredients?.length) {
         data.nutritionFacts = undefined;
+    } else if (data.nutritionFacts) {
+        data.nutritionFacts.totalCalories = 0;
     }
 
     return data;
@@ -43,7 +47,9 @@ export function useMutateProduct() {
             toast.success(data.message);
         },
         onError: (error) => {
-            toast.error(error?.response?.data.message || 'Falha ao salvar a mesa');
+            toast.error(
+                error?.response?.data.message || 'Falha ao salvar a mesa'
+            );
         }
     });
 }

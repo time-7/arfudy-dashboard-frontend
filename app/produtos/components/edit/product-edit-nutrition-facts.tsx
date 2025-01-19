@@ -33,7 +33,7 @@ export default function ProductEditNutritionFacts() {
                                 <NumericFormat
                                     {...field}
                                     suffix=" g"
-                                    placeholder="50 g"
+                                    placeholder="ex: 50 g"
                                     decimalScale={2}
                                     decimalSeparator=","
                                     customInput={Input}
@@ -61,7 +61,7 @@ export default function ProductEditNutritionFacts() {
                                 <NumericFormat
                                     {...field}
                                     suffix=" g"
-                                    placeholder="50 g"
+                                    placeholder="ex: 50 g"
                                     decimalScale={2}
                                     decimalSeparator=","
                                     customInput={Input}
@@ -89,7 +89,7 @@ export default function ProductEditNutritionFacts() {
                                 <NumericFormat
                                     {...field}
                                     suffix=" g"
-                                    placeholder="50 g"
+                                    placeholder="ex: 50 g"
                                     decimalScale={2}
                                     decimalSeparator=","
                                     customInput={Input}
