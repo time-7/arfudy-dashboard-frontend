@@ -85,3 +85,5 @@ export const mesasFormSchema = z.object({
         invalid_type_error: required
     })
 });
+
+export type TTable = z.infer<typeof mesasFormSchema>;

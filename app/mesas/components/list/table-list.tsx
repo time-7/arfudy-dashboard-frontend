@@ -4,15 +4,15 @@ import { ComponentProps } from 'react';
 
 import { cn } from '@/lib/utils';
 
-import { useProductContext } from '../../contexts/product-context';
-import ProductCard from './product-card';
+import { useTableContext } from '../../contexts/table-context';
+import TableCard from './table-card';
 
-type TProductList = {
+type TTableList = {
     className?: ComponentProps<'div'>['className'];
 };
 
-export default function ProductList({ className }: TProductList) {
-    const { products } = useProductContext();
+export default function TableList({ className }: TTableList) {
+    const { tables } = useTableContext();
 
     return (
         <div
@@ -21,11 +21,11 @@ export default function ProductList({ className }: TProductList) {
                 className
             )}
         >
-            {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
+            {tables.map((table) => (
+                <TableCard key={table.id} table={table} />
             ))}
 
-            {products.length === 0 && (
+            {tables.length === 0 && (
                 <div className="flex flex-1 items-center justify-center text-gray-400">
                     Nenhum produto encontrado
                 </div>
