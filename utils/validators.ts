@@ -44,7 +44,7 @@ export const produtoSchema = z
             invalid_type_error: required
         }),
         imageUrl: z.string({ required_error: required }).url({ message: url }),
-        unityModelId: z.string().optional(),
+        unityModelId: z.string().nullish(),
         has3dModel: z.boolean().default(false),
         nutritionFacts: nutritionFactsZod.optional(),
         ingredients: z.array(ingredientZod).optional().default([])

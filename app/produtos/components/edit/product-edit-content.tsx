@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ImageUp, Save } from 'lucide-react';
+import { ImageUp } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { NumericFormat } from 'react-number-format';
 import { z } from 'zod';
 
 import FormRow from '@/components/form/form-row';
@@ -20,9 +21,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { produtoSchema, TIngredient } from '@/utils/validators';
+import { produtoSchema, TProduct } from '@/utils/validators';
 
 import { useProductContext } from '../../contexts/product-context';
+import { useMutateProduct } from '../../hooks/use-mutate-product';
 import ProductEditFooter from './product-edit-footer';
 import ProductEditIngredients from './product-edit-ingredients';
 import ProductEditNutritionFacts from './product-edit-nutrition-facts';
@@ -30,27 +32,22 @@ import ProductEditNutritionFacts from './product-edit-nutrition-facts';
 export default function ProductEditContent() {
     const { productEdit } = useProductContext();
 
-    const form = useForm<z.infer<typeof produtoSchema>>({
+    const form = useForm<TProduct>({
         resolver: zodResolver(produtoSchema),
+        values: productEdit as TProduct,
         defaultValues: {
             ...productEdit
         }
     });
 
-    function onSubmit(values: z.infer<typeof produtoSchema>) {
-        console.log(values);
-    }
+    const { mutate } = useMutateProduct({ form });
 
-    useEffect(() => {
-        if (productEdit) {
-            form.reset(productEdit);
-        }
-    }, [productEdit]);
+    console.log('price', form.watch('price'));
 
     return (
         <Form {...form}>
             <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit((values) => mutate(values))}
                 className="flex flex-1 flex-col gap-3 overflow-y-auto p-3"
             >
                 <FormRow>
@@ -62,7 +59,10 @@ export default function ProductEditContent() {
                                 <FormLabel>Nome</FormLabel>
 
                                 <FormControl>
-                                    <Input placeholder="Produto x" {...field} />
+                                    <Input
+                                        placeholder="ex: Produto x"
+                                        {...field}
+                                    />
                                 </FormControl>
 
                                 <FormMessage />
@@ -78,7 +78,18 @@ export default function ProductEditContent() {
                                 <FormLabel>Preço</FormLabel>
 
                                 <FormControl>
-                                    <Input placeholder="R$ 12,34" {...field} />
+                                    <NumericFormat
+                                        {...field}
+                                        prefix="R$ "
+                                        placeholder="ex: R$ 12,34"
+                                        decimalSeparator=","
+                                        decimalScale={2}
+                                        customInput={Input}
+                                        onChange={() => {}}
+                                        onValueChange={({ floatValue }) =>
+                                            field.onChange(floatValue)
+                                        }
+                                    />
                                 </FormControl>
 
                                 <FormMessage />
@@ -96,7 +107,7 @@ export default function ProductEditContent() {
 
                             <FormControl>
                                 <Textarea
-                                    placeholder="Produto com ingredientes x, y e z"
+                                    placeholder="ex: Produto com ingredientes x, y e z"
                                     {...field}
                                 />
                             </FormControl>
@@ -120,7 +131,7 @@ export default function ProductEditContent() {
 
                                 <FormControl>
                                     <Input
-                                        placeholder="https://minha-imagem.jpg"
+                                        placeholder="ex: https://minha-imagem.jpg"
                                         {...field}
                                     />
                                 </FormControl>
@@ -140,7 +151,16 @@ export default function ProductEditContent() {
                                 <FormControl>
                                     <Checkbox
                                         checked={field.value}
-                                        onCheckedChange={field.onChange}
+                                        onCheckedChange={(value) => {
+                                            field.onChange(value);
+
+                                            if (!value) {
+                                                form.setValue(
+                                                    'unityModelId',
+                                                    ''
+                                                );
+                                            }
+                                        }}
                                     />
                                 </FormControl>
 
@@ -153,14 +173,18 @@ export default function ProductEditContent() {
 
                     <FormField
                         control={form.control}
-                        disabled={!form.watch('has3dModel')}
                         name="unityModelId"
                         render={({ field }) => (
                             <FormItem className="flex-1">
                                 <FormLabel>Código do modelo Unity</FormLabel>
 
                                 <FormControl>
-                                    <Input placeholder="12345678" {...field} />
+                                    <Input
+                                        {...field}
+                                        disabled={!form.getValues('has3dModel')}
+                                        placeholder="ex: 12345678"
+                                        value={field.value || ''}
+                                    />
                                 </FormControl>
 
                                 <FormMessage />
@@ -178,38 +202,3 @@ export default function ProductEditContent() {
         </Form>
     );
 }
-
-// const { mutate, isPending } = useMutation<
-//     AxiosResponse<TPostReturn<TProduct>>,
-//     AxiosError<TRequestError>,
-//     TProduct
-//   >({
-//     mutationFn: (data) => {
-//       const formattedData = formatData(data);
-
-//       return hasId
-//         ? Api.patch(`/products/${id.at(0)}`, formattedData)
-//         : Api.post('/products', formattedData);
-//     },
-//     onSuccess: ({ data: responseData }) => {
-//       const { data, message } = responseData;
-
-//       if (!hasId) {
-//         const { id } = data;
-
-//         router.push(`/pratos/form/${id}`);
-//       } else {
-//         setFormData(data);
-//       }
-
-//       enqueueSnackbar(message, { variant: 'success' });
-//     },
-//     onError: (error) => {
-//       enqueueSnackbar(
-//         error?.response?.data.message || 'Falha ao salvar a mesa',
-//         {
-//           variant: 'error',
-//         },
-//       );
-//     },
-//   });

@@ -1,6 +1,7 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
+import { NumericFormat } from 'react-number-format';
 
 import FormRow from '@/components/form/form-row';
 import FormSubTitle from '@/components/form/form-subtitle';
@@ -14,7 +15,7 @@ import {
 import { Input } from '@/components/ui/input';
 
 export default function ProductEditNutritionFacts() {
-    const { control } = useFormContext();
+    const { control, watch } = useFormContext();
 
     return (
         <>
@@ -22,14 +23,26 @@ export default function ProductEditNutritionFacts() {
 
             <FormRow>
                 <FormField
-                    control={control}
                     name="nutritionFacts.protein"
+                    control={control}
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Proteínas (g)</FormLabel>
 
                             <FormControl>
-                                <Input placeholder="50 g" {...field} />
+                                <NumericFormat
+                                    {...field}
+                                    suffix=" g"
+                                    placeholder="50 g"
+                                    decimalScale={2}
+                                    decimalSeparator=","
+                                    customInput={Input}
+                                    disabled={watch('ingredients').length}
+                                    onChange={() => {}}
+                                    onValueChange={({ floatValue }) =>
+                                        field.onChange(floatValue)
+                                    }
+                                />
                             </FormControl>
 
                             <FormMessage />
@@ -38,14 +51,26 @@ export default function ProductEditNutritionFacts() {
                 />
 
                 <FormField
-                    control={control}
                     name="nutritionFacts.carbohydrate"
+                    control={control}
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Carboidratos (g)</FormLabel>
 
                             <FormControl>
-                                <Input placeholder="50 g" {...field} />
+                                <NumericFormat
+                                    {...field}
+                                    suffix=" g"
+                                    placeholder="50 g"
+                                    decimalScale={2}
+                                    decimalSeparator=","
+                                    customInput={Input}
+                                    disabled={watch('ingredients').length}
+                                    onChange={() => {}}
+                                    onValueChange={({ floatValue }) =>
+                                        field.onChange(floatValue)
+                                    }
+                                />
                             </FormControl>
 
                             <FormMessage />
@@ -54,14 +79,26 @@ export default function ProductEditNutritionFacts() {
                 />
 
                 <FormField
-                    control={control}
                     name="nutritionFacts.totalFat"
+                    control={control}
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Gorduras totais (g)</FormLabel>
 
                             <FormControl>
-                                <Input placeholder="50 g" {...field} />
+                                <NumericFormat
+                                    {...field}
+                                    suffix=" g"
+                                    placeholder="50 g"
+                                    decimalScale={2}
+                                    decimalSeparator=","
+                                    customInput={Input}
+                                    disabled={watch('ingredients').length}
+                                    onChange={() => {}}
+                                    onValueChange={({ floatValue }) =>
+                                        field.onChange(floatValue)
+                                    }
+                                />
                             </FormControl>
 
                             <FormMessage />
@@ -77,7 +114,14 @@ export default function ProductEditNutritionFacts() {
                             <FormLabel>Calorías totais (kcal)</FormLabel>
 
                             <FormControl>
-                                <Input placeholder="100 kcal" {...field} />
+                                <NumericFormat
+                                    disabled
+                                    suffix=" kcal"
+                                    decimalScale={2}
+                                    decimalSeparator=","
+                                    customInput={Input}
+                                    {...field}
+                                />
                             </FormControl>
 
                             <FormMessage />

@@ -29,7 +29,9 @@ export default function ProductViewContent() {
                             <p className="text-sm text-gray-500">Modelo 3D</p>
 
                             <p className="text-lg">
-                                {productView.has3dModel ? 'Sim' : 'Não'}
+                                {productView.has3dModel
+                                    ? productView.unityModelId
+                                    : 'Não'}
                             </p>
                         </div>
                     </div>
