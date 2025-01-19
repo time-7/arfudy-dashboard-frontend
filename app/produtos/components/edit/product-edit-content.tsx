@@ -33,7 +33,6 @@ export default function ProductEditContent() {
     const form = useForm<TProduct>({
         resolver: zodResolver(produtoSchema),
         values: productEdit as TProduct,
-        defaultValues: productEdit as TProduct,
         disabled: isPending
     });
 

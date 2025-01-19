@@ -41,27 +41,13 @@ export default function ProductEditIngredients() {
     const ingredient = useRef<TIngredient | null>(null);
     const { watch } = useFormContext<TProduct>();
 
-    /**
-     * Abre o modal para adicionar um ingrediente.
-     */
-    const onAddIngredient = () => {
-        setOpen(true);
-
-        ingredient.current = {
-            name: '',
-            quantity: 1,
-            nutritionFacts: {
-                protein: 0,
-                carbohydrate: 0,
-                totalFat: 0,
-                totalCalories: 0
-            }
-        };
-    };
-
     return (
         <>
-            <ProductEditIngredientModal open={open} onOpenChange={setOpen} />
+            <ProductEditIngredientModal
+                open={open}
+                onOpenChange={setOpen}
+                ingredient={ingredient.current as TIngredient}
+            />
 
             <div className="mt-4 flex items-center justify-between">
                 <FormSubTitle className="mt-0">Ingredientes</FormSubTitle>
@@ -70,7 +56,7 @@ export default function ProductEditIngredients() {
                     variant="secondary"
                     size="sm"
                     type="button"
-                    onClick={onAddIngredient}
+                    onClick={() => setOpen(true)}
                 >
                     <Plus /> Adicionar ingrediente
                 </Button>
