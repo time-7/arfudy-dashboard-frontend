@@ -7,15 +7,18 @@ import { toast } from 'sonner';
 import { Axios } from '@/lib/axios';
 import { TProduct } from '@/utils/validators';
 
+/**
+ * Remove os dados de informações nutricionais caso existam ingredientes (backend calcula automaticamente)
+ */
+const formatData = (data: TProduct): TProduct => {
+    if (data.ingredients?.length) {
+        data.nutritionFacts = undefined;
+    }
+
+    return data;
+};
+
 export function useMutateProduct({ form }: { form: UseFormReturn<TProduct> }) {
-    const formatData = (data: TProduct): TProduct => {
-        if (data.ingredients?.length) {
-            data.nutritionFacts = undefined;
-        }
-
-        return data;
-    };
-
     return useMutation<any, any, TProduct>({
         mutationFn: (data) => {
             const formattedData = formatData(data);
