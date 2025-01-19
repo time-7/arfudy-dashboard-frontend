@@ -17,11 +17,14 @@ import { useQueryTableOrders } from '../../hooks/use-query-table-orders';
 export default function TableViewTable() {
     const { tableView } = useTableContext();
 
-    const { data: orders = [], isFetching } = useQueryTableOrders({
+    const {
+        data: orders = [],
+        isFetching,
+        failureCount
+    } = useQueryTableOrders({
         id: tableView?.id as string
     });
 
-    console.log(orders);
     if (!tableView) return;
 
     return (
@@ -66,9 +69,12 @@ export default function TableViewTable() {
 
                         {orders.length === 0 && (
                             <TableRow>
-                                <TableCell className="col-auto flex h-24 flex-1 items-center justify-center">
-                                    {isFetching ? (
-                                        <Loader className="animate-spin" />
+                                <TableCell
+                                    colSpan={4}
+                                    className="h-16 text-center"
+                                >
+                                    {isFetching && !failureCount ? (
+                                        <Loader className="mx-auto animate-spin" />
                                     ) : (
                                         'Sem registros'
                                     )}
