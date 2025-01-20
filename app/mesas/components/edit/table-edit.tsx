@@ -2,13 +2,13 @@
 
 import { useTableContext } from '../../contexts/table-context';
 import TableList from '../list/table-list';
-import TableViewContent from './table-view-content';
-import TableViewHeader from './table-view-header';
+import TableEditContent from './table-edit-content';
+import TableEditHeader from './table-edit-header';
 
-export default function TableView() {
-    const { tableView, showTables } = useTableContext();
+export default function TableEdit() {
+    const { tableEdit, showTables } = useTableContext();
 
-    if (!tableView) return;
+    if (!tableEdit) return;
 
     return (
         <div className="flex h-1 flex-1 gap-4">
@@ -17,9 +17,9 @@ export default function TableView() {
             )}
 
             <div className="flex flex-1 flex-col overflow-auto rounded-xl border">
-                <TableViewHeader />
+                <TableEditHeader />
 
-                <TableViewContent />
+                <TableEditContent />
             </div>
         </div>
     );

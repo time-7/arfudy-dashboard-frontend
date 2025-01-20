@@ -9,7 +9,7 @@ export default function TableViewContent() {
     if (!tableView) return;
 
     return (
-        <div className="flex flex-col gap-3 p-3">
+        <div className="flex flex-col gap-3 overflow-y-auto p-3">
             <div className="flex flex-col">
                 <p className="text-sm text-gray-500">Assentos</p>
 
