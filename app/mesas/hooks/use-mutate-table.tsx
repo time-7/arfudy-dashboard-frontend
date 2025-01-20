@@ -17,13 +17,23 @@ export function useMutateTable() {
                 ? Axios.patch(`/tables/${data.id}`, data)
                 : Axios.post('/tables', data),
         onSuccess: ({ data }, formData) => {
-            setTables((oldTable) =>
-                oldTable.map((table) =>
-                    table.id === formData.id ? formData : table
-                )
-            );
+            debugger;
 
-            setTableEdit(formData);
+            if (formData.id) {
+                setTables((oldTable) =>
+                    oldTable.map((table) =>
+                        table.id === formData.id ? formData : table
+                    )
+                );
+
+                setTableEdit(formData);
+            } else {
+                const newTable = { ...formData, ...data.data };
+
+                setTables((oldTable) => [...oldTable, newTable]);
+
+                setTableEdit(newTable);
+            }
 
             toast.success(data.message);
         },

@@ -14,7 +14,9 @@ export default function ProductEditHeader() {
     return (
         <div className="flex h-12 items-center justify-between bg-secondary-main px-4">
             <h2 className="text-md flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold leading-[48px] text-white">
-                {productEdit.name}
+                {productEdit.id
+                    ? 'Editando ' + productEdit.name
+                    : 'Novo produto'}
             </h2>
 
             <div className="flex gap-2">

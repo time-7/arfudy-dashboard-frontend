@@ -7,15 +7,29 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { useTableContext } from '../contexts/table-context';
 
 export default function TableHeader() {
-    const { tableEdit, tableView, showTables, setShowTables } =
-        useTableContext();
+    const {
+        tableEdit,
+        tableView,
+        showTables,
+        setShowTables,
+        setTableEdit,
+        tables
+    } = useTableContext();
 
     return (
         <div className="flex items-center gap-4">
             <SidebarTrigger className="h-9 w-9 rounded-xl bg-white shadow" />
 
             <div className="flex gap-4">
-                <Button variant="secondary">
+                <Button
+                    variant="secondary"
+                    onClick={() =>
+                        setTableEdit({
+                            seatNum: 1,
+                            tableNum: (tables.at(-1)?.tableNum || 0) + 1
+                        })
+                    }
+                >
                     <Plus /> Novo
                 </Button>
 
