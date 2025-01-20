@@ -17,8 +17,6 @@ export function useMutateTable() {
                 ? Axios.patch(`/tables/${data.id}`, data)
                 : Axios.post('/tables', data),
         onSuccess: ({ data }, formData) => {
-            debugger;
-
             if (formData.id) {
                 setTables((oldTable) =>
                     oldTable.map((table) =>
