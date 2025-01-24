@@ -14,7 +14,7 @@ import {
     FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { mesasFormSchema,  TTable } from '@/utils/validators';
+import { mesasFormSchema, TTable } from '@/utils/validators';
 
 import { useTableContext } from '../../contexts/table-context';
 import { useMutateTable } from '../../hooks/use-mutate-table';

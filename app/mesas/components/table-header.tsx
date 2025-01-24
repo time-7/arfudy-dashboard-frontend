@@ -26,7 +26,8 @@ export default function TableHeader() {
                     onClick={() =>
                         setTableEdit({
                             seatNum: 1,
-                            tableNum: (tables.at(-1)?.tableNum || 0) + 1
+                            tableNum: (tables.at(-1)?.tableNum || 0) + 1,
+                            activeToken: null
                         })
                     }
                 >

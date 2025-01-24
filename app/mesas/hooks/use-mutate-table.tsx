@@ -11,26 +11,38 @@ import { useTableContext } from '../contexts/table-context';
 export function useMutateTable() {
     const { setTables, setTableEdit } = useTableContext();
 
+    /**
+     * Altera os dados na lista e atualiza os dados no state de edit.
+     */
+    const onSuccessEdit = (table: TTable) => {
+        setTables((oldTables) =>
+            oldTables.map((oldTable) => (table.id === oldTable.id ? table : oldTable))
+        );
+
+        setTableEdit(table);
+    };
+
+    /**
+     * Adiciona a nova mesa na lista de mesas e salva os dados no state de edit.
+     */
+    const onSuccessSave = (table: TTable) => {
+        setTables((oldTable) => [...oldTable, table]);
+
+        setTableEdit(table);
+    };
+
     return useMutation<any, any, TTable>({
         mutationFn: (data) =>
             data.id
                 ? Axios.patch(`/tables/${data.id}`, data)
                 : Axios.post('/tables', data),
         onSuccess: ({ data }, formData) => {
+            const newTable = { ...formData, ...data.data };
+
             if (formData.id) {
-                setTables((oldTable) =>
-                    oldTable.map((table) =>
-                        table.id === formData.id ? formData : table
-                    )
-                );
-
-                setTableEdit(formData);
+                onSuccessEdit(newTable);
             } else {
-                const newTable = { ...formData, ...data.data };
-
-                setTables((oldTable) => [...oldTable, newTable]);
-
-                setTableEdit(newTable);
+                onSuccessSave(newTable);
             }
 
             toast.success(data.message);

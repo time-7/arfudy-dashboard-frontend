@@ -75,7 +75,7 @@ export type TProduct = z.infer<typeof produtoSchema>;
 
 export const mesasFormSchema = z.object({
     id: z.string().optional(),
-    activeToken: z.string().optional(),
+    activeToken: z.string().nullish(),
     tableNum: z.number({
         required_error: required,
         invalid_type_error: required

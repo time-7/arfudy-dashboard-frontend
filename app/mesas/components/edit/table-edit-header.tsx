@@ -11,8 +11,6 @@ export default function TableEditHeader() {
 
     if (!tableEdit) return;
 
-    console.log(tableEdit);
-
     return (
         <div className="flex h-12 items-center justify-between bg-primary px-4">
             <h2 className="text-md flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold leading-[48px] text-white">
