@@ -1,13 +1,16 @@
 'use client';
 
-import { Eye, Pencil } from 'lucide-react';
+import { Eye, Pencil, Trash } from 'lucide-react';
 
 import { useTableContext } from '@/app/mesas/contexts/table-context';
 import { Button } from '@/components/ui/button';
 import { TTable } from '@/utils/validators';
 
+import { useDeleteTable } from '../../hooks/use-delete-table';
+
 export default function TableCard({ table }: { table: TTable }) {
     const { setTableView, setTableEdit } = useTableContext();
+    const { mutate, isPending } = useDeleteTable();
 
     return (
         <div className="flex overflow-hidden rounded-lg border shadow-sm transition-all">
@@ -23,6 +26,7 @@ export default function TableCard({ table }: { table: TTable }) {
                         <Button
                             size="icon"
                             variant="ghost"
+                            disabled={isPending}
                             onClick={() => {
                                 setTableView(table);
                                 setTableEdit(null);
@@ -34,12 +38,22 @@ export default function TableCard({ table }: { table: TTable }) {
                         <Button
                             size="icon"
                             variant="ghost"
+                            disabled={isPending}
                             onClick={() => {
                                 setTableEdit(table);
                                 setTableView(null);
                             }}
                         >
                             <Pencil className="h-4 w-4" />
+                        </Button>
+
+                        <Button
+                            size="icon"
+                            variant="ghost"
+                            disabled={isPending}
+                            onClick={() => mutate(table)}
+                        >
+                            <Trash className="h-4 w-4" />
                         </Button>
                     </div>
                 </div>
