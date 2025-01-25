@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import UploadImageButton from '@/components/upload-image-button';
 import { produtoSchema, TProduct } from '@/utils/validators';
 
 import { useProductContext } from '../../contexts/product-context';
@@ -110,13 +111,11 @@ export default function ProductEditForm() {
                 />
 
                 <FormRow flexItems={false}>
-                    <Button
-                        disabled={isPending}
+                    <UploadImageButton
                         variant="secondary"
                         className="mt-[32px] w-64"
-                    >
-                        <ImageUp /> Importar imagem
-                    </Button>
+                        setImage={(url) => form.setValue('imageUrl', url)}
+                    />
 
                     <FormField
                         control={form.control}
@@ -171,7 +170,7 @@ export default function ProductEditForm() {
                     <FormField
                         control={form.control}
                         name="unityModelId"
-                        disabled={!form.getValues('has3dModel')}
+                        disabled={!form.watch('has3dModel')}
                         render={({ field }) => (
                             <FormItem className="flex-1">
                                 <FormLabel>Código do modelo Unity</FormLabel>

@@ -10,6 +10,8 @@
     },
     "dependencies": {
         "@dnd-kit/core": "^6.3.1",
+        "@edgestore/react": "^0.2.2",
+        "@edgestore/server": "^0.2.2",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
         "@eslint/compat": "^1.2.4",
