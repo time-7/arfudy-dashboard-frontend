@@ -3,6 +3,7 @@
 import { useDroppable } from '@dnd-kit/core';
 
 import Loading from '@/components/loader';
+import { cn } from '@/lib/utils';
 
 import { useOrderContext } from '../contexts/order-context';
 import { useFilteredOrders } from '../hooks/use-filtered-orders';
@@ -12,11 +13,13 @@ import OrderCard from './order-card';
 type TOrderContainer = {
     title: string;
     orderStatus: TOrderStatus;
+    backgroundColor: string;
 };
 
 export default function OrderContainer({
     title,
-    orderStatus
+    orderStatus,
+    backgroundColor
 }: TOrderContainer) {
     const { isFetching } = useOrderContext();
     const { groupedOrders } = useFilteredOrders({ orderStatus });
@@ -30,7 +33,12 @@ export default function OrderContainer({
             ref={setNodeRef}
             className="flex flex-1 flex-col rounded-xl shadow-sm"
         >
-            <div className="text-md h-10 rounded-t-xl bg-primary text-center font-semibold leading-10 text-white">
+            <div
+                className={cn(
+                    'text-md h-10 rounded-t-xl text-center font-semibold leading-10 text-white',
+                    backgroundColor
+                )}
+            >
                 {title}
             </div>
 

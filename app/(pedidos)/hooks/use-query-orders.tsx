@@ -8,7 +8,7 @@ import { TOrder } from '../types';
 
 export function useQueryOrders() {
     return useQuery<TOrder[]>({
-        queryKey: ['orders'],
+        queryKey: ['queryOrders'],
         queryFn: () => Axios.get('/orders').then((res) => res.data.data.flat())
     });
 }

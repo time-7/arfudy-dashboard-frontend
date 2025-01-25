@@ -2,6 +2,7 @@ import { DndContext } from '@dnd-kit/core';
 
 import { useOrderContext } from '../contexts/order-context';
 import { useDrag } from '../hooks/use-drag';
+import { ordersInfos } from '../utils/order';
 import OrderContainer from './order-container';
 
 export default function OrderPanel() {
@@ -13,17 +14,33 @@ export default function OrderPanel() {
         <DndContext onDragEnd={handleDragEnd}>
             <div className="flex flex-1 gap-4">
                 {!isService && (
-                    <OrderContainer title="Aguardando" orderStatus="PENDING" />
+                    <OrderContainer
+                        orderStatus="PENDING"
+                        title={ordersInfos.PENDING.title}
+                        backgroundColor={ordersInfos.PENDING.backgroundColor}
+                    />
                 )}
 
                 {!isService && (
-                    <OrderContainer title="Fazendo" orderStatus="IN_PREPARE" />
+                    <OrderContainer
+                        orderStatus="IN_PREPARE"
+                        title={ordersInfos.IN_PREPARE.title}
+                        backgroundColor={ordersInfos.IN_PREPARE.backgroundColor}
+                    />
                 )}
 
-                <OrderContainer title="Pronto" orderStatus="DONE" />
+                <OrderContainer
+                    orderStatus="DONE"
+                    title={ordersInfos.DONE.title}
+                    backgroundColor={ordersInfos.DONE.backgroundColor}
+                />
 
                 {isService && (
-                    <OrderContainer title="Entregue" orderStatus="DELIVERED" />
+                    <OrderContainer
+                        orderStatus="DELIVERED"
+                        title={ordersInfos.DELIVERED.title}
+                        backgroundColor={ordersInfos.DELIVERED.backgroundColor}
+                    />
                 )}
             </div>
         </DndContext>
