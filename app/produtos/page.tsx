@@ -1,15 +1,15 @@
 'use client';
 
-import ProductList from './components/product-list';
-import ProductTopBar from './components/product-top-bar';
+import ProductContainer from './components/product-container';
+import ProductHeader from './components/product-header';
 import { ProductProvider } from './contexts/product-context';
 
 export default function ProductPage() {
     return (
         <ProductProvider>
-            <ProductTopBar />
+            <ProductHeader />
 
-            <ProductList />
+            <ProductContainer />
         </ProductProvider>
     );
 }

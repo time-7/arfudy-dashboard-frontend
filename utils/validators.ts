@@ -5,9 +5,9 @@ import { messages } from '@/utils/messages';
 const { required, url } = messages;
 
 const nutritionFactsZod = z.object({
-    carbohydrate: z.number().nullish(),
-    protein: z.number().nullish(),
-    totalFat: z.number().nullish(),
+    carbohydrate: z.number().optional(),
+    protein: z.number().optional(),
+    totalFat: z.number().optional(),
     totalCalories: z.number().nullish()
 });
 
@@ -32,7 +32,9 @@ export const ingredientZod = z.object({
         })
 });
 
-export const pratosFormSchema = z
+export type TIngredient = z.infer<typeof ingredientZod>;
+
+export const produtoSchema = z
     .object({
         id: z.string().optional(),
         name: z.string({ required_error: required }),
@@ -69,9 +71,11 @@ export const pratosFormSchema = z
         }
     );
 
+export type TProduct = z.infer<typeof produtoSchema>;
+
 export const mesasFormSchema = z.object({
     id: z.string().optional(),
-    activeToken: z.string().optional(),
+    activeToken: z.string().nullish(),
     tableNum: z.number({
         required_error: required,
         invalid_type_error: required
@@ -81,3 +85,5 @@ export const mesasFormSchema = z.object({
         invalid_type_error: required
     })
 });
+
+export type TTable = z.infer<typeof mesasFormSchema>;
