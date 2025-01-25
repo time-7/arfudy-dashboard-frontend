@@ -1,7 +1,9 @@
 'use client';
 
+import Image from 'next/image';
+
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ImageUp } from 'lucide-react';
+import { ImageOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
 
@@ -43,152 +45,160 @@ export default function ProductEditForm() {
                 onSubmit={form.handleSubmit((values) => mutate(values))}
                 className="flex flex-1 flex-col gap-3 overflow-y-auto p-3"
             >
-                <FormRow>
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Nome</FormLabel>
+                <div className="flex flex-col gap-3 md:flex-row">
+                    <div className="flex flex-1 flex-col gap-3">
+                        <FormRow>
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Nome</FormLabel>
 
-                                <FormControl>
-                                    <Input
-                                        placeholder="ex: Produto x"
-                                        {...field}
-                                    />
-                                </FormControl>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="ex: Produto x"
+                                                {...field}
+                                            />
+                                        </FormControl>
 
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
-                    <FormField
-                        control={form.control}
-                        name="price"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Preço</FormLabel>
+                            <FormField
+                                control={form.control}
+                                name="price"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Preço</FormLabel>
 
-                                <FormControl>
-                                    <NumericFormat
-                                        {...field}
-                                        prefix="R$ "
-                                        placeholder="ex: R$ 12,34"
-                                        decimalSeparator=","
-                                        decimalScale={2}
-                                        customInput={Input}
-                                        onChange={() => {}}
-                                        onValueChange={({ floatValue }) =>
-                                            field.onChange(floatValue)
-                                        }
-                                    />
-                                </FormControl>
+                                        <FormControl>
+                                            <NumericFormat
+                                                {...field}
+                                                prefix="R$ "
+                                                placeholder="ex: R$ 12,34"
+                                                decimalSeparator=","
+                                                decimalScale={2}
+                                                customInput={Input}
+                                                onChange={() => {}}
+                                                onValueChange={({
+                                                    floatValue
+                                                }) =>
+                                                    field.onChange(floatValue)
+                                                }
+                                            />
+                                        </FormControl>
 
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </FormRow>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </FormRow>
 
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Descrição</FormLabel>
+                        <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Descrição</FormLabel>
 
-                            <FormControl>
-                                <Textarea
-                                    placeholder="ex: Produto com ingredientes x, y e z"
-                                    {...field}
+                                    <FormControl>
+                                        <Textarea
+                                            placeholder="ex: Produto com ingredientes x, y e z"
+                                            {...field}
+                                        />
+                                    </FormControl>
+
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormRow flexItems={false}>
+                            <FormField
+                                control={form.control}
+                                name="has3dModel"
+                                disabled={isPending}
+                                render={({ field }) => (
+                                    <FormItem className="mt-10 flex flex-row items-start gap-3 space-y-0 rounded-md">
+                                        <FormControl>
+                                            <Checkbox
+                                                checked={field.value}
+                                                onCheckedChange={(value) => {
+                                                    field.onChange(value);
+
+                                                    if (!value) {
+                                                        form.setValue(
+                                                            'unityModelId',
+                                                            ''
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        <FormLabel className="leading-4">
+                                            Possui modelo 3D
+                                        </FormLabel>
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="unityModelId"
+                                disabled={!form.watch('has3dModel')}
+                                render={({ field }) => (
+                                    <FormItem className="flex-1">
+                                        <FormLabel>
+                                            Código do modelo Unity
+                                        </FormLabel>
+
+                                        <FormControl>
+                                            <Input
+                                                {...field}
+                                                placeholder="ex: 12345678"
+                                                value={field.value || ''}
+                                            />
+                                        </FormControl>
+
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </FormRow>
+                    </div>
+
+                    <div className="flex flex-col gap-3">
+                        <div className="relative flex size-[204px] rounded-xl border overflow-hidden">
+                            {form.watch('imageUrl') && (
+                                <Image
+                                    fill
+                                    src={form.watch('imageUrl')}
+                                    alt="Imagem do produto"
+                                    style={{
+                                        objectFit: 'cover'
+                                    }}
                                 />
-                            </FormControl>
+                            )}
 
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                            {!form.watch('imageUrl') && (
+                                <ImageOff
+                                    size={36}
+                                    className="m-auto text-gray-400"
+                                />
+                            )}
+                        </div>
 
-                <FormRow flexItems={false}>
-                    <UploadImageButton
-                        variant="secondary"
-                        className="mt-[32px] w-64"
-                        setImage={(url) => form.setValue('imageUrl', url)}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="imageUrl"
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormLabel>URL da imagem</FormLabel>
-
-                                <FormControl>
-                                    <Input
-                                        placeholder="ex: https://minha-imagem.jpg"
-                                        {...field}
-                                    />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </FormRow>
-
-                <FormRow flexItems={false}>
-                    <FormField
-                        control={form.control}
-                        name="has3dModel"
-                        disabled={isPending}
-                        render={({ field }) => (
-                            <FormItem className="mt-10 flex flex-row items-start gap-3 space-y-0 rounded-md">
-                                <FormControl>
-                                    <Checkbox
-                                        checked={field.value}
-                                        onCheckedChange={(value) => {
-                                            field.onChange(value);
-
-                                            if (!value) {
-                                                form.setValue(
-                                                    'unityModelId',
-                                                    ''
-                                                );
-                                            }
-                                        }}
-                                    />
-                                </FormControl>
-
-                                <FormLabel className="leading-4">
-                                    Possui modelo 3D
-                                </FormLabel>
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="unityModelId"
-                        disabled={!form.watch('has3dModel')}
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormLabel>Código do modelo Unity</FormLabel>
-
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        placeholder="ex: 12345678"
-                                        value={field.value || ''}
-                                    />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </FormRow>
-
+                        <UploadImageButton
+                            variant="secondary"
+                            className="w-[204px]"
+                            setImage={(url) => form.setValue('imageUrl', url)}
+                        />
+                    </div>
+                </div>
                 <ProductEditNutritionFacts />
 
                 <ProductEditIngredients />

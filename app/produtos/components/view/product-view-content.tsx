@@ -77,7 +77,7 @@ export default function ProductViewContent() {
                     </div>
                 </div>
 
-                <div className="relative size-[180px]">
+                <div className="relative size-[204px] rounded-xl border overflow-hidden">
                     <Image
                         fill
                         src={productView.imageUrl}
