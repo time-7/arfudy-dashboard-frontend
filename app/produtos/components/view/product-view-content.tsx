@@ -43,7 +43,7 @@ export default function ProductViewContent() {
                             </p>
 
                             <p className="text-lg">
-                                {productView.nutritionFacts.carbohydrate} g
+                                {productView.nutritionFacts?.carbohydrate} g
                             </p>
                         </div>
 
@@ -51,7 +51,7 @@ export default function ProductViewContent() {
                             <p className="text-sm text-gray-500">Proteínas</p>
 
                             <p className="text-lg">
-                                {productView.nutritionFacts.protein} g
+                                {productView.nutritionFacts?.protein} g
                             </p>
                         </div>
 
@@ -61,7 +61,7 @@ export default function ProductViewContent() {
                             </p>
 
                             <p className="text-lg">
-                                {productView.nutritionFacts.totalFat} g
+                                {productView.nutritionFacts?.totalFat} g
                             </p>
                         </div>
 
@@ -71,7 +71,7 @@ export default function ProductViewContent() {
                             </p>
 
                             <p className="text-lg">
-                                {productView.nutritionFacts.totalCalories} kcal
+                                {productView.nutritionFacts?.totalCalories} kcal
                             </p>
                         </div>
                     </div>

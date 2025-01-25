@@ -27,19 +27,24 @@ export default function ProductEditIngredients() {
         },
         {
             accessorKey: 'nutritionFacts.protein',
-            header: 'Proteínas'
+            header: 'Proteínas',
+            cell: ({ row }) => row.original.nutritionFacts.protein + ' g'
         },
         {
             accessorKey: 'nutritionFacts.carbohydrate',
-            header: 'Carboidratos'
+            header: 'Carboidratos',
+            cell: ({ row }) => row.original.nutritionFacts.carbohydrate + ' g'
         },
         {
             accessorKey: 'nutritionFacts.totalFat',
-            header: 'Gorduras totais'
+            header: 'Gorduras totais',
+            cell: ({ row }) => row.original.nutritionFacts.totalFat + ' g'
         },
         {
             accessorKey: 'nutritionFacts.totalCalories',
-            header: 'Calorías totais'
+            header: 'Calorías totais',
+            cell: ({ row }) =>
+                row.original.nutritionFacts.totalCalories + ' kcal'
         },
         {
             id: 'actions',
