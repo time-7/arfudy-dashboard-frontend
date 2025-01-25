@@ -2,9 +2,11 @@ import {
     createContext,
     Dispatch,
     ReactNode,
+    RefObject,
     SetStateAction,
     use,
     useEffect,
+    useRef,
     useState
 } from 'react';
 
@@ -21,6 +23,11 @@ export type TOrderContext = {
 
     orders: TOrder[];
     setOrders: Dispatch<SetStateAction<TOrder[]>>;
+
+    openOrderModal: boolean;
+    setOpenOrderModal: Dispatch<SetStateAction<boolean>>;
+
+    ordersModal: RefObject<TOrder[]>;
 };
 
 const OrderContext = createContext<TOrderContext>({} as TOrderContext);
@@ -28,6 +35,8 @@ const OrderContext = createContext<TOrderContext>({} as TOrderContext);
 export function OrderProvider({ children }: { children: ReactNode }) {
     const [currentFolder, setCurrentFolder] = useState<TFolder>('FOOD');
     const [orders, setOrders] = useState<TOrder[]>([]);
+    const [openOrderModal, setOpenOrderModal] = useState<boolean>(false);
+    const ordersModal = useRef<TOrder[]>([]);
 
     const { data, isFetching, isSuccess } = useQueryOrders();
 
@@ -64,7 +73,10 @@ export function OrderProvider({ children }: { children: ReactNode }) {
                 currentFolder,
                 setCurrentFolder,
                 orders,
-                setOrders
+                setOrders,
+                openOrderModal,
+                setOpenOrderModal,
+                ordersModal
             }}
         >
             {children}

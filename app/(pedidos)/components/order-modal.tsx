@@ -11,24 +11,23 @@ import {
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
+import { useOrderContext } from '../contexts/order-context';
 import { TOrder } from '../types';
 import { ordersInfos } from '../utils/order';
-
-type TOrderModal = DialogProps & {
-    orders: TOrder[];
-};
 
 const Label = ({ children }: { children: ReactNode }) => (
     <span className="text-gray-400">{children}</span>
 );
 
-export default function OrderModal({
-    orders,
-    open,
-    onOpenChange
-}: TOrderModal) {
+export default function OrderModal() {
+    const { openOrderModal, setOpenOrderModal, ordersModal } =
+        useOrderContext();
+    const orders = ordersModal.current;
+
+    if (!orders.length) return null;
+
     return (
-        <Dialog modal open={open} onOpenChange={onOpenChange}>
+        <Dialog modal open={openOrderModal} onOpenChange={setOpenOrderModal}>
             <DialogContent className="gap-0 overflow-hidden border-none p-0 [&>button]:right-4 [&>button]:top-3 [&>button]:text-white">
                 <DialogHeader
                     className={cn(
