@@ -5,14 +5,16 @@ import { messages } from '@/utils/messages';
 const { required, url } = messages;
 
 const nutritionFactsZod = z.object({
-    carbohydrate: z.number().optional(),
-    protein: z.number().optional(),
-    totalFat: z.number().optional(),
+    carbohydrate: z.number().nullish(),
+    protein: z.number().nullish(),
+    totalFat: z.number().nullish(),
     totalCalories: z.number().nullish()
 });
 
 export const ingredientZod = z.object({
-    name: z.string({ required_error: required }),
+    name: z
+        .string({ required_error: required })
+        .min(3, 'O campo deve ter no mínimo 3 caracteres'),
     quantity: z.number({
         required_error: required,
         invalid_type_error: required
@@ -37,12 +39,16 @@ export type TIngredient = z.infer<typeof ingredientZod>;
 export const produtoSchema = z
     .object({
         id: z.string().optional(),
-        name: z.string({ required_error: required }),
+        name: z
+            .string({ required_error: required })
+            .min(3, 'O campo deve ter no mínimo 3 caracteres'),
         description: z.string({ required_error: required }),
-        price: z.number({
-            required_error: required,
-            invalid_type_error: required
-        }),
+        price: z
+            .number({
+                required_error: required,
+                invalid_type_error: required
+            })
+            .min(0.01, 'O valor deve ser maior que 0'),
         imageUrl: z.string({ required_error: required }).url({ message: url }),
         unityModelId: z.string().nullish(),
         has3dModel: z.boolean().default(false),

@@ -26,7 +26,7 @@ import ProductEditFooter from './product-edit-footer';
 import ProductEditIngredients from './product-edit-ingredients';
 import ProductEditNutritionFacts from './product-edit-nutrition-facts';
 
-export default function ProductEditContent() {
+export default function ProductEditForm() {
     const { productEdit } = useProductContext();
     const { mutate, isPending } = useMutateProduct();
 

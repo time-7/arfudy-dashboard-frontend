@@ -2,7 +2,7 @@
 
 import { useProductContext } from '../../contexts/product-context';
 import ProductList from '../list/product-list';
-import ProductEditContent from './product-edit-content';
+import ProductEditForm from './product-edit-form';
 import ProductEditHeader from './product-edit-header';
 
 export default function ProductEdit() {
@@ -19,7 +19,7 @@ export default function ProductEdit() {
             <div className="flex flex-1 flex-col overflow-auto rounded-xl border">
                 <ProductEditHeader />
 
-                <ProductEditContent />
+                <ProductEditForm />
             </div>
         </div>
     );

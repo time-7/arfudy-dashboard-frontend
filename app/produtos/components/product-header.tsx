@@ -7,15 +7,38 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { useProductContext } from '../contexts/product-context';
 
 export default function ProductHeader() {
-    const { productEdit, productView, showProducts, setShowProducts } =
-        useProductContext();
+    const {
+        productEdit,
+        productView,
+        showProducts,
+        setShowProducts,
+        setProductEdit
+    } = useProductContext();
 
     return (
         <div className="flex items-center gap-4">
             <SidebarTrigger className="h-9 w-9 rounded-xl bg-white shadow" />
 
             <div className="flex gap-4">
-                <Button variant="secondary">
+                <Button
+                    variant="secondary"
+                    onClick={() =>
+                        setProductEdit({
+                            name: '',
+                            price: 0,
+                            description: '',
+                            has3dModel: false,
+                            imageUrl: '',
+                            ingredients: [],
+                            nutritionFacts: {
+                                carbohydrate: 0,
+                                protein: 0,
+                                totalCalories: 0,
+                                totalFat: 0
+                            }
+                        })
+                    }
+                >
                     <Plus /> Novo
                 </Button>
 

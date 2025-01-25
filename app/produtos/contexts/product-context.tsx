@@ -8,8 +8,9 @@ import {
     useState
 } from 'react';
 
+import { TProduct } from '@/utils/validators';
+
 import { useQueryProducts } from '../hooks/use-query-products';
-import { TProduct } from '../types';
 
 export type TProductContext = {
     isFetching: boolean;
