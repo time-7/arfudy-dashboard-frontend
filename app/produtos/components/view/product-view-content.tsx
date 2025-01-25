@@ -74,10 +74,16 @@ export default function ProductViewContent() {
                                 {productView.nutritionFacts?.totalCalories} kcal
                             </p>
                         </div>
+
+                        <div className="flex flex-col">
+                            <p className="text-sm text-gray-500">Descrição</p>
+
+                            <p className="text-lg">{productView.description}</p>
+                        </div>
                     </div>
                 </div>
 
-                <div className="relative size-[204px] rounded-xl border overflow-hidden">
+                <div className="relative size-[204px] overflow-hidden rounded-xl border">
                     <Image
                         fill
                         src={productView.imageUrl}
@@ -88,12 +94,6 @@ export default function ProductViewContent() {
                         }}
                     />
                 </div>
-            </div>
-
-            <div className="flex flex-col">
-                <p className="text-sm text-gray-500">Descrição</p>
-
-                <p className="text-lg">{productView.description}</p>
             </div>
 
             {productView.ingredients.length > 0 && <ProductViewTable />}

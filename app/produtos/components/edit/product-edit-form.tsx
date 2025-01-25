@@ -172,7 +172,7 @@ export default function ProductEditForm() {
                     </div>
 
                     <div className="flex flex-col gap-3">
-                        <div className="relative flex size-[204px] rounded-xl border overflow-hidden">
+                        <div className="relative flex size-[204px] overflow-hidden rounded-xl border">
                             {form.watch('imageUrl') && (
                                 <Image
                                     fill
@@ -197,6 +197,12 @@ export default function ProductEditForm() {
                             className="w-[204px]"
                             setImage={(url) => form.setValue('imageUrl', url)}
                         />
+
+                        {form.getFieldState('imageUrl').error && (
+                            <p className="text-[0.8rem] font-medium text-red-500 dark:text-red-900">
+                                {form.getFieldState('imageUrl').error?.message}
+                            </p>
+                        )}
                     </div>
                 </div>
                 <ProductEditNutritionFacts />

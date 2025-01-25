@@ -49,7 +49,9 @@ export const produtoSchema = z
                 invalid_type_error: required
             })
             .min(0.01, 'O valor deve ser maior que 0'),
-        imageUrl: z.string({ required_error: required }).url({ message: url }),
+        imageUrl: z
+            .string({ required_error: required })
+            .min(1, 'Imagem é obrigatória'),
         unityModelId: z.string().nullish(),
         has3dModel: z.boolean().default(false),
         nutritionFacts: nutritionFactsZod.optional(),
