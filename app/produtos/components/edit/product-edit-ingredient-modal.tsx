@@ -1,4 +1,4 @@
-import { ComponentProps, Dispatch, SetStateAction, useEffect } from 'react';
+import { ComponentProps, Dispatch, RefObject, SetStateAction, useEffect } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, Save } from 'lucide-react';
@@ -31,13 +31,13 @@ import { ingredientZod, TIngredient, TProduct } from '@/utils/validators';
 type TProductEditIngredientModal = {
     open: boolean;
     onOpenChange: Dispatch<SetStateAction<boolean>>;
-    ingredientId: string | null;
+    ingredientRef: RefObject<string | null>;
 };
 
 export default function ProductEditIngredientModal({
     open,
     onOpenChange,
-    ingredientId
+    ingredientRef
 }: TProductEditIngredientModal) {
     const form = useFormContext<TProduct>();
 
@@ -45,8 +45,8 @@ export default function ProductEditIngredientModal({
      * Retorna os valores do ingrediente a ser editado/adicionado.
      */
     const getValues = () => {
-        if (ingredientId) {
-            return form.getValues('ingredients')[Number(ingredientId)];
+        if (ingredientRef.current) {
+            return form.getValues('ingredients')[Number(ingredientRef.current)];
         }
 
         return {
@@ -73,7 +73,7 @@ export default function ProductEditIngredientModal({
         const ingredients = form.getValues('ingredients');
 
         const newIngredients = ingredients.map((ingredient, index) =>
-            index === Number(ingredientId) ? data : ingredient
+            index === Number(ingredientRef.current) ? data : ingredient
         );
 
         form.setValue('ingredients', newIngredients);
@@ -103,7 +103,7 @@ export default function ProductEditIngredientModal({
     };
 
     const onSubmit = (data: TIngredient) => {
-        if (ingredientId) {
+        if (ingredientRef.current) {
             onEditIngredient(data);
         } else {
             onAddIngredient(data);
@@ -114,6 +114,7 @@ export default function ProductEditIngredientModal({
         if (!open) {
             formModal.reset();
             formModal.clearErrors();
+            ingredientRef.current = null;
         }
     }, [open]);
 
@@ -125,7 +126,7 @@ export default function ProductEditIngredientModal({
             >
                 <DialogHeader className="flex bg-secondary-main p-3">
                     <DialogTitle className="text-white">
-                        {ingredientId ? 'Editar' : 'Adicionar'} ingrediente
+                        {ingredientRef.current ? 'Editar' : 'Adicionar'} ingrediente
                     </DialogTitle>
                 </DialogHeader>
 

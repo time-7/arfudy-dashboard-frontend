@@ -88,7 +88,7 @@ export default function ProductEditIngredients() {
 
         setValue('ingredients', newIngredients);
 
-        setOpenConfirmModal(false);
+        setOpenConfirmModal(true);
     };
 
     return (
@@ -102,7 +102,7 @@ export default function ProductEditIngredients() {
             <ProductEditIngredientModal
                 open={openIngredientModal}
                 onOpenChange={setOpenIngredientModal}
-                ingredientId={ingredientRef.current}
+                ingredientRef={ingredientRef}
             />
 
             <div className="mt-4 flex items-center justify-between">
