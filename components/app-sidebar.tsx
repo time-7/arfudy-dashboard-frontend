@@ -1,13 +1,15 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { Apple, HandPlatter, ReceiptText } from 'lucide-react';
+import { Apple, HandPlatter, LogOut, ReceiptText } from 'lucide-react';
 
 import {
     Sidebar,
     SidebarContent,
+    SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
     SidebarHeader,
@@ -40,7 +42,13 @@ export function AppSidebar() {
     const pathname = usePathname();
 
     return (
-        <Sidebar collapsible="icon">
+        <Sidebar>
+            <SidebarHeader className="items-center justify-center py-2">
+                <Image src="/arfudy.png" width={100} height={100} alt="Logo" />
+            </SidebarHeader>
+
+            <SidebarSeparator />
+
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupContent>
@@ -63,6 +71,16 @@ export function AppSidebar() {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
+
+            <SidebarSeparator />
+
+            <SidebarFooter>
+                <SidebarMenuButton>
+                    <LogOut />
+
+                    <span>Sair</span>
+                </SidebarMenuButton>
+            </SidebarFooter>
         </Sidebar>
     );
 }

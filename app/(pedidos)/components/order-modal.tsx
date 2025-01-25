@@ -12,7 +12,6 @@ import {
 import { cn } from '@/lib/utils';
 
 import { useOrderContext } from '../contexts/order-context';
-import { TOrder } from '../types';
 import { ordersInfos } from '../utils/order';
 
 const Label = ({ children }: { children: ReactNode }) => (
@@ -28,7 +27,10 @@ export default function OrderModal() {
 
     return (
         <Dialog modal open={openOrderModal} onOpenChange={setOpenOrderModal}>
-            <DialogContent className="gap-0 overflow-hidden border-none p-0 [&>button]:right-4 [&>button]:top-3 [&>button]:text-white">
+            <DialogContent
+                onOpenAutoFocus={(e) => e.preventDefault()}
+                className="gap-0 overflow-hidden border-none p-0 [&>button]:right-4 [&>button]:top-3 [&>button]:text-white"
+            >
                 <DialogHeader
                     className={cn(
                         'flex p-3',
