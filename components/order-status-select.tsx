@@ -34,13 +34,10 @@ export default function OrderStatusSelect({ order }: { order: TOrder }) {
                 status: status
             },
             {
-                onSuccess: () => {
-                    queryClient.refetchQueries({
+                onSuccess: () =>
+                    queryClient.invalidateQueries({
                         queryKey: ['queryOrders']
-                    });
-
-                    toast.success('Status atualizado com sucesso!');
-                }
+                    })
             }
         );
     };
