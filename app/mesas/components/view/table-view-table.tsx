@@ -2,6 +2,7 @@
 
 import { Loader } from 'lucide-react';
 
+import OrderStatusSelect from '@/components/order-status-select';
 import {
     Table,
     TableBody,
@@ -62,7 +63,7 @@ export default function TableViewTable() {
                                     <TableCell>{order.clientName}</TableCell>
 
                                     <TableCell>
-                                        {order.product.status}
+                                        <OrderStatusSelect order={order} />
                                     </TableCell>
                                 </TableRow>
                             ))}

@@ -1,4 +1,4 @@
-import { ComponentProps, Dispatch, SetStateAction } from 'react';
+import { ComponentProps, Dispatch, RefObject, SetStateAction, useEffect } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, Save } from 'lucide-react';
@@ -26,24 +26,30 @@ import {
     FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ingredientZod, TIngredient } from '@/utils/validators';
+import { ingredientZod, TIngredient, TProduct } from '@/utils/validators';
 
 type TProductEditIngredientModal = {
     open: boolean;
     onOpenChange: Dispatch<SetStateAction<boolean>>;
-    ingredient: TIngredient | null;
+    ingredientRef: RefObject<string | null>;
 };
 
 export default function ProductEditIngredientModal({
     open,
     onOpenChange,
-    ingredient
+    ingredientRef
 }: TProductEditIngredientModal) {
-    const form = useFormContext();
+    const form = useFormContext<TProduct>();
 
-    const formModal = useForm<TIngredient>({
-        resolver: zodResolver(ingredientZod),
-        values: ingredient || {
+    /**
+     * Retorna os valores do ingrediente a ser editado/adicionado.
+     */
+    const getValues = () => {
+        if (ingredientRef.current) {
+            return form.getValues('ingredients')[Number(ingredientRef.current)];
+        }
+
+        return {
             name: '',
             quantity: 1,
             nutritionFacts: {
@@ -52,43 +58,80 @@ export default function ProductEditIngredientModal({
                 totalFat: 0,
                 totalCalories: 0
             }
-        }
+        };
+    };
+
+    const formModal = useForm<TIngredient>({
+        resolver: zodResolver(ingredientZod),
+        values: getValues()
     });
 
-    const onSubmit = (data: TIngredient) => {
-        const ingredients = form.getValues('ingredients') || [];
-        const newIngredients = [...ingredients, data];
+    /**
+     * Ao editar um ingrediente, atualiza o mesmo na lista de ingredientes.
+     */
+    const onEditIngredient = (data: TIngredient) => {
+        const ingredients = form.getValues('ingredients');
+
+        const newIngredients = ingredients.map((ingredient, index) =>
+            index === Number(ingredientRef.current) ? data : ingredient
+        );
 
         form.setValue('ingredients', newIngredients);
+
+        onOpenChange(false);
+    };
+
+    /**
+     * Ao adicionar um ingrediente, adiciona o mesmo na lista de ingredientes.
+     */
+    const onAddIngredient = (data: TIngredient) => {
+        const ingredients = form.getValues('ingredients');
+        const newIngredients = [...ingredients, data];
+
         form.setValue('nutritionFacts', {
-            carbohydrate: null,
-            protein: null,
-            totalCalories: null,
-            totalFat: null
+            carbohydrate: 0,
+            protein: 0,
+            totalCalories: 0,
+            totalFat: 0
         });
+
+        form.setValue('ingredients', newIngredients);
 
         form.clearErrors(['nutritionFacts']);
 
         onOpenChange(false);
     };
 
+    const onSubmit = (data: TIngredient) => {
+        if (ingredientRef.current) {
+            onEditIngredient(data);
+        } else {
+            onAddIngredient(data);
+        }
+    };
+
+    useEffect(() => {
+        if (!open) {
+            formModal.reset();
+            formModal.clearErrors();
+            ingredientRef.current = null;
+        }
+    }, [open]);
+
     return (
         <Dialog open={open} onOpenChange={onOpenChange} modal>
             <DialogContent
                 aria-describedby="Modal de adição/edição de ingredientes"
-                className="gap-0 overflow-hidden border-none p-0 [&>button]:text-white"
+                className="gap-0 overflow-hidden border-none p-0 [&>button]:right-4 [&>button]:top-[10px] [&>button]:text-white"
             >
-                <DialogHeader className="flex h-12 bg-secondary-main px-4">
-                    <DialogTitle className="leading-[48px] text-white">
-                        {ingredient ? 'Editar' : 'Adicionar'} ingrediente
+                <DialogHeader className="flex bg-secondary-main p-3">
+                    <DialogTitle className="text-white">
+                        {ingredientRef.current ? 'Editar' : 'Adicionar'} ingrediente
                     </DialogTitle>
                 </DialogHeader>
 
                 <Form {...formModal}>
-                    <form
-                        onSubmit={formModal.handleSubmit(onSubmit)}
-                        className="flex flex-1 flex-col gap-3 overflow-y-auto p-3"
-                    >
+                    <form className="flex flex-1 flex-col gap-4 overflow-y-auto p-4">
                         <FormRow>
                             <FormField
                                 control={formModal.control}
@@ -114,7 +157,7 @@ export default function ProductEditIngredientModal({
                                 name="quantity"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Preço</FormLabel>
+                                        <FormLabel>Quantidade</FormLabel>
 
                                         <FormControl>
                                             <NumericFormat
@@ -256,11 +299,21 @@ export default function ProductEditIngredientModal({
                             />
                         </FormRow>
 
-                        <DialogFooter className="justify-end">
+                        <DialogFooter className="justify-end gap-4 sm:space-x-0">
                             <Button
-                                type="submit"
                                 variant="secondary"
-                                className='hover:opacity-90" bg-primary font-bold text-white shadow-2xl shadow-primary transition-all hover:scale-105 hover:bg-primary'
+                                onClick={() => onOpenChange(false)}
+                            >
+                                Fechar
+                            </Button>
+
+                            <Button
+                                type="button"
+                                variant="secondary"
+                                className="bg-primary font-bold text-white shadow-2xl shadow-primary transition-all hover:scale-105 hover:bg-primary hover:opacity-90"
+                                onClick={() =>
+                                    formModal.handleSubmit(onSubmit)()
+                                }
                             >
                                 <Save />
                                 Salvar

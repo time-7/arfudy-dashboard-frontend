@@ -24,6 +24,28 @@ const formatData = (data: TProduct): TProduct => {
 export function useMutateProduct() {
     const { setProducts, setProductEdit } = useProductContext();
 
+    /**
+     * Altera os dados na lista e atualiza os dados no state de edit.
+     */
+    const onSuccessEdit = (product: TProduct) => {
+        setProducts((oldProducts) =>
+            oldProducts.map((oldProduct) =>
+                oldProduct.id === product.id ? product : oldProduct
+            )
+        );
+
+        setProductEdit(product);
+    };
+
+    /**
+     * Adicionao o novo produto na lista de produtos e salva os dados no state de edit.
+     */
+    const onSuccessSave = (product: TProduct) => {
+        setProducts((oldProducts) => [...oldProducts, product]);
+
+        setProductEdit(product);
+    };
+
     return useMutation<any, any, TProduct>({
         mutationFn: (data) => {
             const formattedData = formatData(data);
@@ -32,14 +54,14 @@ export function useMutateProduct() {
                 ? Axios.patch(`/products/${data.id}`, formattedData)
                 : Axios.post('/products', formattedData);
         },
-        onSuccess: ({ data }) => {
-            setProducts((oldProducts) =>
-                oldProducts.map((product) =>
-                    product.id === data.data.id ? data.data : product
-                )
-            );
+        onSuccess: ({ data }, formData) => {
+            const newData = { ...formData, ...data.data };
 
-            setProductEdit(data.data);
+            if (formData.id) {
+                onSuccessEdit(newData);
+            } else {
+                onSuccessSave(newData);
+            }
 
             toast.success(data.message);
         },

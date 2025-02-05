@@ -10,7 +10,7 @@ import { money } from '@/utils/format';
 
 import { useProductContext } from '../../contexts/product-context';
 import { useDeleteProduct } from '../../hooks/use-delete-product';
-import { TProduct } from '../../types';
+import { TProduct } from '@/utils/validators';
 
 export default function ProductCard({ product }: { product: TProduct }) {
     const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false);

@@ -97,7 +97,7 @@ export default function TableEditContent() {
                             <FormLabel>Token</FormLabel>
 
                             <FormControl>
-                                <Input {...field} />
+                                <Input {...field} value={field.value || ''} />
                             </FormControl>
 
                             <FormMessage />

@@ -7,7 +7,6 @@ export default {
     theme: {
         extend: {
             colors: {
-                background: '#e0e5ee',
                 primary: '#1f53be',
                 secondary: {
                     light: '#fad717',
@@ -15,6 +14,7 @@ export default {
                     dark: '#ef9c00'
                 },
                 terciary: '#58bc04',
+                quaternary: '#9ba1ab',
                 sidebar: {
                     DEFAULT: 'hsl(var(--sidebar-background))',
                     foreground: 'hsl(var(--sidebar-foreground))',
