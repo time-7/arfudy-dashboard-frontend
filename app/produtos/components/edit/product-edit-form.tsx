@@ -19,6 +19,13 @@ import {
     FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import UploadImageButton from '@/components/upload-image-button';
 import { produtoSchema, TProduct } from '@/utils/validators';
@@ -32,6 +39,8 @@ import ProductEditNutritionFacts from './product-edit-nutrition-facts';
 export default function ProductEditForm() {
     const { productEdit } = useProductContext();
     const { mutate, isPending } = useMutateProduct();
+
+    console.log(productEdit);
 
     const form = useForm<TProduct>({
         resolver: zodResolver(produtoSchema),
@@ -116,54 +125,90 @@ export default function ProductEditForm() {
                             )}
                         />
 
-                        <FormRow flexItems={false}>
+                        <FormRow>
+                            <FormRow flexItems={false}>
+                                <FormField
+                                    control={form.control}
+                                    name="has3dModel"
+                                    disabled={isPending}
+                                    render={({ field }) => (
+                                        <FormItem className="mt-10 flex flex-row items-start gap-3 space-y-0 rounded-md">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value}
+                                                    onCheckedChange={(
+                                                        value
+                                                    ) => {
+                                                        field.onChange(value);
+
+                                                        if (!value) {
+                                                            form.setValue(
+                                                                'unityModelId',
+                                                                ''
+                                                            );
+                                                        }
+                                                    }}
+                                                />
+                                            </FormControl>
+
+                                            <FormLabel className="leading-4">
+                                                Possui modelo 3D
+                                            </FormLabel>
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="unityModelId"
+                                    disabled={!form.watch('has3dModel')}
+                                    render={({ field }) => (
+                                        <FormItem className="flex-1">
+                                            <FormLabel>
+                                                Código do modelo Unity
+                                            </FormLabel>
+
+                                            <FormControl>
+                                                <Input
+                                                    {...field}
+                                                    placeholder="ex: 12345678"
+                                                    value={field.value || ''}
+                                                />
+                                            </FormControl>
+
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </FormRow>
+
                             <FormField
                                 control={form.control}
-                                name="has3dModel"
-                                disabled={isPending}
+                                name="category"
                                 render={({ field }) => (
-                                    <FormItem className="mt-10 flex flex-row items-start gap-3 space-y-0 rounded-md">
-                                        <FormControl>
-                                            <Checkbox
-                                                checked={field.value}
-                                                onCheckedChange={(value) => {
-                                                    field.onChange(value);
+                                    <FormItem>
+                                        <FormLabel>Categoria</FormLabel>
 
-                                                    if (!value) {
-                                                        form.setValue(
-                                                            'unityModelId',
-                                                            ''
-                                                        );
-                                                    }
-                                                }}
-                                            />
-                                        </FormControl>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Selecione uma categoria" />
+                                                </SelectTrigger>
+                                            </FormControl>
 
-                                        <FormLabel className="leading-4">
-                                            Possui modelo 3D
-                                        </FormLabel>
-                                    </FormItem>
-                                )}
-                            />
+                                            <SelectContent>
+                                                <SelectItem value="FOOD">
+                                                    Comida
+                                                </SelectItem>
 
-                            <FormField
-                                control={form.control}
-                                name="unityModelId"
-                                disabled={!form.watch('has3dModel')}
-                                render={({ field }) => (
-                                    <FormItem className="flex-1">
-                                        <FormLabel>
-                                            Código do modelo Unity
-                                        </FormLabel>
-
-                                        <FormControl>
-                                            <Input
-                                                {...field}
-                                                placeholder="ex: 12345678"
-                                                value={field.value || ''}
-                                            />
-                                        </FormControl>
-
+                                                <SelectItem value="DRINK">
+                                                    Bebida
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                         <FormMessage />
                                     </FormItem>
                                 )}
