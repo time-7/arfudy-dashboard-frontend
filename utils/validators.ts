@@ -53,6 +53,7 @@ export const produtoSchema = z
             .string({ required_error: required })
             .min(1, 'Imagem é obrigatória'),
         unityModelId: z.string().nullish(),
+        category: z.enum(['DRINK', 'FOOD'], { required_error: required }),
         has3dModel: z.boolean().default(false),
         nutritionFacts: nutritionFactsZod.optional(),
         ingredients: z.array(ingredientZod).optional().default([])

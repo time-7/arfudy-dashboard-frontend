@@ -34,9 +34,7 @@ export default function ProductViewContent() {
                                     : 'Não'}
                             </p>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-2 grid-rows-2 gap-3">
                         <div className="flex flex-col">
                             <p className="text-sm text-gray-500">
                                 Carboidratos
@@ -72,6 +70,16 @@ export default function ProductViewContent() {
 
                             <p className="text-lg">
                                 {productView.nutritionFacts?.totalCalories} kcal
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col">
+                            <p className="text-sm text-gray-500">Categoria</p>
+
+                            <p className="text-lg">
+                                {productView.category === 'DRINK'
+                                    ? 'Bebida'
+                                    : 'Comida'}
                             </p>
                         </div>
 

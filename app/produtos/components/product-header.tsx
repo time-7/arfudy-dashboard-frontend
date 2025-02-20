@@ -1,3 +1,4 @@
+import { useDebounce } from '@uidotdev/usehooks';
 import { Eye, EyeClosed, Plus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,9 @@ export default function ProductHeader() {
         productView,
         showProducts,
         setShowProducts,
-        setProductEdit
+        setProductEdit,
+        search,
+        setSearch
     } = useProductContext();
 
     return (
@@ -29,6 +32,7 @@ export default function ProductHeader() {
                             description: '',
                             has3dModel: false,
                             imageUrl: '',
+                            category: 'FOOD',
                             ingredients: [],
                             nutritionFacts: {
                                 carbohydrate: 0,
@@ -42,7 +46,11 @@ export default function ProductHeader() {
                     <Plus /> Novo
                 </Button>
 
-                <Input placeholder="Pesquisar..." />
+                <Input
+                    placeholder="Pesquisar..."
+                    value={search}
+                    onChange={(value) => setSearch(value.target.value)}
+                />
 
                 {(productEdit || productView) && (
                     <Button
