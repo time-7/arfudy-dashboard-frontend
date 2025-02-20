@@ -13,7 +13,9 @@ export default function TableHeader() {
         showTables,
         setShowTables,
         setTableEdit,
-        tables
+        tables,
+        search,
+        setSearch
     } = useTableContext();
 
     return (
@@ -34,7 +36,11 @@ export default function TableHeader() {
                     <Plus /> Novo
                 </Button>
 
-                <Input placeholder="Pesquisar..." />
+                <Input
+                    placeholder="Pesquisar..."
+                    value={search}
+                    onChange={(value) => setSearch(value.target.value)}
+                />
 
                 {(tableEdit || tableView) && (
                     <Button

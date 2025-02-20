@@ -26,6 +26,9 @@ export type TTableContext = {
 
     showTables: boolean;
     setShowTables: Dispatch<SetStateAction<boolean>>;
+
+    search: string;
+    setSearch: Dispatch<SetStateAction<string>>;
 };
 
 const TableContext = createContext<TTableContext>({} as TTableContext);
@@ -35,6 +38,7 @@ export function TableProvider({ children }: { children: ReactNode }) {
     const [tableEdit, setTableEdit] = useState<TTable | null>(null);
     const [tables, setTables] = useState<TTable[]>([]);
     const [showTables, setShowTables] = useState<boolean>(true);
+    const [search, setSearch] = useState<string>('');
 
     const { data = [], isFetching, isSuccess } = useQueryTables();
 
@@ -60,7 +64,9 @@ export function TableProvider({ children }: { children: ReactNode }) {
                 tableEdit,
                 setTableEdit,
                 showTables,
-                setShowTables
+                setShowTables,
+                search,
+                setSearch
             }}
         >
             {children}
