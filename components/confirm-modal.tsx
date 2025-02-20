@@ -41,7 +41,13 @@ export default function ConfirmModal({
                         Fechar
                     </Button>
 
-                    <Button variant="default" onClick={onConfirm}>
+                    <Button
+                        variant="default"
+                        onClick={() => {
+                            onConfirm();
+                            onOpenChange(false);
+                        }}
+                    >
                         Confirmar
                     </Button>
                 </DialogFooter>

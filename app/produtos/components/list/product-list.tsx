@@ -2,6 +2,8 @@
 
 import { ComponentProps } from 'react';
 
+import { useDebounce } from '@uidotdev/usehooks';
+
 import { cn } from '@/lib/utils';
 
 import { useProductContext } from '../../contexts/product-context';
@@ -12,7 +14,11 @@ type TProductList = {
 };
 
 export default function ProductList({ className }: TProductList) {
-    const { products } = useProductContext();
+    const { products, search } = useProductContext();
+    const debouncedSearch = useDebounce(search, 500);
+    const filteredProducts = products.filter((item) =>
+        item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+    );
 
     return (
         <div
@@ -21,12 +27,12 @@ export default function ProductList({ className }: TProductList) {
                 className
             )}
         >
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
             ))}
 
-            {products.length === 0 && (
-                <div className="flex flex-1 items-center justify-center text-gray-400">
+            {(products.length === 0 || filteredProducts.length === 0) && (
+                <div className="col-span-full flex h-full flex-1 items-center justify-center text-gray-400">
                     Nenhum produto encontrado
                 </div>
             )}

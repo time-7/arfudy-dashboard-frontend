@@ -3,8 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { Axios } from '@/lib/axios';
-
-import { TProduct } from '../types';
+import { TProduct } from '@/utils/validators';
 
 export function useQueryProducts() {
     return useQuery<TProduct[]>({

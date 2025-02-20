@@ -2,6 +2,8 @@
 
 import { ComponentProps } from 'react';
 
+import { useDebounce } from '@uidotdev/usehooks';
+
 import { cn } from '@/lib/utils';
 
 import { useTableContext } from '../../contexts/table-context';
@@ -12,7 +14,12 @@ type TTableList = {
 };
 
 export default function TableList({ className }: TTableList) {
-    const { tables } = useTableContext();
+    const { tables, search } = useTableContext();
+    const debouncedSearch = useDebounce(search, 500);
+    const filteredTables = tables.filter(
+        (item) =>
+            debouncedSearch === '' || item.tableNum === Number(debouncedSearch)
+    );
 
     return (
         <div
@@ -21,12 +28,12 @@ export default function TableList({ className }: TTableList) {
                 className
             )}
         >
-            {tables.map((table) => (
+            {filteredTables.map((table) => (
                 <TableCard key={table.id} table={table} />
             ))}
 
-            {tables.length === 0 && (
-                <div className="flex flex-1 items-center justify-center text-gray-400">
+            {(tables.length === 0 || filteredTables.length === 0) && (
+                <div className="col-span-full flex h-full flex-1 items-center justify-center text-gray-400">
                     Nenhum produto encontrado
                 </div>
             )}
