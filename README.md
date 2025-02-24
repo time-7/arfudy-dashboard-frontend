@@ -2,23 +2,7 @@
 
 Arfudy Dashboard é um site para realizar o controle dos pedidos realizados através do aplicativo do Arfudy.
 
-Atualmente, o link para acesso ao site é este [https://arfudy-dashboard-frontend.vercel.app/pratos/form](https://arfudy-dashboard-frontend.vercel.app/pratos/form)
-
-Ele contém uma tela inicial, que exibe os pedidos em três status: pedidos novos, em preparo e prontos:
-
-![imagem da tela inicial](https://github.com/user-attachments/assets/d58b44d8-696d-4dea-b1fe-49f65b32a3cd)
-
-Também, possui uma tela para a listagem e o cadastro das mesas e seu qrCode do estabelecimento:
-
-![imagem da tela de listagem de mesas](https://github.com/user-attachments/assets/f2676835-80ba-4c9c-b80d-95fbf5e748c1)
-
-![imagem da tela de cadastro de mesa](https://github.com/user-attachments/assets/c8c2301f-3d0d-4c38-a86d-ab40fc7e1b18)
-
-As últimas funcionalidades existentes são as telas para listar e cadastrar pratos que irão ficar disponíveis para os clientes no aplicativo do Arfudy:
-
-![imagem da tela de listagem de pratos](https://github.com/user-attachments/assets/1f3c94f1-34a9-48c7-a3e1-52c996fe0616)
-
-![imagem da tela de cadastro de prato](https://github.com/user-attachments/assets/7139eb94-ea27-4858-90a3-b60b43a994d8)
+Atualmente, o link para acesso ao site é este [https://arfudy-dashboard-frontend.vercel.app/](https://arfudy-dashboard-frontend.vercel.app/)
 
 ## Tecnologias utilizadas
 
