@@ -7,7 +7,7 @@ Atualmente, o link para acesso ao site é este [https://arfudy-dashboard-fronten
 ## Tecnologias utilizadas
 
 -   Framework: `Next.js`
--   Biblioteca de componentes: `MUI`
+-   Biblioteca de componentes: `Shadcn`
 -   Bibliotecas para auxiliar no controle de requests: `Axios`, `React Query`, `Socket.io`
 -   Biblioteca para conexão com store de imagens: `Edgestore`
 -   Bibliotecas para auxiliar nos formulários: `React-hook-form`, `Zod`
